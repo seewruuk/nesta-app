@@ -1,45 +1,97 @@
-import { Tabs } from 'expo-router';
+// app / (tabs)/_layout.tsx
+
+import { Image, StyleSheet, View } from 'react-native';
 import React from 'react';
-import { Platform } from 'react-native';
+import { Tabs } from 'expo-router';
+import { icons } from '@/src/constants/icons';
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
-  return (
+const _Layout = () => (
     <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+        screenOptions={{
+            tabBarShowLabel: false,
+            tabBarStyle: styles.tabBar,
+            tabBarItemStyle: styles.tabBarItem,
         }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
+    >
+        {[
+            { name: 'index', icon: icons.home },
+            { name: 'offers', icon: icons.search },
+            { name: 'posts', icon: icons.save },
+            { name: 'dashboard', icon: icons.person },
+        ].map(({ name, icon }) => (
+            <Tabs.Screen
+                key={name}
+                name={name}
+                options={{
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => (
+                        <TabIcon focused={focused} icon={icon} />
+                    ),
+                }}
+            />
+        ))}
     </Tabs>
-  );
-}
+);
+
+export default _Layout;
+
+const TabIcon = ({
+                     focused,
+                     icon,
+                 }: {
+    focused: boolean;
+    icon: any;
+}) => (
+    <View
+        style={[
+            styles.iconWrapper,
+            focused && styles.iconWrapperFocused,
+        ]}
+    >
+        <Image
+            source={icon}
+            style={styles.icon}
+            resizeMode="contain"
+        />
+    </View>
+);
+
+const styles = StyleSheet.create({
+    tabBar: {
+        position: 'absolute',
+        bottom: 60,
+        marginHorizontal: 40,
+        height: 60,
+        backgroundColor: '#fff',
+        borderRadius: 50,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 20,
+    },
+    tabBarItem: {
+        flex: 1,
+        alignItems: 'center',
+    },
+    iconWrapper: {
+        width: 62,
+        height: 62,
+        borderRadius: 50,
+        backgroundColor: '#0B0E0E',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    iconWrapperFocused: {
+        backgroundColor: '#C3F22A',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        shadowColor: '#C3F22A',
+    },
+    icon: {
+        width: 22,
+        height: 22,
+        tintColor: '#FFF',
+    },
+});

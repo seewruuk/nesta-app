@@ -1,15 +1,7 @@
 // app / (tabs) / offers.tsx
-import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import OffersScreen from '@/app/offers'
 
-const Offers = () => {
-    return (
-        <View
-            className={"flex-1 justify-center items-center h-screen"}
-        >
-            <Text>Offers</Text>
-        </View>
-    )
+export default function OffersRoute() {
+    return <OffersScreen />
 }
-
-export default Offers

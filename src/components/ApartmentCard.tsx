@@ -1,10 +1,16 @@
 import React from 'react'
-import { View, Text, Image, Pressable } from 'react-native'
-import { Apartment } from '@/src/types'
-import { useRouter } from 'expo-router'
+import {View, Text, Image, Pressable} from 'react-native'
+import {useRouter} from 'expo-router'
+import {Apartment} from '@/src/types'
 
-export const ApartmentCard: React.FC<{ apt: Apartment }> = ({ apt }) => {
+interface ApartmentCardProps {
+    apt: Apartment,
+    apartment?: Apartment
+}
+
+export default function ApartmentCard({apt, apartment}: ApartmentCardProps) {
     const router = useRouter()
+
     return (
         <Pressable
             onPress={() => router.push(`/offers/${apt.id}`)}

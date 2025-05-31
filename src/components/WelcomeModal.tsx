@@ -74,6 +74,7 @@ export const WelcomeModal: React.FC = () => {
                                 className="flex-1 border border-gray-300 rounded px-3 py-2"
                             />
                         </View>
+                        <Text>Test Sewruk</Text>
 
                         {/* Custom Dropdown */}
                         <View className="relative">
@@ -84,6 +85,7 @@ export const WelcomeModal: React.FC = () => {
                                 <Text className={`${selectedTypeLabel ? 'text-black' : 'text-gray-400'}`}>
                                     {selectedTypeLabel || 'Typ mieszkania'}
                                 </Text>
+                                
                                 <Text className="text-gray-500">{dropdownOpen ? '▲' : '▼'}</Text>
                             </Pressable>
                             {dropdownOpen && (

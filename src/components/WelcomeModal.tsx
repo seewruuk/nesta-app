@@ -36,7 +36,7 @@ export const WelcomeModal: React.FC = () => {
                 <View className="flex-row justify-around">
                     <Pressable onPress={() => setMode('flatmate')}>
                         <Text className={`text-lg ${mode === 'flatmate' ? 'font-bold text-black' : 'text-gray-500'}`}>
-                            Znajdź współlokatora
+                            Znajdź współlokatoraa
                         </Text>
                     </Pressable>
                     <Pressable onPress={() => setMode('rent')}>

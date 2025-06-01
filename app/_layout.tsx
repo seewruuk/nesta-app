@@ -4,7 +4,9 @@ import {Stack} from "expo-router";
 import {ApartmentsProvider} from "@/src/contexts/ApartmentsContext";
 
 export default function RootLayout() {
+    // @ts-ignore
     return (
+        <ApartmentsProvider>
             <Stack>
                 <Stack.Screen
                     name={"(tabs)"}
@@ -24,6 +26,6 @@ export default function RootLayout() {
                 />
 
             </Stack>
-
+        </ApartmentsProvider>
     )
 }

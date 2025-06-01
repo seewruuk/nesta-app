@@ -11,7 +11,7 @@ const FAKE_APARTMENTS: Apartment[] = [
         id: '1',
         title: 'Przytulne mieszkanie w centrum',
         description: 'Przestronne i jasne mieszkanie blisko metra.',
-        pricePerNight: 120,
+        price: 120,
         city: 'Warszawa',
         area: 45,
         furnished: true,
@@ -23,7 +23,7 @@ const FAKE_APARTMENTS: Apartment[] = [
         id: '2',
         title: 'Nowoczesne studio',
         description: 'Nowoczesne studio z wydzielonym miejscem do pracy.',
-        pricePerNight: 90,
+        price: 90,
         city: 'Kraków',
         area: 30,
         furnished: false,
@@ -35,7 +35,7 @@ const FAKE_APARTMENTS: Apartment[] = [
         id: '3',
         title: 'Dom rodzinny z ogrodem',
         description: 'Duży dom z ogrodem idealny dla rodziny.',
-        pricePerNight: 350,
+        price: 350,
         city: 'Gdańsk',
         area: 120,
         furnished: true,
@@ -96,7 +96,7 @@ export default function Dashboard() {
                 <Text className="text-xl font-bold mb-2">Twoje oferty</Text>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} className="space-x-4">
                     {liked.map((apt) => (
-                        <ApartmentCard key={apt.id} apt={apt} />
+                        <ApartmentCard key={apt.id} apartment={apt} />
                     ))}
                 </ScrollView>
             </View>

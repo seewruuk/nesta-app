@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react'
-import { apartments as initial } from '@/src/data/apartments'
+import { apartments } from "../data/apartments"
 import {Apartment} from "@/src/types";
 
 const ApartmentsContext = createContext<{
@@ -8,7 +8,7 @@ const ApartmentsContext = createContext<{
 
 // @ts-ignore
 export const ApartmentsProvider: React.FC = ({ children }) => {
-    const [list] = useState<Apartment[]>(initial)
+    const [list] = useState<Apartment[]>(apartments)
     return (
         <ApartmentsContext.Provider value={{ list }}>
     {children}

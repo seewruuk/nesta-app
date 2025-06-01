@@ -1,123 +1,135 @@
 // src/components/WelcomeModal.tsx
-import React, { useState } from 'react'
-import { View, Text, TextInput, Pressable, ScrollView } from 'react-native'
+import React, { useState, useEffect, useRef } from 'react'
+import { View, Text, TextInput, Pressable, Animated, Dimensions, ImageBackground } from 'react-native'
 import { useRouter } from 'expo-router'
+import Header from "./Header"
+import Paragraph from './Paragraph'
+import Button from './Button'
+import {images} from "@/src/constants/images";
 
-const FLAT_TYPES = [
-    { label: 'Kawalerka', value: 'studio' },
-    { label: '2 pokoje', value: '2' },
-    { label: '3+ pokoje', value: '3+' },
-]
+const windowWidth = Dimensions.get('window').width
 
 export const WelcomeModal: React.FC = () => {
     const router = useRouter()
-    const [mode, setMode] = useState<'flatmate' | 'rent'>('rent')
     const [city, setCity] = useState('')
     const [minPrice, setMinPrice] = useState('')
     const [maxPrice, setMaxPrice] = useState('')
-    const [type, setType] = useState('')
-    const [dropdownOpen, setDropdownOpen] = useState(false)
 
-    const onSearch = () => {
-        if (mode === 'flatmate') {
-            router.push('/posts')
-        } else {
-            const params = new URLSearchParams({ city, minPrice, maxPrice, type })
-            router.push(`/offers?${params.toString()}`)
-        }
-    }
+    // Animated value for wiggle effect
+    const translateX = useRef(new Animated.Value(0)).current
 
-    const selectedTypeLabel = FLAT_TYPES.find(t => t.value === type)?.label
+    useEffect(() => {
+        Animated.loop(
+            Animated.sequence([
+                Animated.timing(translateX, {
+                    toValue: 10,
+                    duration: 3000,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(translateX, {
+                    toValue: -10,
+                    duration: 3000,
+                    useNativeDriver: true,
+                }),
+            ])
+        ).start()
+    }, [translateX])
+
+    const handleSearch = () => {
+        const params = new URLSearchParams({
+            city,
+            minPrice,
+            maxPrice,
+        }).toString();
+        router.push(`/offers?${params}`);
+    };
 
     return (
-        <View className="absolute inset-0 justify-center items-center bg-black bg-opacity-50">
-            <View className="w-10/12 bg-white rounded-lg p-6 space-y-4">
-                {/* Segmentacja */}
-                <View className="flex-row justify-around">
-                    <Pressable onPress={() => setMode('flatmate')}>
-                        <Text className={`text-lg ${mode === 'flatmate' ? 'font-bold text-black' : 'text-gray-500'}`}>
-                            Znajdź współlokatoraa
-                        </Text>
-                    </Pressable>
-                    <Pressable onPress={() => setMode('rent')}>
-                        <Text className={`text-lg ${mode === 'rent' ? 'font-bold text-black' : 'text-gray-500'}`}>
-                            Wynajem
-                        </Text>
-                    </Pressable>
+        <View className="flex-1 justify-center items-center relative">
+
+            {/* Tło - obraz z animacją */}
+            <Animated.View
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: windowWidth,
+                    height: '100%',
+                    transform: [{ translateX }],
+                    zIndex: -2,
+                }}
+            >
+                <ImageBackground
+                    source={images.bg}
+                    style={{ width: '100%', height: '100%' }}
+                    resizeMode="cover"
+                />
+            </Animated.View>
+
+
+            <View
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: windowWidth,
+                    height: '100%',
+                    backgroundColor: 'rgba(0,0,0,0.96)',
+                    zIndex: -1,
+                }}
+            />
+
+            <View className="w-10/12 bg-white rounded-3xl p-[32px] space-y-4 flex flex-col gap-8 z-10">
+
+                <View>
+                    <Header text={"Witaj ponownie!"} className={"py-4 text-3xl"} />
+                    <Paragraph
+                        className={""}
+                        text={"U nas wymarzone nieruchomości znajdują właścicieli swoich marzeń!"} />
                 </View>
 
-                {/* Miasto */}
-                <TextInput
-                    value={city}
-                    onChangeText={setCity}
-                    placeholder="Miasto"
-                    className="border border-gray-300 rounded px-3 py-2"
-                />
+                <View className="flex flex-col">
+                    <View className="flex flex-row justify-between">
+                        <Pressable
+                            onPress={() => console.log("click")}
+                            className={"border-t border-r border-l border-gray-300 flex-1 rounded-tr-2xl rounded-tl-2xl flex items-center justify-center py-4 font-semibold"}
+                        ><Text>Wynajem</Text></Pressable>
+                        <Pressable
+                            onPress={() => router.push("/posts")}
+                            className={"border border-gray-300 bg-[#F5F5F5] flex-1 -ml-4 rounded-tr-2xl flex items-center justify-center py-4 "}
+                        ><Text>Znd. Współlokatora</Text></Pressable>
+                    </View>
 
-                {/* Tylko dla Wynajem */}
-                {mode === 'rent' && (
-                    <>
-                        {/* Zakres ceny */}
-                        <View className="flex-row space-x-2">
+                    <View className="flex gap-2 px-4 border-b border-r border-l border-gray-300 rounded-br-2xl rounded-bl-2xl z-50 bg-white py-5">
+                        <TextInput
+                            value={city}
+                            onChangeText={setCity}
+                            placeholder="Miasto"
+                            className="bg-gray-100 rounded-lg px-3 py-3"
+                        />
+                        <View className="flex flex-row gap-2">
                             <TextInput
                                 value={minPrice}
                                 onChangeText={setMinPrice}
-                                placeholder="Min cena"
+                                placeholder="Min. cena"
+                                className="bg-gray-100 rounded-lg px-3 py-3 flex-1"
                                 keyboardType="numeric"
-                                className="flex-1 border border-gray-300 rounded px-3 py-2"
                             />
                             <TextInput
                                 value={maxPrice}
                                 onChangeText={setMaxPrice}
-                                placeholder="Max cena"
+                                placeholder="Max. cena"
+                                className="bg-gray-100 rounded-lg px-3 py-3 flex-1"
                                 keyboardType="numeric"
-                                className="flex-1 border border-gray-300 rounded px-3 py-2"
                             />
                         </View>
-                        <Text>Test Sewruk</Text>
+                        <Button text={"Szukaj"} onPress={handleSearch} />
+                    </View>
 
-                        {/* Custom Dropdown */}
-                        <View className="relative">
-                            <Pressable
-                                className="border border-gray-300 rounded px-3 py-2 flex-row justify-between items-center"
-                                onPress={() => setDropdownOpen(prev => !prev)}
-                            >
-                                <Text className={`${selectedTypeLabel ? 'text-black' : 'text-gray-400'}`}>
-                                    {selectedTypeLabel || 'Typ mieszkania'}
-                                </Text>
-                                
-                                <Text className="text-gray-500">{dropdownOpen ? '▲' : '▼'}</Text>
-                            </Pressable>
-                            {dropdownOpen && (
-                                <ScrollView
-                                    className="absolute top-full mt-1 w-full max-h-40 bg-white border border-gray-300 rounded"
-                                >
-                                    {FLAT_TYPES.map(option => (
-                                        <Pressable
-                                            key={option.value}
-                                            onPress={() => {
-                                                setType(option.value)
-                                                setDropdownOpen(false)
-                                            }}
-                                            className="px-3 py-2"
-                                        >
-                                            <Text className="text-black">{option.label}</Text>
-                                        </Pressable>
-                                    ))}
-                                </ScrollView>
-                            )}
-                        </View>
-                    </>
-                )}
+                </View>
 
-                {/* Przycisk Szukaj */}
-                <Pressable
-                    onPress={onSearch}
-                    className="bg-primary rounded-lg py-3 items-center mt-2"
-                >
-                    <Text className="text-black text-lg font-medium">Szukaj</Text>
-                </Pressable>
             </View>
+
         </View>
     )
 }

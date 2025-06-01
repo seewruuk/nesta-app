@@ -1,34 +1,60 @@
 import React from 'react'
 import {View, Text, Image, Pressable} from 'react-native'
-import {useRouter} from 'expo-router'
 import {Apartment} from '@/src/types'
+import Button from "./Button"
+import Header from "./Header"
+import {useRouter} from "expo-router";
 
 interface ApartmentCardProps {
-    apt: Apartment,
-    apartment?: Apartment
+    apartment: Apartment
 }
 
-export default function ApartmentCard({apt, apartment}: ApartmentCardProps) {
-    const router = useRouter()
+export default function ApartmentCard({apartment}: ApartmentCardProps) {
+
+    const router = useRouter();
 
     return (
-        <Pressable
-            onPress={() => router.push(`/offers/${apt.id}`)}
-            className="bg-white rounded-lg overflow-hidden mb-4"
-        >
-            <Image
-                source={apt.images[0]}
-                className="w-full h-40"
-                resizeMode="cover"
-            />
-            <View className="p-4 space-y-1">
-                <Text className="text-lg font-semibold">{apt.title}</Text>
-                <Text className="text-sm text-gray-500">{apt.city} • {apt.area} m²</Text>
-                <Text className="text-sm text-gray-500">
-                    {apt.furnished ? 'Umeblowane' : 'Bez mebli'} • {apt.type}
-                </Text>
-                <Text className="text-base font-medium">{apt.pricePerNight} PLN / noc</Text>
+        <View className="bg-white p-4 rounded-xl shadow-md mb-4">
+            <Pressable
+                onPress={() => router.push(`/offers/${apartment.id}`)}
+                className="h-[200px] w-full rounded-xl overflow-hidden mb-4 "
+            >
+                <Image
+                    source={apartment.images[0]}
+                    className="object-cover w-full"
+                    resizeMode="cover"
+                />
+            </Pressable>
+
+            <View className={"flex flex-col gap-3"}>
+                <Text className={"text-[11px] text-gray-500"}>{apartment.city}</Text>
+                <Header text={apartment.title} className={"text-[15px]"}/>
+                <Text>{apartment.price}PLN / msc.</Text>
+                <View>
+                    <View className={"flex flex-row gap-2"}>
+                        <Text className={"text-[#C5C5C5] text-[11px]"}>Powierzchnia</Text>
+                        <Text className={"text-[#C5C5C5] text-[11px]"}>{apartment.area} m2</Text>
+                    </View>
+                </View>
+
+                <View className={"flex flex-row gap-4 justify-between items-center"}>
+
+                    <Pressable
+                        onPress={() => router.push(`/offers/${apartment.id}`)}
+                        className="bg-primary py-4 flex-1  rounded-xl"
+                    >
+                      <Text className={"text-center"}>Zobacz więcej</Text>
+                    </Pressable>
+
+                    <Pressable
+                        onPress={() => router.push(`/`)}
+                        className="bg-black py-4 flex-1 rounded-xl"
+                    >
+                        <Text className={"text-white text-center"}>Kontakt</Text>
+                    </Pressable>
+                </View>
             </View>
-        </Pressable>
+        </View>
+
     )
 }

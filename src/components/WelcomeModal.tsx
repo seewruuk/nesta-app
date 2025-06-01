@@ -41,7 +41,7 @@ export const WelcomeModal: React.FC = () => {
                     </Pressable>
                     <Pressable onPress={() => setMode('rent')}>
                         <Text className={`text-lg ${mode === 'rent' ? 'font-bold text-black' : 'text-gray-500'}`}>
-                            Wynajem 2
+                            Wynajem
                         </Text>
                     </Pressable>
                 </View>

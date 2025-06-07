@@ -9,7 +9,7 @@ interface HeaderProps {
 
 export default function Header({ text, className }: HeaderProps) {
 
-    const defaultClassName = "text-[28px] font-semibold text-black leading-snug";
+    const defaultClassName = "text-[20px] font-bold text-black leading-snug";
 
     return <Text className={`${defaultClassName} ${className || ''}`}>{text}</Text>
 }

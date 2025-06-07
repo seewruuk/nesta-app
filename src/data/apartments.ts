@@ -1,41 +1,124 @@
-import {Apartment} from '@/src/types'
+// src/data/apartments.ts
+
+import { Amenity, amenities } from './amenities';
+
+export interface Apartment {
+    id: string;
+    images: string[];
+    type: string;
+    area: number;
+    roomsCount: number;
+    bedroomsCount: number;
+    floor: string;
+    bathroomsCount: number;
+    furnished: 'Tak' | 'Nie' | 'Częściowo';
+    location: {
+        city: string;
+        district: string;
+        fullAddress: string;
+        coordinates: { lat: number; lng: number };
+    };
+    googleMapsLink: string;
+    amenities: string[];
+}
 
 export const apartments: Apartment[] = [
+    // dotychczasowe
     {
-        id: '1',
-        title: 'Przytulny apartament w centrum, wolne od lipca',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-        price: 25000,
-        city: 'Warszawa',
-        area: 45,
-        furnished: true,
-        type: 'mieszkanie',
-        images: [require('@/src/assets/images/apartment-image.png')],
-        rating: 4.5,
+        id: 'apt1',
+        images: ['https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'],
+        type: 'Mieszkanie',
+        area: 50.5,
+        roomsCount: 2,
+        bedroomsCount: 1,
+        floor: '1 piętro',
+        bathroomsCount: 1,
+        furnished: 'Tak',
+        location: {
+            city: 'Warszawa',
+            district: 'Śródmieście',
+            fullAddress: 'Sezamkowa 43/2',
+            coordinates: { lat: 52.2297, lng: 21.0122 },
+        },
+        googleMapsLink: 'https://maps.google.com/?q=52.2297,21.0122',
+        amenities: ['amenity1', 'amenity2'],
     },
     {
-        id: '2',
-        title: 'Mieszkanie dla studenta do wynajęcia od zaraz',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+        id: 'apt2',
+        images: ['https://images.pexels.com/photos/1571468/pexels-photo-1571468.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'],
+        type: 'Pokój',
+        area: 20.0,
+        roomsCount: 1,
+        bedroomsCount: 1,
+        floor: 'Parter',
+        bathroomsCount: 1,
+        furnished: 'Częściowo',
+        location: {
+            city: 'Kraków',
+            district: 'Stare Miasto',
+            fullAddress: 'Kwiatowa 5/1',
+            coordinates: { lat: 50.0647, lng: 19.9450 },
+        },
+        googleMapsLink: 'https://maps.google.com/?q=50.0647,19.9450',
+        amenities: ['amenity1'],
+    },
 
-        price: 3500,
-        city: 'Kraków',
-        area: 120,
-        furnished: false,
-        type: 'dom',
-        images: [require('@/src/assets/images/apartment-image.png')],
-        rating: 4.8,
+    // nowe
+    {
+        id: 'apt3',
+        images: ['https://images.pexels.com/photos/813692/pexels-photo-813692.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'],
+        type: 'Mieszkanie',
+        area: 75.0,
+        roomsCount: 3,
+        bedroomsCount: 2,
+        floor: '2 piętro',
+        bathroomsCount: 2,
+        furnished: 'Częściowo',
+        location: {
+            city: 'Gdańsk',
+            district: 'Wrzeszcz',
+            fullAddress: 'Grunwaldzka 150/5',
+            coordinates: { lat: 54.3790, lng: 18.6045 },
+        },
+        googleMapsLink: 'https://maps.google.com/?q=54.3790,18.6045',
+        amenities: ['amenity2', 'amenity3'],
     },
     {
-        id: '3',
-        title: 'Kawalerka przy plaży w centrum Gdańska',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-        price: 1800,
-        city: 'Gdańsk',
-        area: 28,
-        furnished: true,
-        type: 'studio',
-        images: [require('@/src/assets/images/apartment-image.png')],
-        rating: 4.2,
-    }
-]
+        id: 'apt4',
+        images: ['https://images.pexels.com/photos/1428348/pexels-photo-1428348.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'],
+        type: 'Mieszkanie',
+        area: 40.0,
+        roomsCount: 2,
+        bedroomsCount: 1,
+        floor: 'Parter',
+        bathroomsCount: 1,
+        furnished: 'Tak',
+        location: {
+            city: 'Wrocław',
+            district: 'Stare Miasto',
+            fullAddress: 'Rynek 12/3',
+            coordinates: { lat: 51.1080, lng: 17.0325 },
+        },
+        googleMapsLink: 'https://maps.google.com/?q=51.1080,17.0325',
+        amenities: ['amenity1'],
+    },
+    {
+        id: 'apt5',
+        images: ['https://images.pexels.com/photos/275484/pexels-photo-275484.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'],
+        type: 'Dom',
+        area: 120.0,
+        roomsCount: 4,
+        bedroomsCount: 3,
+        floor: '1 piętro',
+        bathroomsCount: 2,
+        furnished: 'Częściowo',
+        location: {
+            city: 'Poznań',
+            district: 'Wilda',
+            fullAddress: 'Kilińskiego 45',
+            coordinates: { lat: 52.4020, lng: 16.9280 },
+        },
+        googleMapsLink: 'https://maps.google.com/?q=52.4020,16.9280',
+        amenities: ['amenity1', 'amenity2'],
+    },
+];

@@ -24,6 +24,10 @@ export default function RootLayout() {
                     name={"register"}
                     options={{headerShown: false}}
                 />
+                <Stack.Screen
+                    name={"users/[slug]"}
+                    options={{headerShown: false}}
+                />
 
             </Stack>
         </StateProvider>

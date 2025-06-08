@@ -5,6 +5,7 @@ import { apartments } from './apartments';
 export interface Offer {
     id: string;
     apartmentId: string;
+    authorId: string;
     title: string;
     status: 'Szkic' | 'Opublikowany';
     description: string;
@@ -32,6 +33,7 @@ export const offers: Offer[] = [
     {
         id: 'offer1',
         apartmentId: 'apt1',
+        authorId:  'user1',
         title: 'Przytulne mieszkanie w centrum Warszawy, wolne od lipca!',
         status: 'Opublikowany',
         description: 'Umeblowane dwupokojowe mieszkanie w ścisłym centrum...',
@@ -54,6 +56,7 @@ export const offers: Offer[] = [
     {
         id: 'offer2',
         apartmentId: 'apt2',
+        authorId:  'user2',
         title: 'Jasny pokój na parterze w Krakowie',
         status: 'Szkic',
         description: 'Pokój z dostępem do kuchni, idealny dla studenta...',
@@ -76,6 +79,7 @@ export const offers: Offer[] = [
     {
         id: 'offer3',
         apartmentId: 'apt3',
+        authorId:  'user1',
         title: 'Eleganckie 3-pokoje we Wrzeszczu',
         status: 'Opublikowany',
         description: 'Przestronne mieszkanie, blisko SKM i tramwaju. Idealne dla rodziny.',
@@ -97,6 +101,7 @@ export const offers: Offer[] = [
     },
     {
         id: 'offer4',
+        authorId:  'user1',
         apartmentId: 'apt3',
         title: 'Komfortowe 3 pokoje z widokiem',
         status: 'Szkic',
@@ -119,6 +124,7 @@ export const offers: Offer[] = [
     },
     {
         id: 'offer5',
+        authorId:  'user3',
         apartmentId: 'apt4',
         title: 'Przytulne 2-pokoje pod Ratuszem',
         status: 'Opublikowany',
@@ -141,6 +147,7 @@ export const offers: Offer[] = [
     },
     {
         id: 'offer6',
+        authorId:  'user1',
         apartmentId: 'apt5',
         title: 'Przestronny dom na Wildzie',
         status: 'Opublikowany',
@@ -163,6 +170,7 @@ export const offers: Offer[] = [
     },
     {
         id: 'offer7',
+        authorId:  'user1',
         apartmentId: 'apt5',
         title: 'Dom z dużym ogrodem – idealny dla zwierząt',
         status: 'Szkic',

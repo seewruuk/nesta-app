@@ -18,6 +18,7 @@ const _Layout = () => (
             { name: 'offers', icon: icons.search },
             { name: 'posts', icon: icons.save },
             { name: 'dashboard', icon: icons.person },
+            { name: 'chat', icon: icons.person },
         ].map(({ name, icon }) => (
             <Tabs.Screen
                 key={name}

@@ -1,12 +1,12 @@
 // app / _layout.tsx
 import "./globals.css"
 import {Stack} from "expo-router";
-import {ApartmentsProvider} from "@/src/contexts/ApartmentsContext";
+import {StateProvider} from "@/src/contexts/StateContext";
 
 export default function RootLayout() {
     // @ts-ignore
     return (
-        <ApartmentsProvider>
+        <StateProvider>
             <Stack>
                 <Stack.Screen
                     name={"(tabs)"}
@@ -24,8 +24,12 @@ export default function RootLayout() {
                     name={"register"}
                     options={{headerShown: false}}
                 />
+                <Stack.Screen
+                    name={"users/[slug]"}
+                    options={{headerShown: false}}
+                />
 
             </Stack>
-        </ApartmentsProvider>
+        </StateProvider>
     )
 }

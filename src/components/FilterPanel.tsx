@@ -1,42 +1,33 @@
-// components/FilterPanel.tsx
-import React, { useEffect, useRef, useState } from "react";
-import {
-    View,
-    Text,
-    TextInput,
-    Pressable,
-    Animated,
-    TouchableWithoutFeedback,
-    Keyboard,
-} from "react-native";
+// src/components/FilterPanel.tsx
 
-interface FilterPanelProps {
-    visible: boolean;
-    onClose: () => void;
-    filters: Filters;
-    setFilters: (filters: Filters) => void;
-}
+import React, { useEffect, useRef } from 'react';
+import {
+    View, Text, TextInput, Pressable, Animated,
+    TouchableWithoutFeedback, Picker
+} from 'react-native';
 
 export interface Filters {
     city: string;
     priceMin: string;
     priceMax: string;
-    furnished: boolean | null; // null = wszystkie
-    areaRange: "1" | "2" | "3" | "4" | ""; // "" = brak filtra
+    roomsMin: string;
+    roomsMax: string;
+    bedroomsMin: string;
+    bedroomsMax: string;
+    furnished: string;          // 'Tak' | 'Nie' | 'Częściowo' | ''
+    petsAllowed: string;        // 'Tak' | 'Nie' | 'Do ustalenia' | ''
+    shortTermAllowed: string;   // 'Tak' | 'Nie' | ''
 }
 
-const areaRanges = [
-    { label: "do 40", value: "1" },
-    { label: "40-80", value: "2" },
-    { label: "80-120", value: "3" },
-    { label: "powyżej 120", value: "4" },
-];
+interface FilterPanelProps {
+    visible: boolean;
+    onClose: () => void;
+    filters: Filters;
+    setFilters: (f: Filters) => void;
+}
 
 export default function FilterPanel({
-                                        visible,
-                                        onClose,
-                                        filters,
-                                        setFilters,
+                                        visible, onClose, filters, setFilters
                                     }: FilterPanelProps) {
     const slideAnim = useRef(new Animated.Value(0)).current;
 
@@ -44,125 +35,126 @@ export default function FilterPanel({
         Animated.timing(slideAnim, {
             toValue: visible ? 1 : 0,
             duration: 300,
-            useNativeDriver: true,
+            useNativeDriver: true
         }).start();
     }, [visible]);
 
-    const panelTranslateX = slideAnim.interpolate({
+    const translateX = slideAnim.interpolate({
         inputRange: [0, 1],
-        outputRange: [400, 0], // dostosuj szerokość wysuwania
+        outputRange: [400, 0]
     });
 
     return (
         <>
             {visible && (
                 <TouchableWithoutFeedback onPress={onClose}>
-                    <View className="absolute inset-0" style={{backgroundColor: "rgba(0,0,0,0.92)"}} />
+                    <View className="absolute inset-0 bg-black/80" />
                 </TouchableWithoutFeedback>
             )}
+            <Animated.View style={{
+                transform: [{ translateX }],
+                position: 'absolute', right: 0, top: 0, bottom: 0,
+                width: '80%', backgroundColor: 'white', padding: 20, zIndex: 1000,
+                paddingTop: 80
+            }}>
+                <Text className="text-lg font-bold mb-4">Filtruj oferty</Text>
 
-            <Animated.View
-                style={{
-                    transform: [{ translateX: panelTranslateX }],
-                    position: "absolute",
-                    right: 0,
-                    top: 0,
-                    bottom: 0,
-                    width: "80%",
-                    backgroundColor: "white",
-                    padding: 20,
-                    zIndex: 1000,
-                    paddingTop: 80,
-                }}
-            >
-                <Text className="text-lg font-bold mb-4">Filtruj apartamenty</Text>
-
+                {/* Miasto */}
                 <Text className="font-semibold">Miasto</Text>
                 <TextInput
                     className="border border-gray-400 rounded p-2 mb-4"
                     placeholder="np. Warszawa"
                     value={filters.city}
-                    onChangeText={(text) => setFilters({ ...filters, city: text })}
+                    onChangeText={city => setFilters({ ...filters, city })}
                 />
 
-                <Text className="font-semibold">Cena minimalna (PLN)</Text>
+                {/* Cena */}
+                <Text className="font-semibold">Cena min (PLN)</Text>
                 <TextInput
                     keyboardType="numeric"
                     className="border border-gray-400 rounded p-2 mb-4"
                     placeholder="np. 1000"
                     value={filters.priceMin}
-                    onChangeText={(text) => setFilters({ ...filters, priceMin: text })}
+                    onChangeText={priceMin => setFilters({ ...filters, priceMin })}
                 />
-
-                <Text className="font-semibold">Cena maksymalna (PLN)</Text>
+                <Text className="font-semibold">Cena max (PLN)</Text>
                 <TextInput
                     keyboardType="numeric"
                     className="border border-gray-400 rounded p-2 mb-4"
                     placeholder="np. 5000"
                     value={filters.priceMax}
-                    onChangeText={(text) => setFilters({ ...filters, priceMax: text })}
+                    onChangeText={priceMax => setFilters({ ...filters, priceMax })}
                 />
 
-                <Text className="font-semibold mb-2">Umeblowane</Text>
-                <View className="flex flex-row items-center mb-4 space-x-4">
-                    <Pressable
-                        onPress={() => setFilters({ ...filters, furnished: null })}
-                        className={`px-3 py-1 rounded ${
-                            filters.furnished === null
-                                ? "bg-primary text-white"
-                                : "bg-gray-200"
-                        }`}
-                    >
-                        <Text>Wszystkie</Text>
-                    </Pressable>
-                    <Pressable
-                        onPress={() => setFilters({ ...filters, furnished: true })}
-                        className={`px-3 py-1 rounded ${
-                            filters.furnished === true
-                                ? "bg-primary text-white"
-                                : "bg-gray-200"
-                        }`}
-                    >
-                        <Text>Tak</Text>
-                    </Pressable>
-                    <Pressable
-                        onPress={() => setFilters({ ...filters, furnished: false })}
-                        className={`px-3 py-1 rounded ${
-                            filters.furnished === false
-                                ? "bg-primary text-white"
-                                : "bg-gray-200"
-                        }`}
-                    >
-                        <Text>Nie</Text>
-                    </Pressable>
-                </View>
+                {/* Liczba pokoi */}
+                <Text className="font-semibold">Min. pokoi</Text>
+                <TextInput
+                    keyboardType="numeric"
+                    className="border border-gray-400 rounded p-2 mb-4"
+                    placeholder="np. 1"
+                    value={filters.roomsMin}
+                    onChangeText={roomsMin => setFilters({ ...filters, roomsMin })}
+                />
+                <Text className="font-semibold">Max. pokoi</Text>
+                <TextInput
+                    keyboardType="numeric"
+                    className="border border-gray-400 rounded p-2 mb-4"
+                    placeholder="np. 4"
+                    value={filters.roomsMax}
+                    onChangeText={roomsMax => setFilters({ ...filters, roomsMax })}
+                />
 
-                <Text className="font-semibold mb-2">Powierzchnia (m²)</Text>
-                <View className="flex flex-row flex-wrap gap-2">
-                    {areaRanges.map(({ label, value }) => (
-                        <Pressable
-                            key={value}
-                            onPress={() => setFilters({ ...filters, areaRange: value })}
-                            className={`px-3 py-1 rounded border ${
-                                filters.areaRange === value
-                                    ? "bg-primary border-green-600 text-white"
-                                    : "border-gray-300 bg-gray-100"
-                            }`}
-                        >
-                            <Text>{label}</Text>
-                        </Pressable>
-                    ))}
-                    <Pressable
-                        onPress={() => setFilters({ ...filters, areaRange: "" })}
-                        className={`px-3 py-1 rounded border ${
-                            filters.areaRange === ""
-                                ? "bg-primary border-green-600 text-white"
-                                : "border-gray-300 bg-gray-100"
-                        }`}
-                    >
-                        <Text>Wszystkie</Text>
-                    </Pressable>
-                </View>
+                {/* Liczba sypialni */}
+                <Text className="font-semibold">Min. sypialni</Text>
+                <TextInput
+                    keyboardType="numeric"
+                    className="border border-gray-400 rounded p-2 mb-4"
+                    placeholder="np. 1"
+                    value={filters.bedroomsMin}
+                    onChangeText={bedroomsMin => setFilters({ ...filters, bedroomsMin })}
+                />
+                <Text className="font-semibold">Max. sypialni</Text>
+                <TextInput
+                    keyboardType="numeric"
+                    className="border border-gray-400 rounded p-2 mb-4"
+                    placeholder="np. 3"
+                    value={filters.bedroomsMax}
+                    onChangeText={bedroomsMax => setFilters({ ...filters, bedroomsMax })}
+                />
+
+                {/* Umeblowane */}
+                <Text className="font-semibold">Umeblowanie</Text>
+                <TextInput
+                    className="border border-gray-400 rounded p-2 mb-4"
+                    placeholder="Tak / Nie / Częściowo"
+                    value={filters.furnished}
+                    onChangeText={furnished => setFilters({ ...filters, furnished })}
+                />
+
+                {/* Zwierzęta */}
+                <Text className="font-semibold">Zwierzęta</Text>
+                <TextInput
+                    className="border border-gray-400 rounded p-2 mb-4"
+                    placeholder="Tak / Nie / Do ustalenia"
+                    value={filters.petsAllowed}
+                    onChangeText={petsAllowed => setFilters({ ...filters, petsAllowed })}
+                />
+
+                {/* Wynajem krótkoterminowy */}
+                <Text className="font-semibold">Krótki najem</Text>
+                <TextInput
+                    className="border border-gray-400 rounded p-2 mb-4"
+                    placeholder="Tak / Nie"
+                    value={filters.shortTermAllowed}
+                    onChangeText={shortTermAllowed => setFilters({ ...filters, shortTermAllowed })}
+                />
+
+                <Pressable
+                    onPress={onClose}
+                    className="mt-4 bg-gray-200 rounded p-3 items-center"
+                >
+                    <Text>Zamknij</Text>
+                </Pressable>
             </Animated.View>
         </>
     );

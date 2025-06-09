@@ -1,7 +1,8 @@
-// src/screens/Dashboard.tsx
+// app/(tabs)/dashboard.tsx
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ScrollView, View, Text } from 'react-native';
+import { useRouter } from 'expo-router';
 import { useStateContext } from '@/src/contexts/StateContext';
 import OfferCard from '@/src/components/OfferCard';
 import Transactions from '@/src/components/Transactions';
@@ -44,27 +45,38 @@ const FAKE_TRANSACTIONS: Transaction[] = [
 ];
 
 export default function Dashboard() {
+    const router = useRouter();
     const {
-        state: { offers },
+        state: { currentUserId, offers },
     } = useStateContext();
 
-    // Pokaż tylko opublikowane oferty
-    const publishedOffers = offers.filter(o => o.status === 'Opublikowany');
+    // If not logged in, redirect to /login
+    useEffect(() => {
+        if (!currentUserId) {
+            router.replace('/login');
+        }
+    }, [currentUserId]);
+
+    // While redirecting, render nothing
+    if (!currentUserId) {
+        return null;
+    }
+
+    // Show only offers posted by current user
+    const myOffers = offers.filter(o => o.authorId === currentUserId);
 
     return (
         <ScrollView className="flex-1 bg-white p-4 space-y-6">
             {/* Twoje oferty */}
             <View>
                 <Text className="text-xl font-bold mb-2">Twoje oferty</Text>
-                <ScrollView
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    className="space-x-4"
-                >
-                    {publishedOffers.map(offer => (
+                {myOffers.length === 0 ? (
+                    <Text className="text-gray-600">Nie masz jeszcze żadnych ofert.</Text>
+                ) : (
+                    myOffers.map(offer => (
                         <OfferCard key={offer.id} offer={offer} />
-                    ))}
-                </ScrollView>
+                    ))
+                )}
             </View>
 
             {/* Transakcje */}

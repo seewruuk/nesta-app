@@ -1,40 +1,42 @@
 // src/data/users.ts
 
-// Typ opinii o użytkowniku
 export interface Review {
     id: string;
-    author: string;    // imię/nick osoby wystawiającej opinię
-    text: string;      // treść opinii
-    rating: number;    // ocena od 1 do 5
+    author: string;
+    text: string;
+    rating: number;
 }
 
-// Rola użytkownika w aplikacji
-export type Role = 'Najemca' | 'Wynajmujący' | 'Administrator';
+export type Role = 'Użytkownik' | 'Najemca' | 'Wynajmujący' | 'Administrator';
 
-// Typ użytkownika
 export interface User {
     id: string;
-    fullName: string;  // imię i nazwisko
-    slug: string;      // unikalny fragment URL np. "jan-kowalski"
-    bio: string;       // krótki opis
-    rating: number;    // średnia ocen z tablicy reviews
-    reviews: Review[]; // tablica opinii
-    coverImage: string;  // URL do zdjęcia w tle (może być pusty)
-    avatar: string;      // URL do zdjęcia profilowego (może być pusty)
-    role: Role;        // rola użytkownika
+    fullName: string;   // imię i nazwisko
+    slug: string;       // URL‐friendly
+    email: string;
+    username: string;
+    password: string;
+    bio: string;
+    rating: number;
+    reviews: Review[];
+    coverImage: string;
+    avatar: string;
+    role: Role;
 }
 
-// Przykładowe dane użytkowników
 export const users: User[] = [
     {
         id: 'user1',
         fullName: 'Jan Kowalski',
         slug: 'jan-kowalski',
+        email: 'jan@example.com',
+        username: 'admin',
+        password: 'admin',
         bio: 'Polecam swoje mieszkania, są spoko',
         rating: 4.5,
         reviews: [
-            { id: 'r1', author: 'Anna Nowak', text: 'Super apartament, polecam!', rating: 5 },
-            { id: 'r2', author: 'Piotr Zieliński', text: 'Dobre warunki, ale trochę drogo.', rating: 4 }
+            { id: 'r1', author: 'Anna Nowak', text: 'Super apartament!', rating: 5 },
+            { id: 'r2', author: 'Piotr Z.', text: 'Dobre warunki, ale drogo.', rating: 4 },
         ],
         coverImage: '',
         avatar: '',
@@ -44,6 +46,9 @@ export const users: User[] = [
         id: 'user2',
         fullName: 'Anna Nowak',
         slug: 'anna-nowak',
+        email: 'anna@example.com',
+        username: 'anna.n',
+        password: 'secret321',
         bio: 'Zawsze punktualna płatniczka',
         rating: 0,
         reviews: [],
@@ -55,13 +60,16 @@ export const users: User[] = [
         id: 'user3',
         fullName: 'Piotr Zieliński',
         slug: 'piotr-zielinski',
+        email: 'piotr@example.com',
+        username: 'piotr.z',
+        password: 'hunter2',
         bio: 'Lubię krótko- i długoterminowe wynajmy',
         rating: 5,
         reviews: [
-            { id: 'r3', author: 'Jan Kowalski', text: 'Świetny najemca, zero problemów.', rating: 5 }
+            { id: 'r3', author: 'Jan K.', text: 'Świetny najemca.', rating: 5 },
         ],
         coverImage: '',
         avatar: '',
         role: 'Najemca'
-    }
+    },
 ];

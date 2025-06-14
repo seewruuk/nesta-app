@@ -2,8 +2,11 @@
 
 import React, { useEffect, useRef } from 'react';
 import {
-    View, Text, TextInput, Pressable, Animated,
-    TouchableWithoutFeedback
+    Animated,
+    Pressable,
+    Text, TextInput,
+    TouchableWithoutFeedback,
+    View
 } from 'react-native';
 
 export interface Filters {

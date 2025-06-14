@@ -1,9 +1,11 @@
-import React, {createContext, useReducer, useContext, ReactNode} from 'react';
-import {amenities, Amenity} from '../data/amenities';
-import {apartments, Apartment} from '../data/apartments';
-import {offers, Offer} from '../data/offers';
-import {users, User} from '../data/users'
-import { posts, Post } from '../data/posts';
+import React, { createContext, ReactNode, useContext, useReducer } from 'react';
+import { amenities, Amenity } from '../data/amenities';
+import { Apartment, apartments } from '../data/apartments';
+import { Offer, offers } from '../data/offers';
+import { Post, posts } from '../data/posts';
+import { Review, reviews } from '../data/reviews';
+import { User, users } from '../data/users';
+
 
 export interface State {
     amenities: Amenity[];
@@ -12,9 +14,10 @@ export interface State {
     users: User[];
     posts: Post[];
     currentUserId: string | null;
+    reviews: Review[];
 }
 
-const initialState: State = {amenities, apartments, offers, users, posts, currentUserId: null};
+const initialState: State = {amenities, apartments, offers, users, posts, reviews, currentUserId: null};
 
 type Action =
     | { type: 'ADD_APARTMENT'; payload: Apartment }
@@ -31,7 +34,9 @@ type Action =
     | { type: 'DELETE_POST'; payload: { id: string } }
     | { type: 'LOGIN'; payload: { id: string } }
     | { type: 'LOGOUT' }
-    | { type: 'ADD_AMENITY'; payload: Amenity };
+    | { type: 'ADD_AMENITY'; payload: Amenity }
+    | { type: 'ADD_REVIEW';    payload: Review }
+    | { type: 'DELETE_REVIEW'; payload: { id: string } };
 
 function reducer(state: State, action: Action): State {
     switch (action.type) {
@@ -82,6 +87,34 @@ function reducer(state: State, action: Action): State {
             return { ...state, currentUserId: action.payload.id };
         case 'LOGOUT':
             return { ...state, currentUserId: null };
+            case 'ADD_REVIEW': 
+        { const newReviews = [...state.reviews, action.payload];
+            // przelicz średnią recenzji dla targetu
+            const byTarget = newReviews.filter(
+                r => r.targetType === action.payload.targetType && r.targetId === action.payload.targetId
+            );
+            const avg = byTarget.reduce((sum, r) => sum + r.rating, 0) / byTarget.length;
+
+            let users = state.users;
+            let apartments = state.apartments;
+            if (action.payload.targetType === 'user') {
+                users = users.map(u =>
+                u.id === action.payload.targetId ? { ...u, rating: avg } : u
+                );
+            } else {
+                apartments = apartments.map(a =>
+                a.id === action.payload.targetId ? { ...a, rating: avg } : a
+                );
+            }
+
+                return { ...state, reviews: newReviews, users, apartments };
+            }
+
+    case 'DELETE_REVIEW':
+      return {
+        ...state,
+        reviews: state.reviews.filter(r => r.id !== action.payload.id)
+      };    
         default:
             return state;
     }
@@ -106,6 +139,9 @@ interface ContextProps {
     addPost: (post: Post) => void;
     updatePost: (post: Post) => void;
     deletePost: (id: string) => void;
+
+    addReview:    (review: Review) => void;
+    deleteReview: (id: string) => void;
 
     login: (email: string, password: string) => { success: boolean; error?: string };
     logout: () => void;
@@ -140,6 +176,9 @@ export const StateProvider = ({children}: { children: ReactNode }) => {
     const addPost = (payload: Post) => dispatch({ type: 'ADD_POST', payload });
     const updatePost = (payload: Post) => dispatch({ type: 'UPDATE_POST', payload });
     const deletePost = (id: string) => dispatch({ type: 'DELETE_POST', payload: { id } });
+
+    const addReview    = (payload: Review) => dispatch({ type: 'ADD_REVIEW',    payload });
+    const deleteReview = (id: string)      => dispatch({ type: 'DELETE_REVIEW', payload: { id } });
 
 
     const login = (email: string, password: string) => {
@@ -182,7 +221,6 @@ export const StateProvider = ({children}: { children: ReactNode }) => {
             password,
             bio: '',
             rating: 0,
-            reviews: [],
             coverImage: '',
             avatar: '',
             role: 'Użytkownik',
@@ -199,7 +237,7 @@ export const StateProvider = ({children}: { children: ReactNode }) => {
             addOffer, updateOffer, deleteOffer,
             addUser, updateUser, deleteUser , addAmenity,
             addPost, updatePost, deletePost,
-            login, logout, register
+            login, logout, register, addReview, deleteReview
         }}>
             {children}
         </StateContext.Provider>

@@ -1,6 +1,5 @@
 // src/data/apartments.ts
 
-import { Amenity, amenities } from './amenities';
 
 export interface Apartment {
     id: string;
@@ -20,6 +19,7 @@ export interface Apartment {
     };
     googleMapsLink: string;
     amenities: string[];
+    rating: number;
 }
 
 export const apartments: Apartment[] = [
@@ -42,6 +42,7 @@ export const apartments: Apartment[] = [
         },
         googleMapsLink: 'https://maps.google.com/?q=52.2297,21.0122',
         amenities: ['amenity1', 'amenity2'],
+        rating: 4.3,
     },
     {
         id: 'apt2',
@@ -61,6 +62,7 @@ export const apartments: Apartment[] = [
         },
         googleMapsLink: 'https://maps.google.com/?q=50.0647,19.9450',
         amenities: ['amenity1'],
+        rating: 0, 
     },
 
     // nowe
@@ -82,6 +84,7 @@ export const apartments: Apartment[] = [
         },
         googleMapsLink: 'https://maps.google.com/?q=54.3790,18.6045',
         amenities: ['amenity2', 'amenity3'],
+        rating: 4.0, 
     },
     {
         id: 'apt4',
@@ -101,6 +104,7 @@ export const apartments: Apartment[] = [
         },
         googleMapsLink: 'https://maps.google.com/?q=51.1080,17.0325',
         amenities: ['amenity1'],
+        rating: 3.0,
     },
     {
         id: 'apt5',
@@ -120,5 +124,6 @@ export const apartments: Apartment[] = [
         },
         googleMapsLink: 'https://maps.google.com/?q=52.4020,16.9280',
         amenities: ['amenity1', 'amenity2'],
+        rating: 2.0
     },
 ];

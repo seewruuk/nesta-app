@@ -1,0 +1,234 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<WelcomeModal /> powinien się zgadzać ze snapshotem 1`] = `
+<View
+  className="flex-1 justify-center items-center relative"
+>
+  <View
+    collapsable={false}
+    style={
+      {
+        "height": "100%",
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "transform": [
+          {
+            "translateX": 0,
+          },
+        ],
+        "width": 750,
+        "zIndex": -2,
+      }
+    }
+  >
+    <View
+      accessibilityIgnoresInvertColors={true}
+      style={
+        {
+          "height": "100%",
+          "width": "100%",
+        }
+      }
+    >
+      <Image
+        resizeMode="cover"
+        source={
+          {
+            "testUri": "../../../src/assets/images/background-image.png",
+          }
+        }
+        style={
+          [
+            {
+              "bottom": 0,
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            },
+            {
+              "height": "100%",
+              "width": "100%",
+            },
+            undefined,
+          ]
+        }
+      />
+    </View>
+  </View>
+  <View
+    style={
+      {
+        "backgroundColor": "rgba(0,0,0,0.96)",
+        "height": "100%",
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "width": 750,
+        "zIndex": -1,
+      }
+    }
+  />
+  <View
+    className="w-10/12 bg-white rounded-3xl p-[32px] space-y-4 flex flex-col gap-8 z-10"
+  >
+    <View>
+      <Text
+        className="text-[20px] font-bold text-black leading-snug py-4 text-3xl"
+      >
+        Witaj ponownie!
+      </Text>
+      <Text
+        className="text-[15px] leading-7 text-[#1C2635] "
+      >
+        U nas wymarzone nieruchomości znajdują właścicieli swoich marzeń!
+      </Text>
+    </View>
+    <View
+      className="flex flex-col"
+    >
+      <View
+        className="flex flex-row justify-between"
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          className="border-t border-r border-l border-gray-300 flex-1 rounded-tr-2xl rounded-tl-2xl flex items-center justify-center py-4 font-semibold"
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+        >
+          <Text>
+            Wynajem
+          </Text>
+        </View>
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          className="border border-gray-300 bg-[#F5F5F5] flex-1 -ml-4 rounded-tr-2xl flex items-center justify-center py-4 "
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+        >
+          <Text>
+            Znd. Współlokatora
+          </Text>
+        </View>
+      </View>
+      <View
+        className="flex gap-2 px-4 border-b border-r border-l border-gray-300 rounded-br-2xl rounded-bl-2xl z-50 bg-white py-5"
+      >
+        <TextInput
+          className="bg-gray-100 rounded-lg px-3 py-3"
+          onChangeText={[Function]}
+          placeholder="Miasto"
+          value=""
+        />
+        <View
+          className="flex flex-row gap-2"
+        >
+          <TextInput
+            className="bg-gray-100 rounded-lg px-3 py-3 flex-1"
+            keyboardType="numeric"
+            onChangeText={[Function]}
+            placeholder="Min. cena"
+            value=""
+          />
+          <TextInput
+            className="bg-gray-100 rounded-lg px-3 py-3 flex-1"
+            keyboardType="numeric"
+            onChangeText={[Function]}
+            placeholder="Max. cena"
+            value=""
+          />
+        </View>
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          className="bg-primary items-center px-4 font-semibold py-4 rounded-xl"
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+        >
+          <Text>
+            Szukaj
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;

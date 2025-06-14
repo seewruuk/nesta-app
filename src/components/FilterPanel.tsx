@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import {
     View, Text, TextInput, Pressable, Animated,
-    TouchableWithoutFeedback, Picker
+    TouchableWithoutFeedback
 } from 'react-native';
 
 export interface Filters {

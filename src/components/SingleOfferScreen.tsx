@@ -12,6 +12,7 @@ import {
 import Layout from "../components/Layout";
 import Paragraph from "@/src/components/Paragraph";
 import { useStateContext } from "@/src/contexts/StateContext";
+import AppointmentTimePicker from "@/src/components/AppointmentTimePicker";
 
 interface SingleOfferScreenProps {
     id: string;
@@ -60,6 +61,9 @@ export default function SingleOfferScreen({ id }: SingleOfferScreenProps) {
                 <Text className="text-gray-600 mb-4">
                     {apartment.location.city}, {apartment.location.district}
                 </Text>
+
+                {/* Rezerwacja oględzin */}
+                <AppointmentTimePicker />
 
                 {/* Szczegóły oferty */}
                 <View className="mb-6">

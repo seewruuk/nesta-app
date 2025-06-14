@@ -113,8 +113,7 @@ describe('Register Screen', () => {
 
         expect(mockRegister).toHaveBeenCalledWith('c@c.com', 'user', 'pass', 'pass');
         expect(replace).toHaveBeenCalledWith('/');
-    });
-
+    });ww
     it('alerts on register failure', () => {
         mockRegister.mockReturnValue({ success: false, error: 'Error' });
         const alertSpy = jest.spyOn(Alert, 'alert');

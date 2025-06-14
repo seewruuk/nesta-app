@@ -5,7 +5,8 @@ import Login from '../app/login';
 import Register from '../app/register';
 import { useRouter, replace, push } from 'expo-router';
 
-// Mock useStateContext hook from StateContext
+
+
 const mockLogin = jest.fn();
 const mockRegister = jest.fn();
 

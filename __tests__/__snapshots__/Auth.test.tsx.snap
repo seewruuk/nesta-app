@@ -1,0 +1,221 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login Screen matches snapshot 1`] = `
+<View
+  className="flex-1 justify-center p-6 bg-white"
+>
+  <Text
+    className="text-2xl font-bold mb-4"
+  >
+    Logowanie
+  </Text>
+  <TextInput
+    autoCapitalize="none"
+    className="border border-gray-300 rounded px-3 py-2 mb-4"
+    keyboardType="email-address"
+    onChangeText={[Function]}
+    placeholder="Email"
+    value=""
+  />
+  <TextInput
+    className="border border-gray-300 rounded px-3 py-2 mb-6"
+    onChangeText={[Function]}
+    placeholder="Hasło"
+    secureTextEntry={true}
+    value=""
+  />
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    className="bg-blue-500 rounded px-4 py-3 items-center"
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+  >
+    <Text
+      className="text-white font-semibold"
+    >
+      Zaloguj się
+    </Text>
+  </View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    className="mt-4 items-center"
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+  >
+    <Text
+      className="text-blue-500"
+    >
+      Nie masz konta? Zarejestruj się
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`Register Screen matches snapshot 1`] = `
+<View
+  className="flex-1 justify-center p-6 bg-white"
+>
+  <Text
+    className="text-2xl font-bold mb-4"
+  >
+    Rejestracja
+  </Text>
+  <TextInput
+    autoCapitalize="none"
+    className="border border-gray-300 rounded px-3 py-2 mb-4"
+    keyboardType="email-address"
+    onChangeText={[Function]}
+    placeholder="Email"
+    value=""
+  />
+  <TextInput
+    autoCapitalize="none"
+    className="border border-gray-300 rounded px-3 py-2 mb-4"
+    onChangeText={[Function]}
+    placeholder="Nazwa użytkownika"
+    value=""
+  />
+  <TextInput
+    className="border border-gray-300 rounded px-3 py-2 mb-4"
+    onChangeText={[Function]}
+    placeholder="Hasło"
+    secureTextEntry={true}
+    value=""
+  />
+  <TextInput
+    className="border border-gray-300 rounded px-3 py-2 mb-6"
+    onChangeText={[Function]}
+    placeholder="Potwierdź hasło"
+    secureTextEntry={true}
+    value=""
+  />
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    className="bg-green-500 rounded px-4 py-3 items-center"
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+  >
+    <Text
+      className="text-white font-semibold"
+    >
+      Zarejestruj się
+    </Text>
+  </View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    className="mt-4 items-center"
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+  >
+    <Text
+      className="text-blue-500"
+    >
+      Masz już konto? Zaloguj się
+    </Text>
+  </View>
+</View>
+`;

@@ -1,51 +1,67 @@
-# Welcome to your Expo app 👋
+# Nesta App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Mobilna aplikacja do wyszukiwania ofert mieszkań stworzona w **Expo** i **React Native**.
 
-## Get started
 
-1. Install dependencies
+## Autorzy
 
-   ```bash
-   npm install
-   ```
+- Maksymilian Mrówka **s25940** 
+- Michał Jastrzemski **s26245**
+- Maciej Uzarski **s25527**
+- Kacper Sewruk **s23466**
 
-2. Start the app
+## Link do repozytorium
 
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
 
 ```bash
-npm run reset-project
+git clone https://github.com/seewruuk/nesta-app.git
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Wymagania wstępne
 
-## Learn more
+- Zainstalowany **Node.js** (zalecana wersja >= 14)
+- **npm** (lub **Yarn**)
+- (Opcjonalnie) **Expo CLI**:
+  ```bash
+  npm install -g expo-cli
+  ```
 
-To learn more about developing your project with Expo, look at the following resources:
+## Szybki start
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+1. **Zainstaluj zależności**:
+   ```bash
+   npm install
+   # lub
+   yarn install
+   ```
 
-## Join the community
+2. **Uruchom serwer deweloperski Expo**:
+   ```bash
+   npm start
+   # lub
+   yarn start
+   ```
+   Po chwili w konsoli zobaczysz kod QR.
 
-Join our community of developers creating universal apps.
+3. **Pobierz aplikację Expo Go na telefon**:
+   - Android: https://expo.dev/client
+   - iOS: https://apps.apple.com/app/expo-go/id982107779
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
-# nesta-app
+4. **Zeskanuj kod QR**  
+   W aplikacji Expo Go wybierz opcję skanowania i skieruj aparat na kod wyświetlony w konsoli.
+
+5. **Gotowe!**  
+   Aplikacja automatycznie załaduje się na Twoim urządzeniu. Każda zmiana w kodzie będzie odświeżana na żywo.
+
+## Struktura projektu
+
+- `app/` – ekrany i routing (file-based routing Expo Router)
+- `src/components/` – wielokrotnego użytku komponenty UI
+- `src/contexts/` – konteksty (MoveState, autoryzacja itp.)
+- `__tests__/` – testy jednostkowe (Jest + React Native Testing Library)
+- `babel.config.js` – konfiguracja Babel
+- `jest.config.js` i `jest.setup.js` – konfiguracja testów
+
+---
+
+

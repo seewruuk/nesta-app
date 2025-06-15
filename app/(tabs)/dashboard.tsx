@@ -1,13 +1,11 @@
-// app/(tabs)/dashboard.tsx
-
-import React, { useEffect } from 'react';
-import { ScrollView, View, Text } from 'react-native';
-import { useRouter } from 'expo-router';
-import { useStateContext } from '@/src/contexts/StateContext';
+import Messages from '@/src/components/Messages';
 import OfferCard from '@/src/components/OfferCard';
 import Transactions from '@/src/components/Transactions';
-import Messages from '@/src/components/Messages';
+import { useStateContext } from '@/src/contexts/StateContext';
 import { Transaction } from '@/src/types/Transaction';
+import { useRouter } from 'expo-router';
+import { useEffect } from 'react';
+import { ScrollView, Text, View } from 'react-native';
 
 const FAKE_TRANSACTIONS: Transaction[] = [
     {
@@ -50,24 +48,19 @@ export default function Dashboard() {
         state: { currentUserId, offers },
     } = useStateContext();
 
-    // If not logged in, redirect to /login
     useEffect(() => {
         if (!currentUserId) {
             router.replace('/login');
         }
     }, [currentUserId]);
 
-    // While redirecting, render nothing
     if (!currentUserId) {
         return null;
     }
-
-    // Show only offers posted by current user
     const myOffers = offers.filter(o => o.authorId === currentUserId);
 
     return (
         <ScrollView className="flex-1 bg-white p-4 space-y-6">
-            {/* Twoje oferty */}
             <View>
                 <Text className="text-xl font-bold mb-2">Twoje oferty</Text>
                 {myOffers.length === 0 ? (
@@ -79,13 +72,11 @@ export default function Dashboard() {
                 )}
             </View>
 
-            {/* Transakcje */}
             <View>
                 <Text className="text-xl font-bold mb-2">Transakcje</Text>
                 <Transactions transactions={FAKE_TRANSACTIONS} maxElements={5} />
             </View>
 
-            {/* Wiadomości */}
             <View>
                 <Text className="text-xl font-bold mb-2">Wiadomości</Text>
                 <Messages messages={[]} maxElements={2} />

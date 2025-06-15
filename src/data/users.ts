@@ -1,5 +1,3 @@
-// src/data/users.ts
-
 export interface Review {
   id: string;
   author: string;
@@ -11,15 +9,15 @@ export type Role = 'Użytkownik' | 'Najemca' | 'Wynajmujący' | 'Administrator';
 
 export interface User {
   id: string;
-  fullName: string;  // imię i nazwisko
-  slug: string;      // unikalny fragment URL
+  fullName: string;  
+  slug: string;      
   email: string;
   username: string;
   password: string;
-  bio: string;       // krótki opis
-  rating: number;    // średnia ocen (obliczana z globalnej tablicy reviews)
-  coverImage: string;  // URL do zdjęcia w tle
-  avatar: string;      // URL do zdjęcia profilowego
+  bio: string;       
+  rating: number;    
+  coverImage: string; 
+  avatar: string;     
   role: Role;
 }
 

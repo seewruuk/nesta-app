@@ -1,6 +1,3 @@
-// src/data/offers.ts
-
-import { apartments } from './apartments';
 
 export interface Offer {
     id: string;

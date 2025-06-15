@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext, useReducer } from 'react';
+import { createContext, ReactNode, useContext, useReducer } from 'react';
 import { amenities, Amenity } from '../data/amenities';
 import { Apartment, apartments } from '../data/apartments';
 import { Offer, offers } from '../data/offers';
@@ -89,7 +89,6 @@ function reducer(state: State, action: Action): State {
             return { ...state, currentUserId: null };
             case 'ADD_REVIEW': 
         { const newReviews = [...state.reviews, action.payload];
-            // przelicz średnią recenzji dla targetu
             const byTarget = newReviews.filter(
                 r => r.targetType === action.payload.targetType && r.targetId === action.payload.targetId
             );

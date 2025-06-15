@@ -1,7 +1,6 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react-native";
 import SingleOfferScreen from "@/src/components/SingleOfferScreen";
 import { useStateContext } from "@/src/contexts/StateContext";
+import { fireEvent, render, screen } from "@testing-library/react-native";
 
 jest.mock("@/src/contexts/StateContext");
 
@@ -12,7 +11,7 @@ const mockOffer = {
     title: "Piękne mieszkanie w centrum",
     description: "Duże, jasne mieszkanie idealne dla studentów.",
     apartmentId: "apartment123",
-    rentPrice: 2500,// MOCK kontekstu
+    rentPrice: 2500,
 
     deposit: 2500,
     extraFees: {

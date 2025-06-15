@@ -1,9 +1,8 @@
-import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
+import { fireEvent, render } from '@testing-library/react-native';
+import { replace } from 'expo-router';
 import { Alert } from 'react-native';
 import Login from '../app/login';
 import Register from '../app/register';
-import { useRouter, replace, push } from 'expo-router';
 
 
 
@@ -31,7 +30,6 @@ jest.mock('@/src/contexts/StateContext', () => ({
     }),
 }));
 
-// Mock expo-router for navigation
 jest.mock('expo-router', () => {
     const replace = jest.fn();
     const push = jest.fn();

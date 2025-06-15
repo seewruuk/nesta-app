@@ -1,7 +1,6 @@
-// src/components/AppointmentTimePicker.tsx
-import React, { useState } from 'react';
-import { View, Text, Pressable, ScrollView } from 'react-native';
 import dayjs from 'dayjs';
+import { useState } from 'react';
+import { Pressable, ScrollView, Text, View } from 'react-native';
 
 const HOURS = Array.from({ length: 11 }, (_, i) => `${8 + i}:00`);
 

@@ -1,10 +1,8 @@
-// src/screens/OffersScreen.tsx
-
-import React, { useState, useMemo } from 'react';
-import { SafeAreaView, FlatList, Pressable, Text, View } from 'react-native';
 import { useStateContext } from '@/src/contexts/StateContext';
-import OfferCard from '../components/OfferCard';
+import { useMemo, useState } from 'react';
+import { FlatList, Pressable, SafeAreaView, Text } from 'react-native';
 import FilterPanel, { Filters } from '../components/FilterPanel';
+import OfferCard from '../components/OfferCard';
 
 export default function OffersScreen() {
     const { state: { offers, apartments } } = useStateContext();
@@ -21,30 +19,22 @@ export default function OffersScreen() {
             const a = apartments.find(x => x.id === o.apartmentId);
             if (!a) return false;
 
-            // miasto
             if (filters.city &&
                 !a.location.city.toLowerCase().includes(filters.city.toLowerCase()))
                 return false;
 
-            // cena
             if (filters.priceMin && o.rentPrice < +filters.priceMin) return false;
             if (filters.priceMax && o.rentPrice > +filters.priceMax) return false;
 
-            // pokoje
             if (filters.roomsMin && a.roomsCount < +filters.roomsMin) return false;
             if (filters.roomsMax && a.roomsCount > +filters.roomsMax) return false;
 
-            // sypialnie
             if (filters.bedroomsMin && a.bedroomsCount < +filters.bedroomsMin) return false;
             if (filters.bedroomsMax && a.bedroomsCount > +filters.bedroomsMax) return false;
-
-            // umeblowanie
             if (filters.furnished && a.furnished !== filters.furnished) return false;
 
-            // zwierzęta
             if (filters.petsAllowed && o.petsAllowed !== filters.petsAllowed) return false;
 
-            // wynajem krótkoterminowy
             if (filters.shortTermAllowed) {
                 const wantShort = filters.shortTermAllowed === 'Tak';
                 if (o.shortTermAllowed !== wantShort) return false;

@@ -1,18 +1,15 @@
-// src/screens/SingleOfferScreen.tsx
-
-import React from "react";
-import {
-    View,
-    Text,
-    Image,
-    ScrollView,
-    Pressable,
-    Linking
-} from "react-native";
-import Layout from "../components/Layout";
+import AppointmentTimePicker from "@/src/components/AppointmentTimePicker";
 import Paragraph from "@/src/components/Paragraph";
 import { useStateContext } from "@/src/contexts/StateContext";
-import AppointmentTimePicker from "@/src/components/AppointmentTimePicker";
+import {
+    Image,
+    Linking,
+    Pressable,
+    ScrollView,
+    Text,
+    View
+} from "react-native";
+import Layout from "../components/Layout";
 
 interface SingleOfferScreenProps {
     id: string;

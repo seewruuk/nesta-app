@@ -1,6 +1,3 @@
-// src/data/apartments.ts
-
-
 export interface Apartment {
     id: string;
     images: string[];
@@ -23,7 +20,6 @@ export interface Apartment {
 }
 
 export const apartments: Apartment[] = [
-    // dotychczasowe
     {
         id: 'apt1',
         images: ['https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'],
@@ -65,7 +61,6 @@ export const apartments: Apartment[] = [
         rating: 0, 
     },
 
-    // nowe
     {
         id: 'apt3',
         images: ['https://images.pexels.com/photos/813692/pexels-photo-813692.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'],

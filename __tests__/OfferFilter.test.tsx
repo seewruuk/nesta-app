@@ -1,5 +1,3 @@
-// __tests__/OfferFilter.test.tsx
-
 import type { Filters } from '../src/components/FilterPanel';
 import type { Apartment } from '../src/data/apartments';
 import { apartments } from '../src/data/apartments';
@@ -7,7 +5,6 @@ import type { Offer } from '../src/data/offers';
 import { offers } from '../src/data/offers';
 
 describe('Logika filtrowania ofert (inline)', () => {
-  // Domyślne, „puste” filtry
   const baseFilters: Filters = {
     city: '',
     priceMin: '',
@@ -21,9 +18,6 @@ describe('Logika filtrowania ofert (inline)', () => {
     shortTermAllowed: '',
   };
 
-  /**
-   * Funkcja inline powtarzająca kod z OffersScreen.useMemo
-   */
   function applyFilters(
     offersArr: Offer[],
     aptsArr: Apartment[],
@@ -33,7 +27,6 @@ describe('Logika filtrowania ofert (inline)', () => {
       const apt = aptsArr.find(a => a.id === o.apartmentId);
       if (!apt) return false;
 
-      // miasto
       if (
         filters.city &&
         !apt.location.city.toLowerCase().includes(filters.city.toLowerCase())
@@ -41,29 +34,23 @@ describe('Logika filtrowania ofert (inline)', () => {
         return false;
       }
 
-      // ceny
       if (filters.priceMin && o.rentPrice < +filters.priceMin) return false;
       if (filters.priceMax && o.rentPrice > +filters.priceMax) return false;
 
-      // pokoje
       if (filters.roomsMin && apt.roomsCount < +filters.roomsMin) return false;
       if (filters.roomsMax && apt.roomsCount > +filters.roomsMax) return false;
 
-      // sypialnie
       if (filters.bedroomsMin && apt.bedroomsCount < +filters.bedroomsMin)
         return false;
       if (filters.bedroomsMax && apt.bedroomsCount > +filters.bedroomsMax)
         return false;
 
-      // umeblowanie
       if (filters.furnished && apt.furnished !== filters.furnished)
         return false;
 
-      // zwierzęta
       if (filters.petsAllowed && o.petsAllowed !== filters.petsAllowed)
         return false;
 
-      // krótki najem
       if (filters.shortTermAllowed) {
         const wantShort = filters.shortTermAllowed === 'Tak';
         if (o.shortTermAllowed !== wantShort) return false;
@@ -90,12 +77,10 @@ describe('Logika filtrowania ofert (inline)', () => {
   });
 
   it('filtruje po przedziale cen min/max', () => {
-    // min
     let filters: Filters = { ...baseFilters, priceMin: '3000' };
     let result = applyFilters(offers, apartments, filters);
     result.forEach(o => expect(o.rentPrice).toBeGreaterThanOrEqual(3000));
 
-    // max
     filters = { ...baseFilters, priceMax: '2500' };
     result = applyFilters(offers, apartments, filters);
     result.forEach(o => expect(o.rentPrice).toBeLessThanOrEqual(2500));

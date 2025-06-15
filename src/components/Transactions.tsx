@@ -1,13 +1,11 @@
-import React from 'react'
-import { View, Text } from 'react-native'
 import { Transaction } from '@/src/types/Transaction'
+import { Text, View } from 'react-native'
 
 interface TransactionsProps {
     transactions: Transaction[]
     maxElements?: number
 }
 
-// Mapowanie statusów na style Tailwind
 const STATUS_STYLES: Record<string, string> = {
     'Zaksięgowano': 'bg-green-100 text-green-800',
     'Oczekuje na płatność': 'bg-gray-200 text-gray-600',
@@ -63,7 +61,6 @@ export default function Transactions({ transactions, maxElements = 5 }: Transact
     )
 }
 
-// Pomocnicze funkcje do formatowania
 function formatDate(dateStr: string) {
     const date = new Date(dateStr)
     const months = [

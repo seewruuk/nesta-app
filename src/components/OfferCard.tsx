@@ -1,12 +1,9 @@
-// src/components/OfferCard.tsx
-
-import React from 'react';
-import { View, Text, Image, Pressable } from 'react-native';
 import { useStateContext } from '@/src/contexts/StateContext';
 import { Offer } from '@/src/data/offers';
-import Header from './Header';
 import { useRouter } from 'expo-router';
-import { UserCircle } from 'lucide-react-native'; // ikona domyślna
+import { UserCircle } from 'lucide-react-native';
+import { Image, Pressable, Text, View } from 'react-native';
+import Header from './Header';
 
 interface OfferCardProps {
     offer: Offer;
@@ -23,7 +20,6 @@ export default function OfferCard({ offer }: OfferCardProps) {
 
     return (
         <View className="bg-white p-4 rounded-xl shadow-md mb-4">
-            {/* Obraz mieszkania */}
             <Pressable
                 onPress={() => router.push(`/offers/${offer.id}`)}
                 className="h-[200px] w-full rounded-xl overflow-hidden mb-4"
@@ -47,7 +43,6 @@ export default function OfferCard({ offer }: OfferCardProps) {
                         : <UserCircle size={32} color="#888" />
                     }
                 </Pressable>
-                {/* Imię autora */}
                 <Text className="text-base font-medium">
                     {author?.fullName ?? 'Nieznany użytkownik'}
                 </Text>

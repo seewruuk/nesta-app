@@ -1,11 +1,10 @@
-// src/components/WelcomeModal.tsx
-import React, { useState, useEffect, useRef } from 'react'
-import { View, Text, TextInput, Pressable, Animated, Dimensions, ImageBackground } from 'react-native'
+import { images } from "@/src/constants/images"
 import { useRouter } from 'expo-router'
+import React, { useEffect, useRef, useState } from 'react'
+import { Animated, Dimensions, ImageBackground, Pressable, Text, TextInput, View } from 'react-native'
+import Button from './Button'
 import Header from "./Header"
 import Paragraph from './Paragraph'
-import Button from './Button'
-import {images} from "@/src/constants/images";
 
 const windowWidth = Dimensions.get('window').width
 
@@ -14,8 +13,6 @@ export const WelcomeModal: React.FC = () => {
     const [city, setCity] = useState('')
     const [minPrice, setMinPrice] = useState('')
     const [maxPrice, setMaxPrice] = useState('')
-
-    // Animated value for wiggle effect
     const translateX = useRef(new Animated.Value(0)).current
 
     useEffect(() => {

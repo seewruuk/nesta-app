@@ -1,10 +1,7 @@
-// src/components/SmallOfferTile.tsx
-
-import React from 'react';
-import { View, Text, Image, Pressable } from 'react-native';
 import { useStateContext } from '@/src/contexts/StateContext';
 import { Offer } from '@/src/data/offers';
 import { useRouter } from 'expo-router';
+import { Image, Pressable, Text, View } from 'react-native';
 
 interface SmallOfferTileProps {
     offer: Offer;

@@ -12,6 +12,7 @@ const HOURS = Array.from({ length: 11 }, (_, i) => `${8 + i}:00`);
 interface AppointmentTimePickerProps {
     onConfirmReservation: (date: string, time: string) => void;
     reservedAppointments: ReservedAppointment[];
+    testID: string;
 }
 
 export default function AppointmentTimePicker({
@@ -79,7 +80,7 @@ export default function AppointmentTimePicker({
                 <Pressable onPress={() => setSelectedDate(prev => prev.subtract(1, 'day'))}>
                     <Text className="text-lg">{'←'}</Text>
                 </Pressable>
-                <Pressable onPress={() => setShowDatePicker(true)}>
+                <Pressable testID={"open-date-picker"} onPress={() => setShowDatePicker(true)}>
                     <Text className="text-base font-medium underline">
                         {selectedDate.format('DD MMMM YYYY')}
                     </Text>
@@ -90,12 +91,14 @@ export default function AppointmentTimePicker({
             </View>
 
             {showDatePicker && (
-                <DateTimePicker
-                    mode="date"
-                    display={Platform.OS === 'ios' ? 'spinner' : 'calendar'}
-                    value={selectedDate.toDate()}
-                    onChange={onChangeDate}
-                />
+                <View testID="RNDateTimePicker">
+                    <DateTimePicker
+                        mode="date"
+                        display={Platform.OS === 'ios' ? 'spinner' : 'calendar'}
+                        value={selectedDate.toDate()}
+                        onChange={onChangeDate}
+                    />
+                </View>
             )}
 
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -118,6 +121,7 @@ export default function AppointmentTimePicker({
                             style={{
                                 borderColor: isSelected ? '#0e7490' : '#ccc',
                             }}
+                            testID={`time-button-${hour}`}
                         >
                             <Text
                                 className={`text-sm ${
@@ -142,6 +146,7 @@ export default function AppointmentTimePicker({
                 animationIn="zoomIn"
                 animationOut="zoomOut"
                 backdropTransitionOutTiming={0}
+                testID={"confirm-modal"}
             >
                 <View className="bg-white p-6 rounded-lg items-center">
                     <Text className="text-base mb-4 text-center">
@@ -152,7 +157,7 @@ export default function AppointmentTimePicker({
                     </Text>
 
                     <View className="flex-row gap-6">
-                        <Pressable onPress={() => setShowConfirm(false)}>
+                        <Pressable testID={"cancel-reservation"} onPress={() => setShowConfirm(false)}>
                             <Text className="text-red-500 font-medium">Anuluj</Text>
                         </Pressable>
                         <Pressable onPress={handleConfirm}>

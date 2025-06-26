@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useContext, useReducer } from 'react';
 import { amenities, Amenity } from '../data/amenities';
 import { Apartment, apartments } from '../data/apartments';
-import { Offer, offers } from '../data/offers';
+import {Offer, offers, ReservedAppointment} from '../data/offers';
 import { Post, posts } from '../data/posts';
 import { Review, reviews } from '../data/reviews';
 import { User, users } from '../data/users';
@@ -36,7 +36,9 @@ type Action =
     | { type: 'LOGOUT' }
     | { type: 'ADD_AMENITY'; payload: Amenity }
     | { type: 'ADD_REVIEW';    payload: Review }
-    | { type: 'DELETE_REVIEW'; payload: { id: string } };
+    | { type: 'DELETE_REVIEW'; payload: { id: string } }
+    | { type: 'ADD_OFFER_RESERVATION'; payload: { offerId: string; reservation: ReservedAppointment } };
+
 
 function reducer(state: State, action: Action): State {
     switch (action.type) {
@@ -108,8 +110,22 @@ function reducer(state: State, action: Action): State {
 
                 return { ...state, reviews: newReviews, users, apartments };
             }
+        case 'ADD_OFFER_RESERVATION':
+            return {
+                ...state,
+                offers: state.offers.map(offer => {
+                    if (offer.id !== action.payload.offerId) return offer;
 
-    case 'DELETE_REVIEW':
+                    const prev = offer.reservedAppointments ?? [];
+                    return {
+                        ...offer,
+                        reservedAppointments: [...prev, action.payload.reservation],
+                    };
+                })
+            };
+
+
+        case 'DELETE_REVIEW':
       return {
         ...state,
         reviews: state.reviews.filter(r => r.id !== action.payload.id)
@@ -150,6 +166,7 @@ interface ContextProps {
         password: string,
         confirmPassword: string
     ) => { success: boolean; error?: string };
+    addOfferReservation: (offerId: string, reservation: ReservedAppointment) => void;
 }
 
 const StateContext = createContext<ContextProps | undefined>(undefined);
@@ -229,6 +246,10 @@ export const StateProvider = ({children}: { children: ReactNode }) => {
         return { success: true };
     };
 
+    const addOfferReservation = (offerId: string, reservation: ReservedAppointment) =>
+        dispatch({ type: 'ADD_OFFER_RESERVATION', payload: { offerId, reservation } });
+
+
 
     return (
         <StateContext.Provider value={{
@@ -236,7 +257,8 @@ export const StateProvider = ({children}: { children: ReactNode }) => {
             addOffer, updateOffer, deleteOffer,
             addUser, updateUser, deleteUser , addAmenity,
             addPost, updatePost, deletePost,
-            login, logout, register, addReview, deleteReview
+            login, logout, register, addReview, deleteReview,
+            addOfferReservation
         }}>
             {children}
         </StateContext.Provider>

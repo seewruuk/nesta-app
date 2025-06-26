@@ -81,6 +81,7 @@ export default function SingleOfferScreen({ id }: SingleOfferScreenProps) {
 
                 {currentUserId ? (
                     <AppointmentTimePicker
+                        testID="appointment-time-picker"
                         onConfirmReservation={handleConfirmReservation}
                         reservedAppointments={reservedAppointments}
                     />

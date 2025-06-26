@@ -1,3 +1,8 @@
+export interface ReservedAppointment {
+    date: string;
+    time: string;
+    userId: string;
+}
 
 export interface Offer {
     id: string;
@@ -24,6 +29,7 @@ export interface Offer {
     heatingType: string;
     smokingAllowed: 'Tak' | 'Nie' | 'Do ustalenia';
     cellar: boolean;
+    reservedAppointments?: ReservedAppointment[];
 }
 
 export const offers: Offer[] = [

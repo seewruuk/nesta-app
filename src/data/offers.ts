@@ -30,6 +30,7 @@ export interface Offer {
     smokingAllowed: 'Tak' | 'Nie' | 'Do ustalenia';
     cellar: boolean;
     reservedAppointments?: ReservedAppointment[];
+    tenantId?: string;
 }
 
 export const offers: Offer[] = [
@@ -55,6 +56,7 @@ export const offers: Offer[] = [
         heatingType: 'Gazowe',
         smokingAllowed: 'Nie',
         cellar: false,
+        tenantId: 'user2'
     },
     {
         id: 'offer2',

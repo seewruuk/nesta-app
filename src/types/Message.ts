@@ -1,10 +1,9 @@
 export interface Message {
-    /** Unikalny identyfikator wiadomości */
-    id: string
-    /** Nadawca wiadomości */
-    sender: string
-    /** Data/godzina wysłania w formacie ISO */
-    date: string
-    /** Treść wiadomości */
-    content: string
+    id: string;
+    senderId: string;
+    receiverId: string;
+    message: string;
+    date: string;
+    isRead: boolean;
+    status: 'sent' | 'delivered' | 'read';
 }

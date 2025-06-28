@@ -21,9 +21,7 @@ describe('Logika filtrowania ofert (inline)', () => {
     shortTermAllowed: '',
   };
 
-  /**
-   * Funkcja inline powtarzająca kod z OffersScreen.useMemo
-   */
+
   function applyFilters(
     offersArr: Offer[],
     aptsArr: Apartment[],
@@ -33,7 +31,6 @@ describe('Logika filtrowania ofert (inline)', () => {
       const apt = aptsArr.find(a => a.id === o.apartmentId);
       if (!apt) return false;
 
-      // miasto
       if (
         filters.city &&
         !apt.location.city.toLowerCase().includes(filters.city.toLowerCase())
@@ -41,29 +38,24 @@ describe('Logika filtrowania ofert (inline)', () => {
         return false;
       }
 
-      // ceny
+
       if (filters.priceMin && o.rentPrice < +filters.priceMin) return false;
       if (filters.priceMax && o.rentPrice > +filters.priceMax) return false;
 
-      // pokoje
       if (filters.roomsMin && apt.roomsCount < +filters.roomsMin) return false;
       if (filters.roomsMax && apt.roomsCount > +filters.roomsMax) return false;
 
-      // sypialnie
       if (filters.bedroomsMin && apt.bedroomsCount < +filters.bedroomsMin)
         return false;
       if (filters.bedroomsMax && apt.bedroomsCount > +filters.bedroomsMax)
         return false;
 
-      // umeblowanie
       if (filters.furnished && apt.furnished !== filters.furnished)
         return false;
 
-      // zwierzęta
       if (filters.petsAllowed && o.petsAllowed !== filters.petsAllowed)
         return false;
 
-      // krótki najem
       if (filters.shortTermAllowed) {
         const wantShort = filters.shortTermAllowed === 'Tak';
         if (o.shortTermAllowed !== wantShort) return false;
@@ -121,31 +113,35 @@ describe('Logika filtrowania ofert (inline)', () => {
     const result = applyFilters(offers, apartments, filters);
     result.forEach(o => expect(o.shortTermAllowed).toBe(true));
   });
+it('łączy wiele filtrów razem', () => {
+  const filters: Filters = {
+    city: 'gdańsk',
+    priceMin: '4000',
+    priceMax: '5000',
+    roomsMin: '3',
+    roomsMax: '3',
+    bedroomsMin: '2',
+    bedroomsMax: '2',
+    furnished: 'Częściowo',
+    petsAllowed: 'Tak',
+    shortTermAllowed: 'Nie',
+  };
+  const result = applyFilters(offers, apartments, filters);
 
-  it('łączy wiele filtrów razem', () => {
-    const filters: Filters = {
-      city: 'kraków',
-      priceMin: '3000',
-      priceMax: '4500',
-      roomsMin: '3',
-      roomsMax: '3',
-      bedroomsMin: '2',
-      bedroomsMax: '2',
-      furnished: 'Nie',
-      petsAllowed: 'Nie',
-      shortTermAllowed: 'Nie',
-    };
-    const result = applyFilters(offers, apartments, filters);
-    expect(result).toHaveLength(1);
-    const o = result[0];
-    const apt = apartments.find(a => a.id === o.apartmentId)!;
-    expect(apt.location.city.toLowerCase()).toContain('kraków');
-    expect(o.rentPrice).toBeGreaterThanOrEqual(3000);
-    expect(o.rentPrice).toBeLessThanOrEqual(4500);
-    expect(apt.roomsCount).toBe(3);
-    expect(apt.bedroomsCount).toBe(2);
-    expect(apt.furnished).toBe('Nie');
-    expect(o.petsAllowed).toBe('Nie');
-    expect(o.shortTermAllowed).toBe(false);
-  });
+  expect(result).toHaveLength(1);
+  const o = result[0];
+  
+  expect(o.id).toBe('offer3');
+
+  const apt = apartments.find(a => a.id === o.apartmentId)!;
+  expect(apt.location.city.toLowerCase()).toContain('gdańsk');
+  expect(o.rentPrice).toBeGreaterThanOrEqual(4000);
+  expect(o.rentPrice).toBeLessThanOrEqual(5000);
+  expect(apt.roomsCount).toBe(3);
+  expect(apt.bedroomsCount).toBe(2);
+  expect(apt.furnished).toBe('Częściowo');
+  expect(o.petsAllowed).toBe('Tak');
+  expect(o.shortTermAllowed).toBe(false);
+});
+
 });

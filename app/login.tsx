@@ -2,8 +2,10 @@ import { useStateContext } from '@/src/contexts/StateContext';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Alert, Pressable, Text, TextInput, View } from 'react-native';
+import { translation } from '@/src/translation';
 
 export default function Login() {
+    const { langId } = useStateContext();
     const { login } = useStateContext();
     const router = useRouter();
 
@@ -21,7 +23,7 @@ export default function Login() {
 
     return (
         <View className="flex-1 justify-center p-6 bg-white">
-            <Text className="text-2xl font-bold mb-4">Logowanie</Text>
+            <Text className="text-2xl font-bold mb-4">{translation[langId].login.login}</Text>
             <TextInput
                 className="border border-gray-300 rounded px-3 py-2 mb-4"
                 placeholder="Email"
@@ -41,13 +43,13 @@ export default function Login() {
                 className="bg-blue-500 rounded px-4 py-3 items-center"
                 onPress={handleLogin}
             >
-                <Text className="text-white font-semibold">Zaloguj się</Text>
+                <Text className="text-white font-semibold">{translation[langId].login.signIn}</Text>
             </Pressable>
             <Pressable
                 className="mt-4 items-center"
                 onPress={() => router.push('/register')}
             >
-                <Text className="text-blue-500">Nie masz konta? Zarejestruj się</Text>
+                <Text className="text-blue-500">{translation[langId].login.noAccount}</Text>
             </Pressable>
         </View>
     );

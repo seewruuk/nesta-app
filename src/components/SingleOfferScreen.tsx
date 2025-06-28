@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import Layout from "../components/Layout";
 import {ReservedAppointment} from "@/src/data/offers";
+import { translation } from "../translation";
 
 interface SingleOfferScreenProps {
     id: string;
@@ -87,58 +88,58 @@ export default function SingleOfferScreen({ id }: SingleOfferScreenProps) {
                     />
                 ) : (
                     <Text className="text-gray-500 italic mb-1">
-                        Zaloguj się, aby zarezerwować termin oględzin.
+                        {translation[langId].SingleOfferScreen.loginToReserve}
                     </Text>
                 )}
 
                 <View className="mb-6">
-                    <Text className="text-xl font-semibold mb-2">Szczegóły oferty</Text>
+                    <Text className="text-xl font-semibold mb-2">{translation[langId].SingleOfferScreen.detailsTitle}</Text>
                     <Paragraph text={offer.description} />
-                    <Text>Cena najmu: {offer.rentPrice} PLN</Text>
-                    <Text>Kaucja: {offer.deposit} PLN</Text>
-                    <Text>Internet: {offer.extraFees.internet}</Text>
-                    <Text>Rachunki: {offer.extraFees.utilities}</Text>
+                    <Text>{translation[langId].SingleOfferScreen.rentalPrice}: {offer.rentPrice} PLN</Text>
+                    <Text>{translation[langId].SingleOfferScreen.deposit}: {offer.deposit} PLN</Text>
+                    <Text>{translation[langId].SingleOfferScreen.internet}: {offer.extraFees.internet}</Text>
+                    <Text>{translation[langId].SingleOfferScreen.utilities}: {offer.extraFees.utilities}</Text>
                     <Text>
-                        Dostępne od:{" "}
+                       {translation[langId].SingleOfferScreen.availableFrom}:{" "}
                         {new Date(offer.availableFrom).toLocaleDateString("pl-PL")}
                     </Text>
-                    <Text>Min. okres najmu: {offer.minTermMonths} mies.</Text>
+                    <Text>{translation[langId].SingleOfferScreen.minTerm}: {offer.minTermMonths} mies.</Text>
                     <Text>
-                        Wynajem krótkoterminowy: {offer.shortTermAllowed ? "Tak" : "Nie"}
+                        {translation[langId].SingleOfferScreen.shortTerm}: {offer.shortTermAllowed ? "Tak" : "Nie"}
                     </Text>
                     <Text>
-                        Preferowani najemcy: {offer.preferredTenants.join(", ")}
+                        {translation[langId].SingleOfferScreen.preferredTenants}: {offer.preferredTenants.join(", ")}
                     </Text>
-                    <Text>Parking: {offer.parkingIncluded ? "Tak" : "Nie"}</Text>
-                    <Text>Winda: {offer.elevator ? "Tak" : "Nie"}</Text>
+                    <Text>{translation[langId].SingleOfferScreen.parking}: {offer.parkingIncluded ? "Tak" : "Nie"}</Text>
+                    <Text>{translation[langId].SingleOfferScreen.elevator}: {offer.elevator ? "Tak" : "Nie"}</Text>
                     <Text>
-                        Dostęp dla niepełnosprawnych:{" "}
+                        {translation[langId].SingleOfferScreen.wheelchairAccess}:{" "}
                         {offer.wheelchairAccess ? "Tak" : "Nie"}
                     </Text>
-                    <Text>Zwierzęta: {offer.petsAllowed}</Text>
-                    <Text>TV & Internet: {offer.tvInternet ? "Tak" : "Nie"}</Text>
-                    <Text>Ogrzewanie: {offer.heatingType}</Text>
-                    <Text>Palenie: {offer.smokingAllowed}</Text>
-                    <Text>Piwnica: {offer.cellar ? "Tak" : "Nie"}</Text>
+                    <Text>{translation[langId].SingleOfferScreen.petsAllowed}: {offer.petsAllowed}</Text>
+                    <Text>{translation[langId].SingleOfferScreen.tvInternet}: {offer.tvInternet ? "Tak" : "Nie"}</Text>
+                    <Text>{translation[langId].SingleOfferScreen.heating}: {offer.heatingType}</Text>
+                    <Text>{translation[langId].SingleOfferScreen.smoking}: {offer.smokingAllowed}</Text>
+                    <Text>{translation[langId].SingleOfferScreen.cellar}: {offer.cellar ? "Tak" : "Nie"}</Text>
                 </View>
 
                 <View className="mb-6">
                     <Text className="text-xl font-semibold mb-2">
-                        Szczegóły apartamentu
+                        {translation[langId].SingleOfferScreen.apartmentDetails}
                     </Text>
-                    <Text>Typ: {apartment.type}</Text>
-                    <Text>Powierzchnia: {apartment.area} m²</Text>
-                    <Text>Ilość pokoi: {apartment.roomsCount}</Text>
-                    <Text>Ilość sypialni: {apartment.bedroomsCount}</Text>
-                    <Text>Łazienki: {apartment.bathroomsCount}</Text>
-                    <Text>Piętro: {apartment.floor}</Text>
-                    <Text>Umeblowane: {apartment.furnished}</Text>
-                    <Text>Adres: {apartment.location.fullAddress}</Text>
+                    <Text>{translation[langId].SingleOfferScreen.type}: {apartment.type}</Text>
+                    <Text>{translation[langId].SingleOfferScreen.area}: {apartment.area} m²</Text>
+                    <Text>{translation[langId].SingleOfferScreen.rooms}: {apartment.roomsCount}</Text>
+                    <Text>{translation[langId].SingleOfferScreen.bedrooms}: {apartment.bedroomsCount}</Text>
+                    <Text>{translation[langId].SingleOfferScreen.bathrooms}: {apartment.bathroomsCount}</Text>
+                    <Text>{translation[langId].SingleOfferScreen.floor}: {apartment.floor}</Text>
+                    <Text>{translation[langId].SingleOfferScreen.furnished}: {apartment.furnished}</Text>
+                    <Text>{translation[langId].SingleOfferScreen.address}: {apartment.location.fullAddress}</Text>
                     <Pressable onPress={openMap} className="mb-2">
-                        <Text className="text-blue-500">Zobacz w Google Maps</Text>
+                        <Text className="text-blue-500">{translation[langId].SingleOfferScreen.viewOnMaps}</Text>
                     </Pressable>
                     <Text>
-                        Udogodnienia:{" "}
+                        {translation[langId].SingleOfferScreen.amenities}:{" "}
                         {apartment.amenities
                             .map(id => amenities.find(a => a.id === id)?.name)
                             .filter(Boolean)

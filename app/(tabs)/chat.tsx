@@ -49,21 +49,41 @@ export default function ChatScreen() {
         };
         addMessage(newMsg);
         setText('');
+
+        setTimeout(() => {
+            const reply: MsgType = {
+                id: `bot${Date.now()}`,
+                senderId: 'bot',
+                receiverId: '',
+                message: 'tak',
+                date: new Date().toISOString(),
+                isRead: true,
+                status: 'read',
+            };
+            addMessage(reply);
+        }, 5000);
     };
 
     const renderItem = ({ item }: { item: MsgType }) => {
         const isMine = item.senderId === currentUserId;
+        const isBot = item.senderId === 'bot';
         return (
             <View
                 style={{
                     alignSelf: isMine ? 'flex-end' : 'flex-start',
-                    backgroundColor: isMine ? '#DCF8C5' : '#FFF',
+                    backgroundColor: isMine
+                        ? '#DCF8C5'
+                        : isBot
+                            ? '#FFE0B2'
+                            : '#FFF',
                     margin: 4,
                     padding: 8,
                     borderRadius: 8,
+                    borderWidth: isBot ? 1 : 0,
+                    borderColor: isBot ? '#FF9800' : 'transparent',
                 }}
             >
-                <Text>{item.message}</Text>
+                <Text style={isBot ? { fontStyle: 'italic' } : {}}>{item.message}</Text>
                 <Text style={{ fontSize: 10, textAlign: 'right' }}>
                     {new Date(item.date).toLocaleTimeString()}
                 </Text>

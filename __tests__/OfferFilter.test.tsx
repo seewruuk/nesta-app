@@ -18,10 +18,6 @@ describe('Logika filtrowania ofert (inline)', () => {
     shortTermAllowed: '',
   };
 
-<<<<<<< HEAD
-
-=======
->>>>>>> d6eb9ed8ae4bdce73fbc792286e365e61578b73e
   function applyFilters(
     offersArr: Offer[],
     aptsArr: Apartment[],
@@ -38,10 +34,6 @@ describe('Logika filtrowania ofert (inline)', () => {
         return false;
       }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> d6eb9ed8ae4bdce73fbc792286e365e61578b73e
       if (filters.priceMin && o.rentPrice < +filters.priceMin) return false;
       if (filters.priceMax && o.rentPrice > +filters.priceMax) return false;
 

@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import {users} from "@/src/data/users";
 import {Offer} from "@/src/data/offers";
+import {translation} from "@/src/translation";
 
 const FAKE_TRANSACTIONS: Transaction[] = [
     {
@@ -45,6 +46,7 @@ const FAKE_TRANSACTIONS: Transaction[] = [
 ];
 
 export default function Dashboard() {
+    const { langId } = useStateContext();
     const router = useRouter();
     const {
         state: { currentUserId, offers },
@@ -76,13 +78,13 @@ export default function Dashboard() {
         <ScrollView className="flex-1 bg-white p-4 space-y-6">
             <View>
                 <Text className="text-xl font-bold mb-2">
-                    {currentUser?.role === 'Najemca' ? 'Twoje wynajmowane mieszkanie' : 'Twoje oferty'}
+                    {currentUser?.role === 'Najemca' ? translation[langId].dashboard.rentier.title : translation[langId].dashboard.landlord.title}
                 </Text>
                 {visibleOffers.length === 0 ? (
                     <Text className="text-gray-600">
                         {currentUser?.role === 'Najemca'
-                            ? 'Nie masz jeszcze przypisanego żadnego mieszkania.'
-                            : 'Nie masz jeszcze żadnych ofert.'}
+                            ? translation[langId].dashboard.rentier.noOffersMessage
+                            : translation[langId].dashboard.landlord.noOffersMessage}
                     </Text>
                 ) : (
                     visibleOffers.map(offer => (
@@ -93,12 +95,12 @@ export default function Dashboard() {
             </View>
 
             <View>
-                <Text className="text-xl font-bold mb-2">Transakcje</Text>
+                <Text className="text-xl font-bold mb-2">{translation[langId].dashboard.transactionsHeader}</Text>
                 <Transactions transactions={FAKE_TRANSACTIONS} maxElements={5} />
             </View>
 
             <View>
-                <Text className="text-xl font-bold mb-2">Wiadomości</Text>
+                <Text className="text-xl font-bold mb-2">{translation[langId].dashboard.messagesHeader}</Text>
                 <Messages messages={[]} maxElements={2} />
             </View>
         </ScrollView>

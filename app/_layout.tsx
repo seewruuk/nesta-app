@@ -1,10 +1,8 @@
-// app / _layout.tsx
-import "./globals.css"
-import {Stack} from "expo-router";
-import {StateProvider} from "@/src/contexts/StateContext";
+import { StateProvider } from "@/src/contexts/StateContext";
+import { Stack } from "expo-router";
+import "./globals.css";
 
 export default function RootLayout() {
-    // @ts-ignore
     return (
         <StateProvider>
             <Stack>

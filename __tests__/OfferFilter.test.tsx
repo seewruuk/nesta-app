@@ -1,5 +1,3 @@
-// __tests__/OfferFilter.test.tsx
-
 import type { Filters } from '../src/components/FilterPanel';
 import type { Apartment } from '../src/data/apartments';
 import { apartments } from '../src/data/apartments';
@@ -7,7 +5,6 @@ import type { Offer } from '../src/data/offers';
 import { offers } from '../src/data/offers';
 
 describe('Logika filtrowania ofert (inline)', () => {
-  // Domyślne, „puste” filtry
   const baseFilters: Filters = {
     city: '',
     priceMin: '',
@@ -21,7 +18,10 @@ describe('Logika filtrowania ofert (inline)', () => {
     shortTermAllowed: '',
   };
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> d6eb9ed8ae4bdce73fbc792286e365e61578b73e
   function applyFilters(
     offersArr: Offer[],
     aptsArr: Apartment[],
@@ -38,7 +38,10 @@ describe('Logika filtrowania ofert (inline)', () => {
         return false;
       }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> d6eb9ed8ae4bdce73fbc792286e365e61578b73e
       if (filters.priceMin && o.rentPrice < +filters.priceMin) return false;
       if (filters.priceMax && o.rentPrice > +filters.priceMax) return false;
 
@@ -82,12 +85,10 @@ describe('Logika filtrowania ofert (inline)', () => {
   });
 
   it('filtruje po przedziale cen min/max', () => {
-    // min
     let filters: Filters = { ...baseFilters, priceMin: '3000' };
     let result = applyFilters(offers, apartments, filters);
     result.forEach(o => expect(o.rentPrice).toBeGreaterThanOrEqual(3000));
 
-    // max
     filters = { ...baseFilters, priceMax: '2500' };
     result = applyFilters(offers, apartments, filters);
     result.forEach(o => expect(o.rentPrice).toBeLessThanOrEqual(2500));

@@ -1,7 +1,6 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react-native";
 import SingleOfferScreen from "@/src/components/SingleOfferScreen";
 import { useStateContext } from "@/src/contexts/StateContext";
+import { fireEvent, render, screen } from "@testing-library/react-native";
 
 jest.mock("@/src/contexts/StateContext");
 
@@ -12,7 +11,7 @@ const mockOffer = {
     title: "Piękne mieszkanie w centrum",
     description: "Duże, jasne mieszkanie idealne dla studentów.",
     apartmentId: "apartment123",
-    rentPrice: 2500,// MOCK kontekstu
+    rentPrice: 2500,
 
     deposit: 2500,
     extraFees: {
@@ -58,6 +57,15 @@ const mockAmenities = [
 ];
 
 describe("SingleOfferScreen", () => {
+    const setup = () =>
+        render(
+            <SingleOfferScreen id="offer123" />
+        );
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
     it("render single offer screen if the offer and apartment exist", () => {
         mockUseStateContext.mockReturnValue({
             state: {
@@ -67,7 +75,7 @@ describe("SingleOfferScreen", () => {
             }
         });
 
-        render(<SingleOfferScreen id="offer123" />);
+        setup();
 
         expect(screen.getByText("Piękne mieszkanie w centrum")).toBeTruthy();
         expect(screen.getByText("Wrocław, Stare Miasto")).toBeTruthy();
@@ -88,7 +96,7 @@ describe("SingleOfferScreen", () => {
             }
         });
 
-        render(<SingleOfferScreen id="offer123" />);
+        setup();
         expect(screen.getByText("Oferta nie znaleziona")).toBeTruthy();
     });
 
@@ -101,7 +109,7 @@ describe("SingleOfferScreen", () => {
             }
         });
 
-        render(<SingleOfferScreen id="offer123" />);
+        setup();
         expect(screen.getByText("Apartament nie znaleziony")).toBeTruthy();
     });
 
@@ -117,7 +125,7 @@ describe("SingleOfferScreen", () => {
             }
         });
 
-        const { getByText } = render(<SingleOfferScreen id="offer123" />);
+        const { getByText } = setup();
         const mapLink = getByText("Zobacz w Google Maps");
 
         fireEvent.press(mapLink);

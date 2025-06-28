@@ -1,6 +1,4 @@
-// src/components/FilterPanel.tsx
-
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import {
     Animated,
     Pressable,
@@ -17,9 +15,9 @@ export interface Filters {
     roomsMax: string;
     bedroomsMin: string;
     bedroomsMax: string;
-    furnished: string;          // 'Tak' | 'Nie' | 'Częściowo' | ''
-    petsAllowed: string;        // 'Tak' | 'Nie' | 'Do ustalenia' | ''
-    shortTermAllowed: string;   // 'Tak' | 'Nie' | ''
+    furnished: string;         
+    petsAllowed: string;       
+    shortTermAllowed: string;  
 }
 
 interface FilterPanelProps {

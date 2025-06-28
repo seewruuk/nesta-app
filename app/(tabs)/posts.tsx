@@ -1,19 +1,18 @@
-// app/(tabs)/posts.tsx
-import React, { useState, useMemo } from 'react';
-import {
-    View,
-    Text,
-    TextInput,
-    Pressable,
-    FlatList,
-    Switch,
-    KeyboardAvoidingView,
-    Platform,
-    SafeAreaView,
-} from 'react-native';
-import { useRouter } from 'expo-router';
 import { useStateContext } from '@/src/contexts/StateContext';
 import { Post } from '@/src/data/posts';
+import { useRouter } from 'expo-router';
+import { useMemo, useState } from 'react';
+import {
+    FlatList,
+    KeyboardAvoidingView,
+    Platform,
+    Pressable,
+    SafeAreaView,
+    Switch,
+    Text,
+    TextInput,
+    View,
+} from 'react-native';
 
 export default function PostsScreen() {
     const router = useRouter();
@@ -22,13 +21,11 @@ export default function PostsScreen() {
         addPost,
     } = useStateContext();
 
-    // Form state
     const [location, setLocation] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [isLinkedOffer, setIsLinkedOffer] = useState(false);
 
-    // Filter state
     const [searchLocation, setSearchLocation] = useState('');
     const [filterLinked, setFilterLinked] = useState<'all' | 'linked' | 'unlinked'>('all');
 

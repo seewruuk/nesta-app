@@ -1,13 +1,13 @@
-import React from 'react'
-import { View, Text } from 'react-native'
 import { Transaction } from '@/src/types/Transaction'
+import {Pressable, Text, View} from 'react-native'
+import { useStateContext } from '@/src/contexts/StateContext';
+import {users} from "@/src/data/users";
 
 interface TransactionsProps {
     transactions: Transaction[]
     maxElements?: number
 }
 
-// Mapowanie statusów na style Tailwind
 const STATUS_STYLES: Record<string, string> = {
     'Zaksięgowano': 'bg-green-100 text-green-800',
     'Oczekuje na płatność': 'bg-gray-200 text-gray-600',
@@ -15,6 +15,13 @@ const STATUS_STYLES: Record<string, string> = {
 }
 
 export default function Transactions({ transactions, maxElements = 5 }: TransactionsProps) {
+    const {
+        state: { currentUserId },
+    } = useStateContext();
+
+    const currentUser = users.find(u => u.id === currentUserId);
+    const role = currentUser!.role;
+
     const displayed = transactions.slice(0, maxElements)
 
     if (displayed.length === 0) {
@@ -26,44 +33,51 @@ export default function Transactions({ transactions, maxElements = 5 }: Transact
     }
 
     return (
-        <View className="bg-white rounded-lg overflow-hidden shadow">
-            {/* Nagłówki kolumn */}
-            <View className="flex-row bg-gray-50 px-4 py-3">
-                <Text className="flex-2 font-semibold">Opis</Text>
-                <Text className="flex-1 font-semibold">ID transakcji</Text>
-                <Text className="flex-1 font-semibold">Status</Text>
-                <Text className="flex-1 font-semibold">Data</Text>
-                <Text className="flex-1 font-semibold text-right">Kwota</Text>
+        <View className="bg-white rounded-xl overflow-hidden shadow-sm">
+
+            <View className="flex-row bg-gray-100 px-4 py-3 border-b border-gray-200">
+                <Text className="flex-[1.6] font-semibold text-sm">Opis</Text>
+                <Text className="flex-[1.2] font-semibold text-sm">ID</Text>
+                <Text className="flex-1 font-semibold text-sm">Status</Text>
+                <Text className="flex-1 font-semibold text-sm">Data</Text>
+                <Text className="flex-1 font-semibold text-sm text-right">Kwota</Text>
             </View>
 
-            {/* Wiersze */}
             {displayed.map((tx) => (
-                <View
-                    key={tx.id}
-                    className="flex-row items-center px-4 py-3 border-t border-gray-100"
-                >
-                    <Text className="flex-2">{tx.description}</Text>
-                    <Text className="flex-1">#{tx.id}</Text>
-                    <View className="flex-1">
-                        <Text
-                            className={`px-2 py-1 rounded-full text-xs ${
-                                STATUS_STYLES[tx.status] || ''
-                            }`}
-                        >
-                            {tx.status}
+                <View key={tx.id} className="px-4 py-3 border-b border-gray-100 bg-white">
+                    <View className="flex-row items-center">
+                        <Text className="flex-[1.6] text-sm">{tx.description}</Text>
+                        <Text className="flex-[1.2] text-sm text-gray-700">#{tx.id}</Text>
+                        <View className="flex-1">
+                            <Text
+                                className={`px-2 py-[2px] rounded-full text-xs text-center ${STATUS_STYLES[tx.status] || ''}`}
+                            >
+                                {tx.status}
+                            </Text>
+                        </View>
+                        <Text className="flex-1 text-sm">{formatDate(tx.date)}</Text>
+                        <Text className="flex-1 text-sm font-semibold text-right">
+                            {formatAmount(tx.amount, tx.currency)}
                         </Text>
                     </View>
-                    <Text className="flex-1">{formatDate(tx.date)}</Text>
-                    <Text className="flex-1 text-right font-semibold">
-                        {formatAmount(tx.amount, tx.currency)}
-                    </Text>
+
+                    {currentUser?.role === 'Najemca' && tx.status === 'Oczekuje na płatność' && (
+                        <View className="flex-row mt-2 justify-end">
+                            <Pressable
+                                onPress={() => console.log(`Płatność za ${tx.id}`)}
+                                className="bg-blue-600 px-3 py-1 rounded-full"
+                            >
+                                <Text className="text-white text-sm">Zapłać</Text>
+                            </Pressable>
+                        </View>
+                    )}
                 </View>
             ))}
         </View>
+
     )
 }
 
-// Pomocnicze funkcje do formatowania
 function formatDate(dateStr: string) {
     const date = new Date(dateStr)
     const months = [

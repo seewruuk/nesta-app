@@ -1,9 +1,6 @@
-// app / (tabs)/_layout.tsx
-
-import { Image, StyleSheet, View } from 'react-native';
-import React from 'react';
-import { Tabs } from 'expo-router';
 import { icons } from '@/src/constants/icons';
+import { Tabs } from 'expo-router';
+import { Image, StyleSheet, View } from 'react-native';
 
 const _Layout = () => (
     <Tabs

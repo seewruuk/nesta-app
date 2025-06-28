@@ -1,23 +1,19 @@
-import React from 'react';
-import { render } from '@testing-library/react-native';
 import Dashboard from '@/app/(tabs)/dashboard';
-import { useRouter } from 'expo-router';
 import { useStateContext } from '@/src/contexts/StateContext';
+import { render } from '@testing-library/react-native';
+import { useRouter } from 'expo-router';
 
 
-// Mock the router from 'expo-router'
 jest.mock('expo-router', () => ({
     useRouter: jest.fn(),
 }));
 
-// Mock the app's context
 jest.mock('@/src/contexts/StateContext', () => ({
     useStateContext: jest.fn(),
 }));
 
-// Mock child components to simplify the test
 jest.mock('@/src/components/OfferCard', () => {
-    const { Text } = require('react-native'); // ✅ lokalny import
+    const { Text } = require('react-native'); 
     const MockOfferCard = () => <Text>Mocked OfferCard</Text>;
     MockOfferCard.displayName = 'MockOfferCard';
     return MockOfferCard;
@@ -50,7 +46,6 @@ describe('Dashboard', () => {
     });
 
     it('redirects to /login if user is not logged in', () => {
-        // Should redirect to /login if the user is not logged in
 
         (useStateContext as jest.Mock).mockReturnValue({
             state: { currentUserId: null, offers: [] },
@@ -62,7 +57,6 @@ describe('Dashboard', () => {
     });
 
     it('renders dashboard content when user is logged in with no offers if user does not have any', () => {
-        // Should render the dashboard with no offers if user is logged in and does not have any offers
 
         (useStateContext as jest.Mock).mockReturnValue({
             state: { currentUserId: 'user123', offers: [] },
@@ -76,7 +70,6 @@ describe('Dashboard', () => {
     });
 
     it('renders user offers when present', () => {
-        // Should render only the offers belonging to the current user
 
         (useStateContext as jest.Mock).mockReturnValue({
             state: {

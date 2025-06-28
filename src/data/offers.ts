@@ -1,6 +1,8 @@
-// src/data/offers.ts
-
-import { apartments } from './apartments';
+export interface ReservedAppointment {
+    date: string;
+    time: string;
+    userId: string;
+}
 
 export interface Offer {
     id: string;
@@ -27,6 +29,8 @@ export interface Offer {
     heatingType: string;
     smokingAllowed: 'Tak' | 'Nie' | 'Do ustalenia';
     cellar: boolean;
+    reservedAppointments?: ReservedAppointment[];
+    tenantId?: string;
 }
 
 export const offers: Offer[] = [
@@ -52,6 +56,7 @@ export const offers: Offer[] = [
         heatingType: 'Gazowe',
         smokingAllowed: 'Nie',
         cellar: false,
+        tenantId: 'user2'
     },
     {
         id: 'offer2',

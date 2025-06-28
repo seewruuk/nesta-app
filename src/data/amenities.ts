@@ -1,5 +1,3 @@
-// src/data/amenities.ts
-
 export interface Amenity {
     id: string;
     name: string;

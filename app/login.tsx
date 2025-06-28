@@ -1,9 +1,7 @@
-// app/login.tsx
-
-import React, { useState } from 'react';
-import { View, Text, TextInput, Pressable, Alert } from 'react-native';
-import { useRouter } from 'expo-router';
 import { useStateContext } from '@/src/contexts/StateContext';
+import { useRouter } from 'expo-router';
+import { useState } from 'react';
+import { Alert, Pressable, Text, TextInput, View } from 'react-native';
 
 export default function Login() {
     const { login } = useStateContext();

@@ -1,24 +1,21 @@
-// src/screens/UserDetails.tsx
-
 import SmallOfferTile from '@/src/components/SmallOfferTile';
 import { useStateContext } from '@/src/contexts/StateContext';
 import { Review } from '@/src/data/reviews';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
-    FlatList,
-    Image,
-    Modal,
-    Pressable,
-    ScrollView,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  FlatList,
+  Image,
+  Modal,
+  Pressable,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 
 export default function UserDetails() {
-  // stan modalu i formularza
   const [modalVisible, setModalVisible] = useState(false);
   const [text, setText]           = useState('');
   const [rating, setRating]       = useState(5);
@@ -30,7 +27,6 @@ export default function UserDetails() {
     addReview,
   } = useStateContext();
 
-  // znajdź użytkownika
   const user = users.find(u => u.slug === slug);
   if (!user) {
     return (
@@ -40,20 +36,16 @@ export default function UserDetails() {
     );
   }
 
-  // oferty tego użytkownika
   const userOffers = offers.filter(o => o.authorId === user.id);
 
-  // recenzje tego użytkownika z globalnej tablicy
   const userReviews = reviews.filter(
     r => r.targetType === 'user' && r.targetId === user.id
   );
 
-  // czy obecny zalogowany już dodał recenzję?
   const hasReviewed =
     currentUserId != null &&
     userReviews.some(r => r.authorId === currentUserId);
 
-  // funkcja wywoływana w modalu
   const submitReview = () => {
     if (!currentUserId || !text.trim()) return;
     const newReview: Review = {
@@ -85,7 +77,7 @@ export default function UserDetails() {
           <View className="w-full h-48 bg-gray-200" />
         )}
 
-        {/* Profil */}
+        {/* Profile */}
         <View className="px-4 pt-4 items-center">
           {user.avatar ? (
             <Image
@@ -101,13 +93,13 @@ export default function UserDetails() {
             <Text className="font-semibold mr-2">
               Ocena: {user.rating.toFixed(1)} / 5.0
             </Text>
-            <Pressable onPress={() => {/* pokaż wszystkie recenzje */}}>
+            <Pressable onPress={() => {/* show all reviews */}}>
               <Text className="text-blue-500">Zobacz</Text>
             </Pressable>
           </View>
         </View>
 
-        {/* Oferty */}
+        {/* Offers */}
         <View className="px-4 mt-6">
           <Text className="text-xl font-bold mb-3">Aktualne oferty</Text>
           {userOffers.length === 0 ? (
@@ -127,7 +119,7 @@ export default function UserDetails() {
           )}
         </View>
 
-        {/* Opinie */}
+        {/* Opinions */}
         <View className="px-4 mt-6 mb-8">
           <Text className="text-xl font-bold mb-3">Opinie</Text>
           {userReviews.map(rev => (
@@ -150,7 +142,7 @@ export default function UserDetails() {
         </View>
       </ScrollView>
 
-      {/* Modal dodawania opinii */}
+      {/* Modal of adding opinion */}
       <Modal
         visible={modalVisible}
         transparent

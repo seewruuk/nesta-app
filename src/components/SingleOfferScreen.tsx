@@ -1,46 +1,64 @@
-// src/screens/SingleOfferScreen.tsx
-
-import React from "react";
-import {
-    View,
-    Text,
-    Image,
-    ScrollView,
-    Pressable,
-    Linking
-} from "react-native";
-import Layout from "../components/Layout";
+import AppointmentTimePicker from "@/src/components/AppointmentTimePicker";
 import Paragraph from "@/src/components/Paragraph";
 import { useStateContext } from "@/src/contexts/StateContext";
-import AppointmentTimePicker from "@/src/components/AppointmentTimePicker";
+import {
+    Image,
+    Linking,
+    Pressable,
+    ScrollView,
+    Text,
+    View
+} from "react-native";
+import Layout from "../components/Layout";
+import {ReservedAppointment} from "@/src/data/offers";
 
 interface SingleOfferScreenProps {
     id: string;
 }
 
 export default function SingleOfferScreen({ id }: SingleOfferScreenProps) {
+    // Destructures necessary data and functions from global context
     const {
-        state: { offers, apartments, amenities }
+        state: { offers, apartments, amenities, currentUserId  },
+        addOfferReservation
     } = useStateContext();
 
     const offer = offers.find(o => o.id === id);
-    if (!offer) {
+    const apartment = offer
+        ? apartments.find(a => a.id === offer.apartmentId)
+        : null;
+
+    if (!offer || !apartment) {
         return (
             <View className="flex-1 justify-center items-center">
-                <Text>Oferta nie znaleziona</Text>
+                <Text>
+                    {!offer ? "Oferta nie znaleziona" : "Apartament nie znaleziony"}
+                </Text>
             </View>
         );
     }
 
-    const apartment = apartments.find(a => a.id === offer.apartmentId);
-    if (!apartment) {
-        return (
-            <View className="flex-1 justify-center items-center">
-                <Text>Apartament nie znaleziony</Text>
-            </View>
-        );
-    }
+    const reservedAppointments: ReservedAppointment[] = offer.reservedAppointments ?? [];
 
+    /**
+     * Handles reservation confirmation.
+     * Prevents reservation if user is not logged in.
+     * Creates a new reservation object including the user's ID,
+     * and passes it to the context method to update the global state.
+     *
+     * @param date - Selected reservation date in 'YYYY-MM-DD' format
+     * @param time - Selected reservation time (e.g., "14:00")
+     */
+    const handleConfirmReservation = (date: string, time: string) => {
+        if (!currentUserId) return;
+
+        const newReservation: ReservedAppointment = { date, time, userId: currentUserId };
+        addOfferReservation(offer.id, newReservation);
+    };
+
+    /**
+     * Opens the Google Maps link for the apartment's location using deep linking.
+     */
     const openMap = () => {
         Linking.openURL(apartment.googleMapsLink);
     };
@@ -56,16 +74,23 @@ export default function SingleOfferScreen({ id }: SingleOfferScreenProps) {
                     />
                 )}
 
-                {/* Tytuł oferty i lokalizacja */}
                 <Text className="text-2xl font-bold mb-1">{offer.title}</Text>
                 <Text className="text-gray-600 mb-4">
                     {apartment.location.city}, {apartment.location.district}
                 </Text>
 
-                {/* Rezerwacja oględzin */}
-                <AppointmentTimePicker />
+                {currentUserId ? (
+                    <AppointmentTimePicker
+                        testID="appointment-time-picker"
+                        onConfirmReservation={handleConfirmReservation}
+                        reservedAppointments={reservedAppointments}
+                    />
+                ) : (
+                    <Text className="text-gray-500 italic mb-1">
+                        Zaloguj się, aby zarezerwować termin oględzin.
+                    </Text>
+                )}
 
-                {/* Szczegóły oferty */}
                 <View className="mb-6">
                     <Text className="text-xl font-semibold mb-2">Szczegóły oferty</Text>
                     <Paragraph text={offer.description} />
@@ -97,7 +122,6 @@ export default function SingleOfferScreen({ id }: SingleOfferScreenProps) {
                     <Text>Piwnica: {offer.cellar ? "Tak" : "Nie"}</Text>
                 </View>
 
-                {/* Szczegóły apartamentu */}
                 <View className="mb-6">
                     <Text className="text-xl font-semibold mb-2">
                         Szczegóły apartamentu

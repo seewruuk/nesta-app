@@ -1,17 +1,13 @@
-// src/data/posts.ts
-
-// Typ ogłoszenia o poszukiwaniu współlokatora
 export interface Post {
     id: string;
-    location: string;        // np. "Warszawa", "Gdynia"
-    title: string;           // nagłówek
-    description: string;     // dłuższy opis ogłoszenia
-    isOfferLinked: boolean;  // czy post jest powiązany z ofertą
-    offerId?: string;        // id oferty (jeśli isOfferLinked = true)
-    authorId: string;        // id użytkownika, który wystawia wpis
+    location: string;      
+    title: string;        
+    description: string;    
+    isOfferLinked: boolean;  
+    offerId?: string;        
+    authorId: string;       
 }
 
-// Przykładowe dane postów
 export const posts: Post[] = [
     {
         id: 'post1',

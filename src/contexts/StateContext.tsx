@@ -18,9 +18,11 @@ export interface State {
     currentUserId: string | null;
     reviews: Review[];
     messages: Message[];
+    langId: string;
 }
 
 const initialState: State = {amenities, apartments, offers, users, posts, reviews, currentUserId: null,
+    langId: 'pl',
     messages: []};
 
 type Action =
@@ -97,7 +99,7 @@ function reducer(state: State, action: Action): State {
             return { ...state, currentUserId: action.payload.id };
         case 'LOGOUT':
             return { ...state, currentUserId: null };
-            case 'ADD_REVIEW': 
+        case 'ADD_REVIEW':
         { const newReviews = [...state.reviews, action.payload];
             const byTarget = newReviews.filter(
                 r => r.targetType === action.payload.targetType && r.targetId === action.payload.targetId
@@ -108,16 +110,16 @@ function reducer(state: State, action: Action): State {
             let apartments = state.apartments;
             if (action.payload.targetType === 'user') {
                 users = users.map(u =>
-                u.id === action.payload.targetId ? { ...u, rating: avg } : u
+                    u.id === action.payload.targetId ? { ...u, rating: avg } : u
                 );
             } else {
                 apartments = apartments.map(a =>
-                a.id === action.payload.targetId ? { ...a, rating: avg } : a
+                    a.id === action.payload.targetId ? { ...a, rating: avg } : a
                 );
             }
 
-                return { ...state, reviews: newReviews, users, apartments };
-            }
+            return { ...state, reviews: newReviews, users, apartments };
+        }
         case 'ADD_OFFER_RESERVATION':
             return {
                 ...state,
@@ -134,10 +136,10 @@ function reducer(state: State, action: Action): State {
 
 
         case 'DELETE_REVIEW':
-      return {
-        ...state,
-        reviews: state.reviews.filter(r => r.id !== action.payload.id)
-      };
+            return {
+                ...state,
+                reviews: state.reviews.filter(r => r.id !== action.payload.id)
+            };
         case 'ADD_MESSAGE':
             return { ...state, messages: [...state.messages, action.payload] };
         case 'DELETE_MESSAGE':
@@ -198,6 +200,8 @@ interface ContextProps {
     deleteMessage: (id: string) => void;
     markAsRead: (id: string) => void;
     updateMessageStatus: (id: string, status: Message['status']) => void;
+
+    langId: string;
 }
 
 const StateContext = createContext<ContextProps | undefined>(undefined);
@@ -232,6 +236,8 @@ export const StateProvider = ({children}: { children: ReactNode }) => {
     const markAsRead = (id: string) => dispatch({ type: 'MARK_AS_READ', payload: { id } });
     const updateMessageStatus = (id: string, status: Message['status']) =>
         dispatch({ type: 'UPDATE_MESSAGE_STATUS', payload: { id, status } });
+
+    const langId = state.langId;
 
 
     const login = (email: string, password: string) => {
@@ -283,6 +289,7 @@ export const StateProvider = ({children}: { children: ReactNode }) => {
         return { success: true };
     };
 
+
     const addOfferReservation = (offerId: string, reservation: ReservedAppointment) =>
         dispatch({ type: 'ADD_OFFER_RESERVATION', payload: { offerId, reservation } });
 
@@ -297,6 +304,8 @@ export const StateProvider = ({children}: { children: ReactNode }) => {
             login, logout, register, addReview, deleteReview,
             addOfferReservation, addMessage, deleteMessage,
             markAsRead, updateMessageStatus,
+            langId
+
         }}>
             {children}
         </StateContext.Provider>

@@ -5,10 +5,14 @@ import { Animated, Dimensions, ImageBackground, Pressable, Text, TextInput, View
 import Button from './Button'
 import Header from "./Header"
 import Paragraph from './Paragraph'
+import {translation} from "@/src/translation";
+import {useStateContext} from "@/src/contexts/StateContext";
 
 const windowWidth = Dimensions.get('window').width
 
 export const WelcomeModal: React.FC = () => {
+    const { langId } = useStateContext();
+
     const router = useRouter()
     const [city, setCity] = useState('')
     const [minPrice, setMinPrice] = useState('')
@@ -82,7 +86,7 @@ export const WelcomeModal: React.FC = () => {
                     <Header text={"Witaj ponownie!"} className={"py-4 text-3xl"} />
                     <Paragraph
                         className={""}
-                        text={"U nas wymarzone nieruchomości znajdują właścicieli swoich marzeń!"} />
+                        text={translation[langId].home.title} />
                 </View>
 
                 <View className="flex flex-col">

@@ -23,7 +23,7 @@ export interface State {
 const initialState: State = {amenities, apartments, offers, users, posts, reviews, currentUserId: null,
     messages: []};
 
-type Action =
+export type Action =
     | { type: 'ADD_APARTMENT'; payload: Apartment }
     | { type: 'UPDATE_APARTMENT'; payload: Apartment }
     | { type: 'DELETE_APARTMENT'; payload: { id: string } }
@@ -48,7 +48,7 @@ type Action =
     | { type: 'UPDATE_MESSAGE_STATUS'; payload: { id: string; status: Message['status'] } };
 
 
-function reducer(state: State, action: Action): State {
+export function reducer(state: State, action: Action): State {
     switch (action.type) {
         case 'ADD_APARTMENT':
             return {...state, apartments: [...state.apartments, action.payload]};

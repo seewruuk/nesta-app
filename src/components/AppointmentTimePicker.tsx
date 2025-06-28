@@ -4,6 +4,8 @@ import {Pressable, ScrollView, View, Text, Platform} from "react-native";
 import dayjs from "dayjs";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Modal from 'react-native-modal';
+import {translation} from "@/src/translation";
+import {useStateContext} from "@/src/contexts/StateContext";
 
 
 const HOURS = Array.from({ length: 11 }, (_, i) => `${8 + i}:00`);
@@ -23,6 +25,8 @@ export default function AppointmentTimePicker({
     const [selectedTime, setSelectedTime] = useState<string | null>(null);
     const [showConfirm, setShowConfirm] = useState(false);
     const [showDatePicker, setShowDatePicker] = useState(false);
+
+    const { langId } = useStateContext();
 
 
     /**
@@ -150,7 +154,7 @@ export default function AppointmentTimePicker({
             >
                 <View className="bg-white p-6 rounded-lg items-center">
                     <Text className="text-base mb-4 text-center">
-                        Czy na pewno chcesz zarezerwować{" "}
+                        {translation[langId].appointmentTimePicker.confirmText}{" "}
                         <Text className="font-semibold">
                             {selectedDate.format('DD.MM.YYYY')} o {selectedTime}?
                         </Text>
@@ -158,10 +162,10 @@ export default function AppointmentTimePicker({
 
                     <View className="flex-row gap-6">
                         <Pressable testID={"cancel-reservation"} onPress={() => setShowConfirm(false)}>
-                            <Text className="text-red-500 font-medium">Anuluj</Text>
+                            <Text className="text-red-500 font-medium">{translation[langId].appointmentTimePicker.cancelButtonText}</Text>
                         </Pressable>
                         <Pressable onPress={handleConfirm}>
-                            <Text className="text-blue-600 font-semibold">Potwierdź</Text>
+                            <Text className="text-blue-600 font-semibold">{translation[langId].appointmentTimePicker.confirmButtonText}</Text>
                         </Pressable>
                     </View>
                 </View>

@@ -5,6 +5,8 @@ import {Offer, offers, ReservedAppointment} from '../data/offers';
 import { Post, posts } from '../data/posts';
 import { Review, reviews } from '../data/reviews';
 import { User, users } from '../data/users';
+import { Message } from '@/src/types/Message';
+
 
 
 export interface State {
@@ -15,9 +17,11 @@ export interface State {
     posts: Post[];
     currentUserId: string | null;
     reviews: Review[];
+    messages: Message[];
 }
 
-export const initialState: State = {amenities, apartments, offers, users, posts, reviews, currentUserId: null};
+const initialState: State = {amenities, apartments, offers, users, posts, reviews, currentUserId: null,
+    messages: []};
 
 export type Action =
     | { type: 'ADD_APARTMENT'; payload: Apartment }
@@ -37,7 +41,11 @@ export type Action =
     | { type: 'ADD_AMENITY'; payload: Amenity }
     | { type: 'ADD_REVIEW';    payload: Review }
     | { type: 'DELETE_REVIEW'; payload: { id: string } }
-    | { type: 'ADD_OFFER_RESERVATION'; payload: { offerId: string; reservation: ReservedAppointment } };
+    | { type: 'ADD_OFFER_RESERVATION'; payload: { offerId: string; reservation: ReservedAppointment } }
+    | { type: 'ADD_MESSAGE'; payload: Message }
+    | { type: 'DELETE_MESSAGE'; payload: { id: string } }
+    | { type: 'MARK_AS_READ'; payload: { id: string } }
+    | { type: 'UPDATE_MESSAGE_STATUS'; payload: { id: string; status: Message['status'] } };
 
 
 export function reducer(state: State, action: Action): State {
@@ -129,7 +137,25 @@ export function reducer(state: State, action: Action): State {
       return {
         ...state,
         reviews: state.reviews.filter(r => r.id !== action.payload.id)
-      };    
+      };
+        case 'ADD_MESSAGE':
+            return { ...state, messages: [...state.messages, action.payload] };
+        case 'DELETE_MESSAGE':
+            return { ...state, messages: state.messages.filter(m => m.id !== action.payload.id) };
+        case 'MARK_AS_READ':
+            return {
+                ...state,
+                messages: state.messages.map(m =>
+                    m.id === action.payload.id ? { ...m, isRead: true, status: 'read' } : m
+                ),
+            };
+        case 'UPDATE_MESSAGE_STATUS':
+            return {
+                ...state,
+                messages: state.messages.map(m =>
+                    m.id === action.payload.id ? { ...m, status: action.payload.status } : m
+                ),
+            };
         default:
             return state;
     }
@@ -167,6 +193,11 @@ interface ContextProps {
         confirmPassword: string
     ) => { success: boolean; error?: string };
     addOfferReservation: (offerId: string, reservation: ReservedAppointment) => void;
+
+    addMessage: (message: Message) => void;
+    deleteMessage: (id: string) => void;
+    markAsRead: (id: string) => void;
+    updateMessageStatus: (id: string, status: Message['status']) => void;
 }
 
 const StateContext = createContext<ContextProps | undefined>(undefined);
@@ -195,6 +226,12 @@ export const StateProvider = ({children}: { children: ReactNode }) => {
 
     const addReview    = (payload: Review) => dispatch({ type: 'ADD_REVIEW',    payload });
     const deleteReview = (id: string)      => dispatch({ type: 'DELETE_REVIEW', payload: { id } });
+
+    const addMessage = (payload: Message) => dispatch({ type: 'ADD_MESSAGE', payload });
+    const deleteMessage = (id: string) => dispatch({ type: 'DELETE_MESSAGE', payload: { id } });
+    const markAsRead = (id: string) => dispatch({ type: 'MARK_AS_READ', payload: { id } });
+    const updateMessageStatus = (id: string, status: Message['status']) =>
+        dispatch({ type: 'UPDATE_MESSAGE_STATUS', payload: { id, status } });
 
 
     const login = (email: string, password: string) => {
@@ -258,7 +295,8 @@ export const StateProvider = ({children}: { children: ReactNode }) => {
             addUser, updateUser, deleteUser , addAmenity,
             addPost, updatePost, deletePost,
             login, logout, register, addReview, deleteReview,
-            addOfferReservation
+            addOfferReservation, addMessage, deleteMessage,
+            markAsRead, updateMessageStatus,
         }}>
             {children}
         </StateContext.Provider>

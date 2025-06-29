@@ -1,4 +1,4 @@
-import { Transaction } from '@/src/types/Transaction'
+import { Transaction } from '@/src/data/transactions'
 import {Pressable, Text, View} from 'react-native'
 import { useStateContext } from '@/src/contexts/StateContext';
 import {users} from "@/src/data/users";

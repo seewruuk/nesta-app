@@ -2,7 +2,7 @@ import Messages from '@/src/components/Messages';
 import OfferCard from '@/src/components/OfferCard';
 import Transactions from '@/src/components/Transactions';
 import { useStateContext } from '@/src/contexts/StateContext';
-import { Transaction } from '@/src/types/Transaction';
+import { Transaction } from '@/src/data/transactions';
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { ScrollView, Text, View } from 'react-native';
@@ -32,6 +32,7 @@ export default function Dashboard() {
     const role = currentUser?.role;
 
     let visibleOffers: Offer[] = [];
+    let visibleTransactions: Transaction[] = [];
 
     if (role === 'Wynajmujący') {
         visibleOffers = offers.filter(o => o.authorId === currentUserId);
@@ -40,7 +41,9 @@ export default function Dashboard() {
         if (rented) visibleOffers = [rented];
     }
 
-    // test
+    visibleTransactions = transactions.filter(t => t.tenantId === currentUserId);
+
+
     return (
         <ScrollView className="flex-1 bg-white pt-[60px] px-4 space-y-6">
             <View>
@@ -61,16 +64,26 @@ export default function Dashboard() {
             </View>
 
             <View>
-                <Text className="text-xl font-bold mb-2">
-                    {translation[langId].dashboard.transactionsHeader}
-                </Text>
-                <Transactions
-                    transactions={transactions}
-                    maxElements={5}
-                    onPressItem={tx =>
-                        router.push({ pathname: '/transactions/[id]', params: { id: tx.id } })
-                    }
-                />
+                {currentUser?.role === 'Najemca' && (
+                    <View>
+                        <Text className="text-xl font-bold mb-2">
+                            {translation[langId].dashboard.transactionsHeader}
+                        </Text>
+                        {visibleTransactions.length === 0 ? (
+                            <Text className="text-gray-600">
+                                {translation[langId].dashboard.transactionsNotFound}
+                            </Text>
+                        ) : (
+                            <Transactions
+                                transactions={visibleTransactions}
+                                maxElements={5}
+                                onPressItem={tx =>
+                                    router.push({ pathname: '/transactions/[id]', params: { id: tx.id } })
+                                }
+                            />
+                        )}
+                    </View>
+                )}
             </View>
 
             <View>

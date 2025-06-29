@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TextInput, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useStateContext } from '@/src/contexts/StateContext';
-import { Message as MsgType } from '@/src/types/Message';
+import { Message as MsgType } from '@/src/data/messages';
 
 export default function ChatScreen() {
     const router = useRouter();

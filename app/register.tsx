@@ -2,8 +2,10 @@ import { useStateContext } from '@/src/contexts/StateContext';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Alert, Pressable, Text, TextInput, View } from 'react-native';
+import { translation } from '@/src/translation';
 
 export default function Register() {
+    const { langId } = useStateContext();
     const { register } = useStateContext();
     const router = useRouter();
 
@@ -57,13 +59,13 @@ export default function Register() {
                 className="bg-green-500 rounded px-4 py-3 items-center"
                 onPress={handleRegister}
             >
-                <Text className="text-white font-semibold">Zarejestruj się</Text>
+                <Text className="text-white font-semibold">{translation[langId].register.register}</Text>
             </Pressable>
             <Pressable
                 className="mt-4 items-center"
                 onPress={() => router.push('/login')}
             >
-                <Text className="text-blue-500">Masz już konto? Zaloguj się</Text>
+                <Text className="text-blue-500">{translation[langId].register.haveAccount}</Text>
             </Pressable>
         </View>
     );

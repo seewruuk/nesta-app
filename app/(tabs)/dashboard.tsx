@@ -10,46 +10,12 @@ import {users} from "@/src/data/users";
 import {Offer} from "@/src/data/offers";
 import {translation} from "@/src/translation";
 
-const FAKE_TRANSACTIONS: Transaction[] = [
-    {
-        id: '12548796',
-        description: 'Czynsz za styczeń',
-        date: '2025-01-23T10:15:00Z',
-        amount: 3500,
-        currency: 'PLN',
-        status: 'Zaksięgowano',
-    },
-    {
-        id: '12548797',
-        description: 'Rachunek za prąd',
-        date: '2025-02-10T08:30:00Z',
-        amount: 250,
-        currency: 'PLN',
-        status: 'Oczekuje na płatność',
-    },
-    {
-        id: '12548798',
-        description: 'Naprawa drzwi balkonowych',
-        date: '2025-02-05T14:45:00Z',
-        amount: 400,
-        currency: 'PLN',
-        status: 'Zaksięgowano',
-    },
-    {
-        id: '12548799',
-        description: 'Rachunek za internet',
-        date: '2025-02-05T16:00:00Z',
-        amount: 100,
-        currency: 'PLN',
-        status: 'W trakcie',
-    },
-];
 
 export default function Dashboard() {
-    const { langId } = useStateContext();
     const router = useRouter();
     const {
-        state: { currentUserId, offers },
+        state: { currentUserId, offers, transactions },
+        langId
     } = useStateContext();
 
     useEffect(() => {
@@ -74,8 +40,9 @@ export default function Dashboard() {
         if (rented) visibleOffers = [rented];
     }
 
+    // test
     return (
-        <ScrollView className="flex-1 bg-white p-4 space-y-6">
+        <ScrollView className="flex-1 bg-white pt-[60px] px-4 space-y-6">
             <View>
                 <Text className="text-xl font-bold mb-2">
                     {currentUser?.role === 'Najemca' ? translation[langId].dashboard.rentier.title : translation[langId].dashboard.landlord.title}
@@ -91,17 +58,28 @@ export default function Dashboard() {
                         <OfferCard key={offer.id} offer={offer} />
                     ))
                 )}
-
             </View>
 
             <View>
-                <Text className="text-xl font-bold mb-2">{translation[langId].dashboard.transactionsHeader}</Text>
-                <Transactions transactions={FAKE_TRANSACTIONS} maxElements={5} />
+                <Text className="text-xl font-bold mb-2">
+                    {translation[langId].dashboard.transactionsHeader}
+                </Text>
+                <Transactions
+                    transactions={transactions}
+                    maxElements={5}
+                    onPressItem={tx =>
+                        router.push({ pathname: '/transactions/[id]', params: { id: tx.id } })
+                    }
+                />
             </View>
 
             <View>
                 <Text className="text-xl font-bold mb-2">{translation[langId].dashboard.messagesHeader}</Text>
                 <Messages messages={[]} maxElements={2} />
+            </View>
+
+            <View className={"h-[250px]"}>
+
             </View>
         </ScrollView>
     );

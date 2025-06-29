@@ -2,25 +2,28 @@ import { Transaction } from '@/src/types/Transaction'
 import {Pressable, Text, View} from 'react-native'
 import { useStateContext } from '@/src/contexts/StateContext';
 import {users} from "@/src/data/users";
+import {CreatePayment} from "@/src/services/CreatePayment";
 
 interface TransactionsProps {
     transactions: Transaction[]
-    maxElements?: number
+    maxElements?: number,
+    onPressItem?: (transaction: Transaction) => void
 }
 
 const STATUS_STYLES: Record<string, string> = {
-    'Zaksięgowano': 'bg-green-100 text-green-800',
-    'Oczekuje na płatność': 'bg-gray-200 text-gray-600',
-    'W trakcie': 'bg-yellow-100 text-yellow-800',
+    'paid': 'bg-green-100 text-green-800',
+    'new': 'bg-gray-200 text-gray-600',
+    'cancelled': 'bg-yellow-100 text-yellow-800',
 }
 
-export default function Transactions({ transactions, maxElements = 5 }: TransactionsProps) {
+export default function Transactions({
+                                         transactions,
+                                         maxElements = 5,
+                                         onPressItem,
+                                     }: TransactionsProps) {
     const {
         state: { currentUserId },
-    } = useStateContext();
-
-    const currentUser = users.find(u => u.id === currentUserId);
-    const role = currentUser!.role;
+    } = useStateContext()
 
     const displayed = transactions.slice(0, maxElements)
 
@@ -43,35 +46,28 @@ export default function Transactions({ transactions, maxElements = 5 }: Transact
                 <Text className="flex-1 font-semibold text-sm text-right">Kwota</Text>
             </View>
 
-            {displayed.map((tx) => (
-                <View key={tx.id} className="px-4 py-3 border-b border-gray-100 bg-white">
-                    <View className="flex-row items-center">
-                        <Text className="flex-[1.6] text-sm">{tx.description}</Text>
-                        <Text className="flex-[1.2] text-sm text-gray-700">#{tx.id}</Text>
-                        <View className="flex-1">
-                            <Text
-                                className={`px-2 py-[2px] rounded-full text-xs text-center ${STATUS_STYLES[tx.status] || ''}`}
-                            >
-                                {tx.status}
+            {displayed.map(tx => (
+                <Pressable key={tx.id} onPress={() => onPressItem?.(tx)}>
+                    <View className="px-4 py-3 border-b border-gray-100 bg-white">
+                        <View className="flex-row items-center">
+                            <Text className="flex-[1.6] text-sm">{tx.description}</Text>
+                            <Text className="flex-[1.2] text-sm text-gray-700">#{tx.id}</Text>
+                            <View className="flex-1">
+                                <Text
+                                    className={`px-2 py-[2px] rounded-full text-xs text-center ${
+                                        STATUS_STYLES[tx.status]
+                                    }`}
+                                >
+                                    {tx.status}
+                                </Text>
+                            </View>
+                            <Text className="flex-1 text-sm">{formatDate(tx.dateIssued)}</Text>
+                            <Text className="flex-1 text-sm font-semibold text-right">
+                                {formatAmount(tx.amount, tx.currency)}
                             </Text>
                         </View>
-                        <Text className="flex-1 text-sm">{formatDate(tx.date)}</Text>
-                        <Text className="flex-1 text-sm font-semibold text-right">
-                            {formatAmount(tx.amount, tx.currency)}
-                        </Text>
                     </View>
-
-                    {currentUser?.role === 'Najemca' && tx.status === 'Oczekuje na płatność' && (
-                        <View className="flex-row mt-2 justify-end">
-                            <Pressable
-                                onPress={() => console.log(`Płatność za ${tx.id}`)}
-                                className="bg-blue-600 px-3 py-1 rounded-full"
-                            >
-                                <Text className="text-white text-sm">Zapłać</Text>
-                            </Pressable>
-                        </View>
-                    )}
-                </View>
+                </Pressable>
             ))}
         </View>
 

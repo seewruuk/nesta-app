@@ -1,14 +1,10 @@
+// src/types/Transaction.ts
 export interface Transaction {
-    /** Unikalny identyfikator transakcji */
-    id: string
-    /** Opis transakcji */
-    description: string
-    /** Data transakcji w formacie ISO (np. "2025-05-29T14:30:00Z") */
-    date: string
-    /** Kwota transakcji */
-    amount: number
-    /** Waluta (np. "PLN", "USD") */
-    currency: string
-    /** Status transakcji */
-    status: 'Zaksięgowano' | 'Oczekuje na płatność' | 'W trakcie' | string
+    id: string;
+    description: string;
+    dateIssued: string;
+    dueDate: string;
+    amount: number;
+    currency: string;
+    status: 'new' | 'paid' | 'cancelled';
 }

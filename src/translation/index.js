@@ -1,9 +1,9 @@
+// src/translation.js
 export const translation = {
-    pl : {
+    pl: {
         home: {
             title: "Polski Tytuł",
         },
-<<<<<<< HEAD
         dashboard: {
             landlord: {
                 title: "Twoje oferty",
@@ -16,12 +16,20 @@ export const translation = {
             transactionsHeader: "Transakcje",
             messagesHeader: "Wiadomości"
         },
+        transactions: {
+            detailsHeader: "Szczegóły płatności",
+            dateIssued: "Data wystawienia",
+            dueDate: "Termin płatności",
+            amount: "Kwota",
+            description: "Opis",
+            payButton: "Zapłać",
+            cancelButton: "Anuluj płatność",
+            notFound: "Nie znaleziono transakcji",
         appointmentTimePicker: {
             confirmText: "Czy na pewno chcesz zarezerwować",
             cancelButtonText: "Anuluj",
             confirmButtonText: "Potwierdź"
-        }
-=======
+        },
         user: {
             notfound: "Użytkownik nie znaleziony",
             notActive: "Brak aktywnych ofert.",
@@ -76,7 +84,6 @@ export const translation = {
             address:          "Adres",
             viewOnMaps:       "Zobacz w Google Maps",
             amenities:        "Udogodnienia",
->>>>>>> a8fc7e0 (updated dictionary)
     },
 
     },
@@ -86,6 +93,27 @@ export const translation = {
         home: {
             title: "English Title",
         },
+        dashboard: {
+            landlord: {
+                title: "Your Offers",
+                noOffersMessage: "You don’t have any offers yet."
+            },
+            rentier: {
+                title: "Your Rental",
+                noOffersMessage: "You don’t have a rental assigned yet."
+            },
+            transactionsHeader: "Transactions",
+            messagesHeader: "Messages"
+        },
+        transactions: {
+            detailsHeader: "Transaction Details",
+            dateIssued: "Date Issued",
+            dueDate: "Due Date",
+            amount: "Amount",
+            description: "Description",
+            payButton: "Pay",
+            cancelButton: "Cancel Payment",
+            notFound: "Transaction not found",
         user: {
             notfound: "User not found",
             notActivee: "No active offers",
@@ -97,4 +125,4 @@ export const translation = {
 
         }
     }
-}
+};

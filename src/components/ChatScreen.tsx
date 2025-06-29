@@ -3,11 +3,13 @@ import { View, Text, FlatList, TextInput, TouchableOpacity } from 'react-native'
 import { useRouter } from 'expo-router';
 import { useStateContext } from '@/src/contexts/StateContext';
 import { Message as MsgType } from '@/src/data/messages';
+import {translation} from "@/src/translation";
+
 
 export default function ChatScreen() {
     const router = useRouter();
     const {
-        state: { currentUserId, messages },
+        state: { currentUserId, messages, langId },
         addMessage,
         deleteMessage,
         markAsRead,
@@ -41,7 +43,7 @@ export default function ChatScreen() {
         const newMsg: MsgType = {
             id: `msg${Date.now()}`,
             senderId: currentUserId,
-            receiverId: '', // unused in static view
+            receiverId: '',
             message: text.trim(),
             date: new Date().toISOString(),
             isRead: false,
@@ -55,7 +57,7 @@ export default function ChatScreen() {
                 id: `bot${Date.now()}`,
                 senderId: 'bot',
                 receiverId: '',
-                message: 'tak',
+                message: translation[langId].chat.replyMessage,
                 date: new Date().toISOString(),
                 isRead: true,
                 status: 'read',
@@ -88,7 +90,7 @@ export default function ChatScreen() {
                     {new Date(item.date).toLocaleTimeString()}
                 </Text>
                 <TouchableOpacity onPress={() => deleteMessage(item.id)}>
-                    <Text style={{ fontSize: 10, color: 'red' }}>Usuń</Text>
+                    <Text style={{ fontSize: 10, color: 'red' }}>{translation[langId].chat.deleteMessage}</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -104,12 +106,12 @@ export default function ChatScreen() {
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <TextInput
                     style={{ flex: 1, borderWidth: 1, borderRadius: 4, padding: 8 }}
-                    placeholder="Napisz wiadomość..."
+                    placeholder={translation[langId].chat.sendPlaceholder}
                     value={text}
                     onChangeText={setText}
                 />
                 <TouchableOpacity onPress={handleSend} style={{ marginLeft: 8 }}>
-                    <Text>Wyślij</Text>
+                    <Text>{translation[langId].chat.send}</Text>
                 </TouchableOpacity>
             </View>
         </View>

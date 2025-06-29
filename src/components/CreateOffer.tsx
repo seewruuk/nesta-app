@@ -4,10 +4,11 @@ import { Offer } from '@/src/data/offers';
 import { useRouter } from 'expo-router';
 import { useStateContext } from "@/src/contexts/StateContext";
 import uuid from 'react-native-uuid';
+import {translation} from "@/src/translation";
 
 export default function CreateOffer() {
     const {
-        state: { currentUserId }, addOffer
+        state: { currentUserId }, addOffer, langId
     } = useStateContext();
     const router = useRouter();
     const [title, setTitle] = useState('');
@@ -17,7 +18,7 @@ export default function CreateOffer() {
 
     const handleSubmit = () => {
         if (!title || !description || !rentPrice || !availableFrom) {
-            Alert.alert('Uzupełnij wszystkie pola!');
+            Alert.alert(translation[langId].createOffer.alertEmpty);
             return;
         }
 
@@ -30,8 +31,8 @@ export default function CreateOffer() {
             rentPrice: parseInt(rentPrice),
             deposit: parseInt(rentPrice),
             extraFees: {
-                internet: 'Dodatkowe',
-                utilities: 'Dodatkowe',
+                internet: translation[langId].createOffer.utilities,
+                utilities: translation[langId].createOffer.utilities,
             },
             availableFrom,
             minTermMonths: 6,
@@ -40,30 +41,30 @@ export default function CreateOffer() {
             parkingIncluded: false,
             elevator: false,
             wheelchairAccess: false,
-            petsAllowed: 'Do ustalenia',
+            petsAllowed: translation[langId].createOffer.utilities,
             tvInternet: false,
-            heatingType: 'centralne',
-            smokingAllowed: 'Do ustalenia',
+            heatingType: translation[langId].createOffer.utilities,
+            smokingAllowed: translation[langId].createOffer.utilities,
             cellar: false,
-            status: 'Szkic',
+            status: translation[langId].createOffer.status,
         };
 
         addOffer(newOffer);
-        Alert.alert('Oferta zapisana jako szkic!');
+        Alert.alert(translation[langId].createOffer.alertCreated);
         router.back();
     };
 
     return (
         <ScrollView className="flex-1 p-4 bg-white">
-            <Text className="text-xl font-bold mb-2">Nowa oferta</Text>
+            <Text className="text-xl font-bold mb-2">{translation[langId].createOffer.newOffer}</Text>
 
-            <TextInput className="border rounded p-2 mb-3" placeholder="Tytuł" value={title} onChangeText={setTitle} />
-            <TextInput className="border rounded p-2 mb-3" placeholder="Opis" value={description} onChangeText={setDescription} multiline />
-            <TextInput className="border rounded p-2 mb-3" placeholder="Cena najmu (PLN)" value={rentPrice} onChangeText={setRentPrice} keyboardType="numeric" />
-            <TextInput className="border rounded p-2 mb-3" placeholder="Dostępne od (rrrr-mm-dd)" value={availableFrom} onChangeText={setAvailableFrom} />
+            <TextInput className="border rounded p-2 mb-3" placeholder={translation[langId].createOffer.titlePlaceHolder} value={title} onChangeText={setTitle} />
+            <TextInput className="border rounded p-2 mb-3" placeholder={translation[langId].createOffer.descriptionPlaceHolder} value={description} onChangeText={setDescription} multiline />
+            <TextInput className="border rounded p-2 mb-3" placeholder={translation[langId].createOffer.pricePlaceHolder} value={rentPrice} onChangeText={setRentPrice} keyboardType="numeric" />
+            <TextInput className="border rounded p-2 mb-3" placeholder={translation[langId].createOffer.availabilityPlaceHolder} value={availableFrom} onChangeText={setAvailableFrom} />
 
             <TouchableOpacity className="bg-blue-600 rounded p-3" onPress={handleSubmit}>
-                <Text className="text-white text-center">Zapisz ofertę</Text>
+                <Text className="text-white text-center">{translation[langId].createOffer.submitButtonName}</Text>
             </TouchableOpacity>
         </ScrollView>
     );

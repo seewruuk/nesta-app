@@ -85,6 +85,24 @@ export const translation = {
             viewOnMaps: "Zobacz w Google Maps",
             amenities: "Udogodnienia",
         },
+        createOffer: {
+            utilities: "Dodatkowe",
+            status: "Opublikowana",
+            alertEmpty: "Uzupełnij wszystkie pola!",
+            alertCreated: "Oferta dodana!",
+            titlePlaceHolder: "Tytuł",
+            descriptionPlaceHolder: "Opis",
+            pricePlaceHolder: "Cena najmu (PLN)",
+            availabilityPlaceHolder: "Dostępne od (rrrr-mm-dd)",
+            newOffer: "Nowa oferta",
+            submitButtonName: "Zapisz ofertę",
+        },
+        chat: {
+            send: "Wyślij",
+            sendPlaceholder: "Napisz wiadomość...",
+            deleteMessage: "Usuń",
+            replyMessage: "Tak",
+        }
     },
 
     en: {

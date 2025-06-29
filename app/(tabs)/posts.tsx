@@ -23,11 +23,12 @@ import {
     TextInput,
     View,
 } from 'react-native';
+import {translation} from "@/src/translation";
 
 export default function PostsScreen() {
     const router = useRouter();
     const {
-        state: { posts },
+        state: { posts, langId },
         addPost,
     } = useStateContext();
 
@@ -160,7 +161,7 @@ export default function PostsScreen() {
                                     className="mt-2"
                                     onPress={() => router.push(`/offers/${item.offerId}`)}
                                 >
-                                    <Text className="text-blue-500 font-semibold">ZOBACZ OFERTĘ</Text>
+                                    <Text className="text-blue-500 font-semibold">{translation[langId].posts.seeOffer}</Text>
                                 </Pressable>
                             )}
                         </View>

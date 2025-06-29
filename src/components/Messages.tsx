@@ -11,6 +11,8 @@
 import React from 'react'
 import { View, Text, ScrollView } from 'react-native'
 import { Message } from '@/src/data/messages'
+import {useStateContext} from "@/src/contexts/StateContext";
+import {translation} from "@/src/translation";
 
 interface MessagesProps {
     messages: Message[]
@@ -19,11 +21,12 @@ interface MessagesProps {
 
 export default function Messages({ messages, maxElements = 2 }: MessagesProps) {
     const displayed = messages.slice(0, maxElements)
+    const { langId } = useStateContext();
 
     if (displayed.length === 0) {
         return (
             <View className="py-4">
-                <Text className="text-gray-500">Brak wiadomości.</Text>
+                <Text className="text-gray-500">{translation[langId].messages.notFound}</Text>
             </View>
         )
     }

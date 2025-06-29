@@ -67,7 +67,6 @@ export const WelcomeModal: React.FC = () => {
     return (
         <View className="flex-1 justify-center items-center relative">
 
-            {/* Tło - obraz z animacją */}
             <Animated.View
                 style={{
                     position: 'absolute',
@@ -102,7 +101,7 @@ export const WelcomeModal: React.FC = () => {
             <View className="w-10/12 bg-white rounded-3xl p-[32px] space-y-4 flex flex-col gap-8 z-10">
 
                 <View>
-                    <Header text={"Witaj ponownie!"} className={"py-4 text-3xl"} />
+                    <Header text={translation[langId].home.welcomeBack} className={"py-4 text-3xl"} />
                     <Paragraph
                         className={""}
                         text={translation[langId].home.title} />
@@ -113,37 +112,37 @@ export const WelcomeModal: React.FC = () => {
                         <Pressable
                             onPress={() => console.log("click")}
                             className={"border-t border-r border-l border-gray-300 flex-1 rounded-tr-2xl rounded-tl-2xl flex items-center justify-center py-4 font-semibold"}
-                        ><Text>Wynajem</Text></Pressable>
+                        ><Text>{translation[langId].home.rent}</Text></Pressable>
                         <Pressable
                             onPress={() => router.push("/posts")}
                             className={"border border-gray-300 bg-[#F5F5F5] flex-1 -ml-4 rounded-tr-2xl flex items-center justify-center py-4 "}
-                        ><Text>Znd. Współlokatora</Text></Pressable>
+                        ><Text>{translation[langId].home.findCo}</Text></Pressable>
                     </View>
 
                     <View className="flex gap-2 px-4 border-b border-r border-l border-gray-300 rounded-br-2xl rounded-bl-2xl z-50 bg-white py-5">
                         <TextInput
                             value={city}
                             onChangeText={setCity}
-                            placeholder="Miasto"
+                            placeholder={translation[langId].home.cityPlaceholder}
                             className="bg-gray-100 rounded-lg px-3 py-3"
                         />
                         <View className="flex flex-row gap-2">
                             <TextInput
                                 value={minPrice}
                                 onChangeText={setMinPrice}
-                                placeholder="Min. cena"
+                                placeholder={translation[langId].home.minPricePlaceholder}
                                 className="bg-gray-100 rounded-lg px-3 py-3 flex-1"
                                 keyboardType="numeric"
                             />
                             <TextInput
                                 value={maxPrice}
                                 onChangeText={setMaxPrice}
-                                placeholder="Max. cena"
+                                placeholder={translation[langId].home.maxPricePlaceholder}
                                 className="bg-gray-100 rounded-lg px-3 py-3 flex-1"
                                 keyboardType="numeric"
                             />
                         </View>
-                        <Button text={"Szukaj"} onPress={handleSearch} />
+                        <Button text={translation[langId].home.search} onPress={handleSearch} />
                     </View>
 
                 </View>

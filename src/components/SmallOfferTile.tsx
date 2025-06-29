@@ -12,13 +12,14 @@ import { useStateContext } from '@/src/contexts/StateContext';
 import { Offer } from '@/src/data/offers';
 import { useRouter } from 'expo-router';
 import { Image, Pressable, Text, View } from 'react-native';
+import {translation} from "@/src/translation";
 
 interface SmallOfferTileProps {
     offer: Offer;
 }
 
 export default function SmallOfferTile({ offer }: SmallOfferTileProps) {
-    const { state: { apartments } } = useStateContext();
+    const { state: { apartments }, langId } = useStateContext();
     const apartment = apartments.find(a => a.id === offer.apartmentId);
     const router = useRouter();
 
@@ -27,7 +28,6 @@ export default function SmallOfferTile({ offer }: SmallOfferTileProps) {
             onPress={() => router.push(`/offers/${offer.id}`)}
             className="bg-white rounded-lg shadow-md overflow-hidden"
         >
-            {/* Thumbnail image */}
             {apartment?.images[0] ? (
                 <Image
                     source={{ uri: apartment.images[0] }}
@@ -38,13 +38,12 @@ export default function SmallOfferTile({ offer }: SmallOfferTileProps) {
                 <View className="w-full h-24 bg-gray-200" />
             )}
 
-            {/* Content */}
             <View className="p-2">
                 <Text className="text-sm font-semibold number-of-lines-2">
                     {offer.title}
                 </Text>
                 <Text className="text-xs text-gray-600 mt-1">
-                    {offer.rentPrice} PLN
+                    {offer.rentPrice} {translation[langId].smallOfferTile.currency}
                 </Text>
                 {apartment && (
                     <Text className="text-xs text-gray-500">

@@ -13,6 +13,7 @@
  * @param filters - Object representing current filter values.
  * @param setFilters - Function to update the filters state.
  */
+
 import { useEffect, useRef } from 'react';
 import {
     Animated,
@@ -21,6 +22,8 @@ import {
     TouchableWithoutFeedback,
     View
 } from 'react-native';
+import {useStateContext} from "@/src/contexts/StateContext";
+import {translation} from "@/src/translation";
 
 export interface Filters {
     city: string;
@@ -42,13 +45,12 @@ interface FilterPanelProps {
     setFilters: (f: Filters) => void;
 }
 
-
-
-
 export default function FilterPanel({
                                         visible, onClose, filters, setFilters
                                     }: FilterPanelProps) {
     const slideAnim = useRef(new Animated.Value(0)).current;
+    const { langId } = useStateContext();
+
 
     useEffect(() => {
         Animated.timing(slideAnim, {
@@ -76,94 +78,87 @@ export default function FilterPanel({
                 width: '80%', backgroundColor: 'white', padding: 20, zIndex: 1000,
                 paddingTop: 80
             }}>
-                <Text className="text-lg font-bold mb-4">Filtruj oferty</Text>
+                <Text className="text-lg font-bold mb-4">{translation[langId].filterPanel.filterOffers}</Text>
 
-                {/* Miasto */}
-                <Text className="font-semibold">Miasto</Text>
+                <Text className="font-semibold">{translation[langId].filterPanel.city}</Text>
                 <TextInput
                     className="border border-gray-400 rounded p-2 mb-4"
-                    placeholder="np. Warszawa"
+                    placeholder={translation[langId].filterPanel.cityPlaceholder}
                     value={filters.city}
                     onChangeText={city => setFilters({ ...filters, city })}
                 />
 
-                {/* Cena */}
-                <Text className="font-semibold">Cena min (PLN)</Text>
+                <Text className="font-semibold">{translation[langId].filterPanel.priceMin}</Text>
                 <TextInput
                     keyboardType="numeric"
                     className="border border-gray-400 rounded p-2 mb-4"
-                    placeholder="np. 1000"
+                    placeholder={translation[langId].filterPanel.priceMinPlaceholder}
                     value={filters.priceMin}
                     onChangeText={priceMin => setFilters({ ...filters, priceMin })}
                 />
-                <Text className="font-semibold">Cena max (PLN)</Text>
+                <Text className="font-semibold">{translation[langId].filterPanel.priceMax}</Text>
                 <TextInput
                     keyboardType="numeric"
                     className="border border-gray-400 rounded p-2 mb-4"
-                    placeholder="np. 5000"
+                    placeholder={translation[langId].filterPanel.priceMaxPlaceholder}
                     value={filters.priceMax}
                     onChangeText={priceMax => setFilters({ ...filters, priceMax })}
                 />
 
-                {/* Liczba pokoi */}
-                <Text className="font-semibold">Min. pokoi</Text>
+                <Text className="font-semibold">{translation[langId].filterPanel.roomsMin}</Text>
                 <TextInput
                     keyboardType="numeric"
                     className="border border-gray-400 rounded p-2 mb-4"
-                    placeholder="np. 1"
+                    placeholder={translation[langId].filterPanel.roomsMinPlaceholder}
                     value={filters.roomsMin}
                     onChangeText={roomsMin => setFilters({ ...filters, roomsMin })}
                 />
-                <Text className="font-semibold">Max. pokoi</Text>
+                <Text className="font-semibold">{translation[langId].filterPanel.roomsMax}</Text>
                 <TextInput
                     keyboardType="numeric"
                     className="border border-gray-400 rounded p-2 mb-4"
-                    placeholder="np. 4"
+                    placeholder={translation[langId].filterPanel.roomsMaxPlaceholder}
                     value={filters.roomsMax}
                     onChangeText={roomsMax => setFilters({ ...filters, roomsMax })}
                 />
 
-                {/* Liczba sypialni */}
-                <Text className="font-semibold">Min. sypialni</Text>
+                <Text className="font-semibold">{translation[langId].filterPanel.bedroomsMin}</Text>
                 <TextInput
                     keyboardType="numeric"
                     className="border border-gray-400 rounded p-2 mb-4"
-                    placeholder="np. 1"
+                    placeholder={translation[langId].filterPanel.bedroomsMinPlaceholder}
                     value={filters.bedroomsMin}
                     onChangeText={bedroomsMin => setFilters({ ...filters, bedroomsMin })}
                 />
-                <Text className="font-semibold">Max. sypialni</Text>
+                <Text className="font-semibold">{translation[langId].filterPanel.bedroomsMax}</Text>
                 <TextInput
                     keyboardType="numeric"
                     className="border border-gray-400 rounded p-2 mb-4"
-                    placeholder="np. 3"
+                    placeholder={translation[langId].filterPanel.bedroomsMaxPlaceholder}
                     value={filters.bedroomsMax}
                     onChangeText={bedroomsMax => setFilters({ ...filters, bedroomsMax })}
                 />
 
-                {/* Umeblowane */}
-                <Text className="font-semibold">Umeblowanie</Text>
+                <Text className="font-semibold">{translation[langId].filterPanel.furnished}</Text>
                 <TextInput
                     className="border border-gray-400 rounded p-2 mb-4"
-                    placeholder="Tak / Nie / Częściowo"
+                    placeholder={translation[langId].filterPanel.furnishedPlaceholder}
                     value={filters.furnished}
                     onChangeText={furnished => setFilters({ ...filters, furnished })}
                 />
 
-                {/* Zwierzęta */}
-                <Text className="font-semibold">Zwierzęta</Text>
+                <Text className="font-semibold">{translation[langId].filterPanel.animals}</Text>
                 <TextInput
                     className="border border-gray-400 rounded p-2 mb-4"
-                    placeholder="Tak / Nie / Do ustalenia"
+                    placeholder={translation[langId].filterPanel.animalsPlaceholder}
                     value={filters.petsAllowed}
                     onChangeText={petsAllowed => setFilters({ ...filters, petsAllowed })}
                 />
 
-                {/* Wynajem krótkoterminowy */}
-                <Text className="font-semibold">Krótki najem</Text>
+                <Text className="font-semibold">{translation[langId].filterPanel.short}</Text>
                 <TextInput
                     className="border border-gray-400 rounded p-2 mb-4"
-                    placeholder="Tak / Nie"
+                    placeholder={translation[langId].filterPanel.shortPlaceholder}
                     value={filters.shortTermAllowed}
                     onChangeText={shortTermAllowed => setFilters({ ...filters, shortTermAllowed })}
                 />
@@ -172,7 +167,7 @@ export default function FilterPanel({
                     onPress={onClose}
                     className="mt-4 bg-gray-200 rounded p-3 items-center"
                 >
-                    <Text>Zamknij</Text>
+                    <Text>{translation[langId].filterPanel.close}</Text>
                 </Pressable>
             </Animated.View>
         </>

@@ -16,18 +16,34 @@ import { useMemo, useState } from 'react';
 import { FlatList, Pressable, SafeAreaView, Text, TouchableOpacity } from 'react-native';
 import FilterPanel, { Filters } from '../components/FilterPanel';
 import OfferCard from '../components/OfferCard';
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import {translation} from "@/src/translation";
 
 export default function OffersScreen() {
     const { state: { offers, apartments }, langId } = useStateContext();
     const router = useRouter();
+
+    const searchParams = useLocalSearchParams();
+    const {
+        city: initCity = '',
+    } = searchParams;
+
+
+
+
     const [filters, setFilters] = useState<Filters>({
-        city: '', priceMin: '', priceMax: '',
-        roomsMin: '', roomsMax: '',
-        bedroomsMin: '', bedroomsMax: '',
-        furnished: '', petsAllowed: '', shortTermAllowed: ''
+        city: initCity,
+        roomsMin: '',
+        roomsMax: '',
+        bedroomsMin: '',
+        bedroomsMax: '',
+        furnished: '',
+        petsAllowed: '',
+        shortTermAllowed: ''
     });
+
+
+
     const [panelVisible, setPanelVisible] = useState(false);
 
     const filteredOffers = useMemo(() => {

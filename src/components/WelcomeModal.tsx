@@ -26,8 +26,6 @@ export const WelcomeModal: React.FC = () => {
 
     const router = useRouter()
     const [city, setCity] = useState('')
-    const [minPrice, setMinPrice] = useState('')
-    const [maxPrice, setMaxPrice] = useState('')
     const translateX = useRef(new Animated.Value(0)).current
 
     useEffect(() => {
@@ -58,8 +56,6 @@ export const WelcomeModal: React.FC = () => {
     const handleSearch = () => {
         const params = new URLSearchParams({
             city,
-            minPrice,
-            maxPrice,
         }).toString();
         router.push(`/offers?${params}`);
     };
@@ -110,7 +106,7 @@ export const WelcomeModal: React.FC = () => {
                 <View className="flex flex-col">
                     <View className="flex flex-row justify-between">
                         <Pressable
-                            onPress={() => console.log("click")}
+                            onPress={() => router.push("/posts")}
                             className={"border-t border-r border-l border-gray-300 flex-1 rounded-tr-2xl rounded-tl-2xl flex items-center justify-center py-4 font-semibold"}
                         ><Text>{translation[langId].home.rent}</Text></Pressable>
                         <Pressable
@@ -126,22 +122,7 @@ export const WelcomeModal: React.FC = () => {
                             placeholder={translation[langId].home.cityPlaceholder}
                             className="bg-gray-100 rounded-lg px-3 py-3"
                         />
-                        <View className="flex flex-row gap-2">
-                            <TextInput
-                                value={minPrice}
-                                onChangeText={setMinPrice}
-                                placeholder={translation[langId].home.minPricePlaceholder}
-                                className="bg-gray-100 rounded-lg px-3 py-3 flex-1"
-                                keyboardType="numeric"
-                            />
-                            <TextInput
-                                value={maxPrice}
-                                onChangeText={setMaxPrice}
-                                placeholder={translation[langId].home.maxPricePlaceholder}
-                                className="bg-gray-100 rounded-lg px-3 py-3 flex-1"
-                                keyboardType="numeric"
-                            />
-                        </View>
+
                         <Button text={translation[langId].home.search} onPress={handleSearch} />
                     </View>
 

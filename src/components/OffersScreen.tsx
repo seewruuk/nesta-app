@@ -1,11 +1,13 @@
 import { useStateContext } from '@/src/contexts/StateContext';
 import { useMemo, useState } from 'react';
-import { FlatList, Pressable, SafeAreaView, Text } from 'react-native';
+import { FlatList, Pressable, SafeAreaView, Text, TouchableOpacity } from 'react-native';
 import FilterPanel, { Filters } from '../components/FilterPanel';
 import OfferCard from '../components/OfferCard';
+import { useRouter } from 'expo-router';
 
 export default function OffersScreen() {
     const { state: { offers, apartments } } = useStateContext();
+    const router = useRouter();
     const [filters, setFilters] = useState<Filters>({
         city: '', priceMin: '', priceMax: '',
         roomsMin: '', roomsMax: '',
@@ -46,6 +48,19 @@ export default function OffersScreen() {
 
     return (
         <SafeAreaView className="flex-1 bg-white relative pt-[40px]">
+            <TouchableOpacity
+                onPress={() => router.push('/create-offer')}
+                style={{
+                    backgroundColor: '#16a34a',
+                    paddingVertical: 10,
+                    paddingHorizontal: 16,
+                    borderRadius: 8,
+                    alignSelf: 'flex-start',
+                    marginBottom: 10
+                }}
+            >
+                <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 16 }}>+</Text>
+            </TouchableOpacity>
             <FlatList
                 data={filteredOffers}
                 keyExtractor={o => o.id}

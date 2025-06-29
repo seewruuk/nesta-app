@@ -40,6 +40,7 @@ export default function Dashboard() {
         if (rented) visibleOffers = [rented];
     }
 
+    // test
     return (
         <ScrollView className="flex-1 bg-white pt-[60px] px-4 space-y-6">
             <View>

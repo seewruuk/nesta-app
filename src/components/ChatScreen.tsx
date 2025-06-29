@@ -95,7 +95,7 @@ export default function ChatScreen() {
     };
 
     return (
-        <View style={{ flex: 1, padding: 8 }}>
+        <View style={{ flex: 1, padding: 8, paddingBottom: 150, paddingTop: 50 }}>
             <FlatList
                 data={chatMsgs}
                 keyExtractor={item => item.id}

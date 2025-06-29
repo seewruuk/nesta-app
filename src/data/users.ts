@@ -26,7 +26,7 @@ export const users: User[] = [
     id: 'user1',
     fullName: 'Jan Kowalski',
     slug: 'jan-kowalski',
-    email: 'jan@example.com',
+    email: 'admin',
     username: 'admin',
     password: 'admin',
     bio: 'Polecam swoje mieszkania, są spoko',

@@ -6,8 +6,14 @@ import { Post, posts } from '../data/posts';
 import { Review, reviews } from '../data/reviews';
 import { User, users } from '../data/users';
 import { Message } from '@/src/types/Message';
+import { Transaction } from '@/src/types/Transaction';
 
-
+const initialTransactions: Transaction[] = [
+    { id: '12548796', description: 'Czynsz za styczeń', dateIssued: '2025-01-23T10:15:00Z', dueDate: '2025-02-23T10:15:00Z', amount: 3500, currency: 'PLN', status: 'paid' },
+    { id: '12548797', description: 'Rachunek za prąd', dateIssued: '2025-02-10T08:30:00Z', dueDate: '2025-03-10T08:30:00Z', amount: 250, currency: 'PLN', status: 'new' },
+    { id: '12548798', description: 'Naprawa drzwi balkonowych', dateIssued: '2025-02-05T14:45:00Z', dueDate: '2025-03-05T14:45:00Z', amount: 400, currency: 'PLN', status: 'paid' },
+    { id: '12548799', description: 'Rachunek za internet', dateIssued: '2025-02-05T16:00:00Z', dueDate: '2025-03-05T16:00:00Z', amount: 100, currency: 'PLN', status: 'new' },
+];
 
 export interface State {
     amenities: Amenity[];
@@ -19,11 +25,14 @@ export interface State {
     reviews: Review[];
     messages: Message[];
     langId: string;
+    transactions: Transaction[];
 }
 
 const initialState: State = {amenities, apartments, offers, users, posts, reviews, currentUserId: null,
     langId: 'pl',
-    messages: []};
+    messages: [],
+    transactions: initialTransactions,
+};
 
 export type Action =
     | { type: 'ADD_APARTMENT'; payload: Apartment }
@@ -47,7 +56,8 @@ export type Action =
     | { type: 'ADD_MESSAGE'; payload: Message }
     | { type: 'DELETE_MESSAGE'; payload: { id: string } }
     | { type: 'MARK_AS_READ'; payload: { id: string } }
-    | { type: 'UPDATE_MESSAGE_STATUS'; payload: { id: string; status: Message['status'] } };
+    | { type: 'UPDATE_MESSAGE_STATUS'; payload: { id: string; status: Message['status'] } }
+    | { type: 'UPDATE_TRANSACTION_STATUS'; payload: { id: string; status: Transaction['status'] } };
 
 
 export function reducer(state: State, action: Action): State {
@@ -158,6 +168,14 @@ export function reducer(state: State, action: Action): State {
                     m.id === action.payload.id ? { ...m, status: action.payload.status } : m
                 ),
             };
+        case 'UPDATE_TRANSACTION_STATUS':
+            return {
+                ...state,
+                transactions: state.transactions.map(tx =>
+                    tx.id === action.payload.id ? { ...tx, status: action.payload.status } : tx
+                ),
+            };
+
         default:
             return state;
     }
@@ -201,6 +219,8 @@ interface ContextProps {
     markAsRead: (id: string) => void;
     updateMessageStatus: (id: string, status: Message['status']) => void;
 
+
+    updateTransactionStatus: (id: string, status: Transaction['status']) => void;
     langId: string;
 }
 
@@ -236,6 +256,11 @@ export const StateProvider = ({children}: { children: ReactNode }) => {
     const markAsRead = (id: string) => dispatch({ type: 'MARK_AS_READ', payload: { id } });
     const updateMessageStatus = (id: string, status: Message['status']) =>
         dispatch({ type: 'UPDATE_MESSAGE_STATUS', payload: { id, status } });
+
+
+    const updateTransactionStatus = (id: string, status: Transaction['status']) => {
+        dispatch({ type: 'UPDATE_TRANSACTION_STATUS', payload: { id, status } });
+    };
 
     const langId = state.langId;
 
@@ -304,7 +329,8 @@ export const StateProvider = ({children}: { children: ReactNode }) => {
             login, logout, register, addReview, deleteReview,
             addOfferReservation, addMessage, deleteMessage,
             markAsRead, updateMessageStatus,
-            langId
+            langId,
+            updateTransactionStatus
 
         }}>
             {children}

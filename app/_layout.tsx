@@ -26,6 +26,10 @@ export default function RootLayout() {
                     name={"users/[slug]"}
                     options={{headerShown: false}}
                 />
+                <Stack.Screen
+                    name={"transactions/[id]"}
+                    options={{headerShown: false}}
+                />
 
             </Stack>
         </StateProvider>

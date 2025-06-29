@@ -15,7 +15,7 @@ export default function Login() {
         if (!res.success) {
             Alert.alert('Błąd logowania', res.error);
         } else {
-            router.replace('/');
+            router.replace('/dashboard');
         }
     };
 

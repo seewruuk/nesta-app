@@ -18,7 +18,7 @@ export default function CreateOffer() {
 
     const handleSubmit = () => {
         if (!title || !description || !rentPrice || !availableFrom) {
-            Alert.alert('Uzupełnij wszystkie pola!');
+            Alert.alert(translation[langId].createOffer.alertEmpty);
             return;
         }
 
@@ -31,8 +31,8 @@ export default function CreateOffer() {
             rentPrice: parseInt(rentPrice),
             deposit: parseInt(rentPrice),
             extraFees: {
-                internet: 'Dodatkowe',
-                utilities: 'Dodatkowe',
+                internet: translation[langId].createOffer.utilities,
+                utilities: translation[langId].createOffer.utilities,
             },
             availableFrom,
             minTermMonths: 6,
@@ -41,16 +41,16 @@ export default function CreateOffer() {
             parkingIncluded: false,
             elevator: false,
             wheelchairAccess: false,
-            petsAllowed: 'Do ustalenia',
+            petsAllowed: translation[langId].createOffer.utilities,
             tvInternet: false,
-            heatingType: 'centralne',
-            smokingAllowed: 'Do ustalenia',
+            heatingType: translation[langId].createOffer.utilities,
+            smokingAllowed: translation[langId].createOffer.utilities,
             cellar: false,
-            status: 'Szkic',
+            status: translation[langId].createOffer.status,
         };
 
         addOffer(newOffer);
-        Alert.alert('Oferta zapisana jako szkic!');
+        Alert.alert(translation[langId].createOffer.alertCreated);
         router.back();
     };
 

@@ -1,4 +1,3 @@
-// src/translation.js
 export const translation = {
     pl: {
         home: {
@@ -7,14 +6,14 @@ export const translation = {
         dashboard: {
             landlord: {
                 title: "Twoje oferty",
-                noOffersMessage: "Nie masz jeszcze żadnych ofert."
+                noOffersMessage: "Nie masz jeszcze żadnych ofert.",
             },
             rentier: {
                 title: "Twoje wynajmowane mieszkanie",
-                noOffersMessage: "Nie masz jeszcze przypisanego żadnego mieszkania."
+                noOffersMessage: "Nie masz jeszcze przypisanego żadnego mieszkania.",
             },
             transactionsHeader: "Transakcje",
-            messagesHeader: "Wiadomości"
+            messagesHeader: "Wiadomości",
         },
         transactions: {
             detailsHeader: "Szczegóły płatności",
@@ -25,10 +24,11 @@ export const translation = {
             payButton: "Zapłać",
             cancelButton: "Anuluj płatność",
             notFound: "Nie znaleziono transakcji",
+        },
         appointmentTimePicker: {
             confirmText: "Czy na pewno chcesz zarezerwować",
             cancelButtonText: "Anuluj",
-            confirmButtonText: "Potwierdź"
+            confirmButtonText: "Potwierdź",
         },
         user: {
             notfound: "Użytkownik nie znaleziony",
@@ -45,49 +45,46 @@ export const translation = {
         login: {
             login: "Logowanie",
             signIn: "Zaloguj się",
-            noAccount: "Nie masz konta? Zarejetruj się"
+            noAccount: "Nie masz konta? Zarejetruj się",
         },
         register: {
             register: "Zarejestruj się",
-            haveAccount: "Masz już konto? Zaloguj się"
+            haveAccount: "Masz już konto? Zaloguj się",
         },
         singleOffer: {
-            offerNotFound:    "Oferta nie znaleziona",
-            apartmentNotFound:"Apartament nie znaleziony",
-            loginToReserve:   "Zaloguj się, aby zarezerwować termin oględzin.",
-            detailsTitle:     "Szczegóły oferty",
-            rentalPrice:      "Cena najmu",
-            deposit:          "Kaucja",
-            internet:         "Internet",
-            utilities:        "Rachunki",
-            availableFrom:    "Dostępne od",
-            minTerm:          "Min. okres najmu",
-            shortTerm:        "Wynajem krótkoterminowy",
+            offerNotFound: "Oferta nie znaleziona",
+            apartmentNotFound: "Apartament nie znaleziony",
+            loginToReserve: "Zaloguj się, aby zarezerwować termin oględzin.",
+            detailsTitle: "Szczegóły oferty",
+            rentalPrice: "Cena najmu",
+            deposit: "Kaucja",
+            internet: "Internet",
+            utilities: "Rachunki",
+            availableFrom: "Dostępne od",
+            minTerm: "Min. okres najmu",
+            shortTerm: "Wynajem krótkoterminowy",
             preferredTenants: "Preferowani najemcy",
-            parking:          "Parking",
-            elevator:         "Winda",
+            parking: "Parking",
+            elevator: "Winda",
             wheelchairAccess: "Dostęp dla niepełnosprawnych",
-            pets:             "Zwierzęta",
-            tvInternet:       "TV & Internet",
-            heating:          "Ogrzewanie",
-            smoking:          "Palenie",
-            cellar:           "Piwnica",
-
+            pets: "Zwierzęta",
+            tvInternet: "TV & Internet",
+            heating: "Ogrzewanie",
+            smoking: "Palenie",
+            cellar: "Piwnica",
             apartmentDetails: "Szczegóły apartamentu",
-            type:             "Typ",
-            area:             "Powierzchnia",
-            rooms:            "Ilość pokoi",
-            bedrooms:         "Ilość sypialni",
-            bathrooms:        "Łazienki",
-            floor:            "Piętro",
-            furnished:        "Umeblowane",
-            address:          "Adres",
-            viewOnMaps:       "Zobacz w Google Maps",
-            amenities:        "Udogodnienia",
+            type: "Typ",
+            area: "Powierzchnia",
+            rooms: "Ilość pokoi",
+            bedrooms: "Ilość sypialni",
+            bathrooms: "Łazienki",
+            floor: "Piętro",
+            furnished: "Umeblowane",
+            address: "Adres",
+            viewOnMaps: "Zobacz w Google Maps",
+            amenities: "Udogodnienia",
+        },
     },
-
-    },
-
 
     en: {
         home: {
@@ -96,14 +93,14 @@ export const translation = {
         dashboard: {
             landlord: {
                 title: "Your Offers",
-                noOffersMessage: "You don’t have any offers yet."
+                noOffersMessage: "You don’t have any offers yet.",
             },
             rentier: {
                 title: "Your Rental",
-                noOffersMessage: "You don’t have a rental assigned yet."
+                noOffersMessage: "You don’t have a rental assigned yet.",
             },
             transactionsHeader: "Transactions",
-            messagesHeader: "Messages"
+            messagesHeader: "Messages",
         },
         transactions: {
             detailsHeader: "Transaction Details",
@@ -114,6 +111,7 @@ export const translation = {
             payButton: "Pay",
             cancelButton: "Cancel Payment",
             notFound: "Transaction not found",
+        },
         user: {
             notfound: "User not found",
             notActivee: "No active offers",
@@ -121,8 +119,7 @@ export const translation = {
             actualOffers: "Actual offers",
             noneActualOffers: "None actual offers",
             review: "Review",
-            addOpinion: "Add opinion"
-
-        }
-    }
-}}};
+            addOpinion: "Add opinion",
+        },
+    },
+};

@@ -20,7 +20,7 @@ interface SingleOfferScreenProps {
 export default function SingleOfferScreen({ id }: SingleOfferScreenProps) {
     // Destructures necessary data and functions from global context
     const {
-        state: { offers, apartments, amenities, currentUserId  },
+        state: { offers, apartments, amenities, currentUserId, langId  },
         addOfferReservation
     } = useStateContext();
 
@@ -88,58 +88,58 @@ export default function SingleOfferScreen({ id }: SingleOfferScreenProps) {
                     />
                 ) : (
                     <Text className="text-gray-500 italic mb-1">
-                        {translation[langId].SingleOfferScreen.loginToReserve}
+                        {translation[langId].singleOffer.loginToReserve}
                     </Text>
                 )}
 
                 <View className="mb-6">
-                    <Text className="text-xl font-semibold mb-2">{translation[langId].SingleOfferScreen.detailsTitle}</Text>
+                    <Text className="text-xl font-semibold mb-2">{translation[langId].singleOffer.detailsTitle}</Text>
                     <Paragraph text={offer.description} />
-                    <Text>{translation[langId].SingleOfferScreen.rentalPrice}: {offer.rentPrice} PLN</Text>
-                    <Text>{translation[langId].SingleOfferScreen.deposit}: {offer.deposit} PLN</Text>
-                    <Text>{translation[langId].SingleOfferScreen.internet}: {offer.extraFees.internet}</Text>
-                    <Text>{translation[langId].SingleOfferScreen.utilities}: {offer.extraFees.utilities}</Text>
+                    <Text>{translation[langId].singleOffer.rentalPrice}: {offer.rentPrice} PLN</Text>
+                    <Text>{translation[langId].singleOffer.deposit}: {offer.deposit} PLN</Text>
+                    <Text>{translation[langId].singleOffer.internet}: {offer.extraFees.internet}</Text>
+                    <Text>{translation[langId].singleOffer.utilities}: {offer.extraFees.utilities}</Text>
                     <Text>
-                       {translation[langId].SingleOfferScreen.availableFrom}:{" "}
+                       {translation[langId].singleOffer.availableFrom}:{" "}
                         {new Date(offer.availableFrom).toLocaleDateString("pl-PL")}
                     </Text>
-                    <Text>{translation[langId].SingleOfferScreen.minTerm}: {offer.minTermMonths} mies.</Text>
+                    <Text>{translation[langId].singleOffer.minTerm}: {offer.minTermMonths} mies.</Text>
                     <Text>
-                        {translation[langId].SingleOfferScreen.shortTerm}: {offer.shortTermAllowed ? "Tak" : "Nie"}
+                        {translation[langId].singleOffer.shortTerm}: {offer.shortTermAllowed ? "Tak" : "Nie"}
                     </Text>
                     <Text>
-                        {translation[langId].SingleOfferScreen.preferredTenants}: {offer.preferredTenants.join(", ")}
+                        {translation[langId].singleOffer.preferredTenants}: {offer.preferredTenants.join(", ")}
                     </Text>
-                    <Text>{translation[langId].SingleOfferScreen.parking}: {offer.parkingIncluded ? "Tak" : "Nie"}</Text>
-                    <Text>{translation[langId].SingleOfferScreen.elevator}: {offer.elevator ? "Tak" : "Nie"}</Text>
+                    <Text>{translation[langId].singleOffer.parking}: {offer.parkingIncluded ? "Tak" : "Nie"}</Text>
+                    <Text>{translation[langId].singleOffer.elevator}: {offer.elevator ? "Tak" : "Nie"}</Text>
                     <Text>
-                        {translation[langId].SingleOfferScreen.wheelchairAccess}:{" "}
+                        {translation[langId].singleOffer.wheelchairAccess}:{" "}
                         {offer.wheelchairAccess ? "Tak" : "Nie"}
                     </Text>
-                    <Text>{translation[langId].SingleOfferScreen.petsAllowed}: {offer.petsAllowed}</Text>
-                    <Text>{translation[langId].SingleOfferScreen.tvInternet}: {offer.tvInternet ? "Tak" : "Nie"}</Text>
-                    <Text>{translation[langId].SingleOfferScreen.heating}: {offer.heatingType}</Text>
-                    <Text>{translation[langId].SingleOfferScreen.smoking}: {offer.smokingAllowed}</Text>
-                    <Text>{translation[langId].SingleOfferScreen.cellar}: {offer.cellar ? "Tak" : "Nie"}</Text>
+                    <Text>{translation[langId].singleOffer.petsAllowed}: {offer.petsAllowed}</Text>
+                    <Text>{translation[langId].singleOffer.tvInternet}: {offer.tvInternet ? "Tak" : "Nie"}</Text>
+                    <Text>{translation[langId].singleOffer.heating}: {offer.heatingType}</Text>
+                    <Text>{translation[langId].singleOffer.smoking}: {offer.smokingAllowed}</Text>
+                    <Text>{translation[langId].singleOffer.cellar}: {offer.cellar ? "Tak" : "Nie"}</Text>
                 </View>
 
                 <View className="mb-6">
                     <Text className="text-xl font-semibold mb-2">
-                        {translation[langId].SingleOfferScreen.apartmentDetails}
+                        {translation[langId].singleOffer.apartmentDetails}
                     </Text>
-                    <Text>{translation[langId].SingleOfferScreen.type}: {apartment.type}</Text>
-                    <Text>{translation[langId].SingleOfferScreen.area}: {apartment.area} m²</Text>
-                    <Text>{translation[langId].SingleOfferScreen.rooms}: {apartment.roomsCount}</Text>
-                    <Text>{translation[langId].SingleOfferScreen.bedrooms}: {apartment.bedroomsCount}</Text>
-                    <Text>{translation[langId].SingleOfferScreen.bathrooms}: {apartment.bathroomsCount}</Text>
-                    <Text>{translation[langId].SingleOfferScreen.floor}: {apartment.floor}</Text>
-                    <Text>{translation[langId].SingleOfferScreen.furnished}: {apartment.furnished}</Text>
-                    <Text>{translation[langId].SingleOfferScreen.address}: {apartment.location.fullAddress}</Text>
+                    <Text>{translation[langId].singleOffer.type}: {apartment.type}</Text>
+                    <Text>{translation[langId].singleOffer.area}: {apartment.area} m²</Text>
+                    <Text>{translation[langId].singleOffer.rooms}: {apartment.roomsCount}</Text>
+                    <Text>{translation[langId].singleOffer.bedrooms}: {apartment.bedroomsCount}</Text>
+                    <Text>{translation[langId].singleOffer.bathrooms}: {apartment.bathroomsCount}</Text>
+                    <Text>{translation[langId].singleOffer.floor}: {apartment.floor}</Text>
+                    <Text>{translation[langId].singleOffer.furnished}: {apartment.furnished}</Text>
+                    <Text>{translation[langId].singleOffer.address}: {apartment.location.fullAddress}</Text>
                     <Pressable onPress={openMap} className="mb-2">
-                        <Text className="text-blue-500">{translation[langId].SingleOfferScreen.viewOnMaps}</Text>
+                        <Text className="text-blue-500">{translation[langId].singleOffer.viewOnMaps}</Text>
                     </Pressable>
                     <Text>
-                        {translation[langId].SingleOfferScreen.amenities}:{" "}
+                        {translation[langId].singleOffer.amenities}:{" "}
                         {apartment.amenities
                             .map(id => amenities.find(a => a.id === id)?.name)
                             .filter(Boolean)

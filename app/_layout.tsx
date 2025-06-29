@@ -1,3 +1,10 @@
+/**
+ * Root layout component.
+ *
+ * Wraps the entire application in the global StateProvider and defines
+ * the navigation stack for the main tabs and individual screens.
+ * All headers are hidden by default.
+ */
 import { StateProvider } from "@/src/contexts/StateContext";
 import { Stack } from "expo-router";
 import "./globals.css";

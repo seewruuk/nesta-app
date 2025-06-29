@@ -1,3 +1,18 @@
+/**
+ * Filter panel for real estate offers.
+ *
+ * A slide-in panel component that allows users to input
+ * various search filters (e.g., location, price, number of rooms).
+ * Appears from the right side when `visible` is true.
+ *
+ * Filter values are stored in the external `filters` state
+ * and updated dynamically via `setFilters`.
+ *
+ * @param visible - Whether the panel is visible (slide-in).
+ * @param onClose - Function called to close the panel.
+ * @param filters - Object representing current filter values.
+ * @param setFilters - Function to update the filters state.
+ */
 import { useEffect, useRef } from 'react';
 import {
     Animated,
@@ -26,6 +41,9 @@ interface FilterPanelProps {
     filters: Filters;
     setFilters: (f: Filters) => void;
 }
+
+
+
 
 export default function FilterPanel({
                                         visible, onClose, filters, setFilters

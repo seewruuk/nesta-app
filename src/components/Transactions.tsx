@@ -1,3 +1,15 @@
+/**
+ * Transactions list component.
+ *
+ * Displays up to `maxElements` transactions in a styled card with columns:
+ * description, ID, status, date issued, and amount.
+ * Each row is pressable, invoking `onPressItem` if provided.
+ *
+ * @param transactions - Array of Transaction objects to display.
+ * @param maxElements - Maximum number of transactions to show (default is 5).
+ * @param onPressItem - Optional callback invoked when a transaction row is pressed.
+ */
+
 import { Transaction } from '@/src/data/transactions'
 import {Pressable, Text, View} from 'react-native'
 import { useStateContext } from '@/src/contexts/StateContext';
@@ -74,6 +86,14 @@ export default function Transactions({
     )
 }
 
+
+/**
+ * Formats an ISO date string into a human-readable Polish date.
+ *
+ * @param dateStr - ISO date string (e.g., "2025-06-01T00:00:00Z").
+ * @returns Formatted date string like "1 Czerwiec 2025".
+ */
+
 function formatDate(dateStr: string) {
     const date = new Date(dateStr)
     const months = [
@@ -92,6 +112,14 @@ function formatDate(dateStr: string) {
     ]
     return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
 }
+
+/**
+ * Formats an amount and currency into a localized string.
+ *
+ * @param amount - Numeric amount.
+ * @param currency - Currency code (e.g., "PLN").
+ * @returns Localized amount string like "1 000 PLN".
+ */
 
 function formatAmount(amount: number, currency: string) {
     return amount.toLocaleString('pl-PL') + ' ' + currency

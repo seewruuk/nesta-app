@@ -1,3 +1,18 @@
+/**
+ * Users data module.
+ *
+ * Contains a predefined list of users for the application, used for state initialization or testing.
+ * Each user object includes personal data and role information (e.g., tenant or landlord).
+ *
+ * Types:
+ * - User: Interface describing the structure of a user object.
+ *
+ * Exports:
+ * - users: An array of User objects representing sample user accounts.
+ *
+ * @module
+ */
+
 export interface Review {
   id: string;
   author: string;
@@ -6,6 +21,9 @@ export interface Review {
 }
 
 export type Role = 'Użytkownik' | 'Najemca' | 'Wynajmujący' | 'Administrator';
+
+
+
 
 export interface User {
   id: string;

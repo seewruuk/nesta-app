@@ -1,3 +1,13 @@
+/**
+ * PostsScreen component.
+ *
+ * Provides a form to create new posts and displays a filtered list of existing posts.
+ * Users can enter location, title, description, and optionally link the post to an offer.
+ * The list can be filtered by location text and by linked/unlinked status.
+ *
+ * @component
+ */
+
 import { useStateContext } from '@/src/contexts/StateContext';
 import { Post } from '@/src/data/posts';
 import { useRouter } from 'expo-router';

@@ -1,3 +1,16 @@
+/**
+ * OffersScreen component.
+ *
+ * Displays a searchable and filterable list of apartment offers.
+ * - Fetches `offers` and `apartments` from global state.
+ * - Applies dynamic filters (city, price range, rooms, bedrooms, furnished, pets, short-term) via `FilterPanel`.
+ * - Renders a FlatList of `OfferCard` for each offer matching the filter.
+ * - Provides a “+” button to navigate to the create-offer screen.
+ * - Provides a floating “Filtry” button to open/close the slide-in filter panel.
+ *
+ * @component
+ */
+
 import { useStateContext } from '@/src/contexts/StateContext';
 import { useMemo, useState } from 'react';
 import { FlatList, Pressable, SafeAreaView, Text, TouchableOpacity } from 'react-native';

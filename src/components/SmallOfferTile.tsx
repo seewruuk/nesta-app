@@ -1,3 +1,13 @@
+/**
+ * SmallOfferTile component for displaying a compact view of an apartment offer.
+ *
+ * Renders a clickable tile with:
+ * - A thumbnail image (first apartment image) or placeholder background.
+ * - Offer title (up to two lines), rent price, and city name.
+ * Navigates to the full offer details screen on press.
+ *
+ * @param offer - The offer object containing data for this tile.
+ */
 import { useStateContext } from '@/src/contexts/StateContext';
 import { Offer } from '@/src/data/offers';
 import { useRouter } from 'expo-router';

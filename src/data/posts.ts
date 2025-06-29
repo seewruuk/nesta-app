@@ -1,3 +1,33 @@
+/**
+ * Posts data module.
+ *
+ * Provides a list of user-generated posts displayed on the public side of the app.
+ * Each post contains location, title, description, and optionally a link to a rental offer.
+ * Typically used to display announcements, inquiries, or offers in the community section.
+ *
+ * Types:
+ * - Post: Interface defining the structure of a post.
+ *
+ * Exports:
+ * - posts: Array of Post objects available for listing and filtering.
+ *
+ * @module
+ */
+
+
+
+/**
+ * Represents a public post created by a user.
+ *
+ * @property id - Unique identifier of the post.
+ * @property location - The city or district where the post is relevant.
+ * @property title - The headline of the post.
+ * @property description - Full content or message of the post.
+ * @property isLinkedOffer - Indicates whether the post is associated with an offer.
+ * @property offerId - ID of the linked offer, if applicable.
+ * @property authorId - ID of the user who created the post.
+ */
+
 export interface Post {
     id: string;
     location: string;      

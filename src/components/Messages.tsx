@@ -1,3 +1,13 @@
+/**
+ * Messages list component.
+ *
+ * Displays up to `maxElements` messages in a vertical scroll. If there are
+ * no messages to display, renders a placeholder view.
+ *
+ * @param messages - Array of Message objects to display.
+ * @param maxElements - Maximum number of messages to show (default is 2).
+ */
+
 import React from 'react'
 import { View, Text, ScrollView } from 'react-native'
 import { Message } from '@/src/data/messages'

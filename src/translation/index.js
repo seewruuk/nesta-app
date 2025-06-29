@@ -24,7 +24,11 @@ export const translation = {
             description: "Opis",
             payButton: "Zapłać",
             cancelButton: "Anuluj płatność",
-            notFound: "Nie znaleziono transakcji"
+            notFound: "Nie znaleziono transakcji",
+        appointmentTimePicker: {
+            confirmText: "Czy na pewno chcesz zarezerwować",
+            cancelButtonText: "Anuluj",
+            confirmButtonText: "Potwierdź"
         }
     },
 

@@ -1,3 +1,37 @@
+/**
+ * Apartments data module.
+ *
+ * Provides a static list of apartment objects available in the system.
+ * Each apartment includes structural details, location info, amenity references, and images.
+ * Apartments are referenced by rental offers and serve as the primary real estate units in the app.
+ *
+ * Types:
+ * - Apartment: Interface describing the structure of an apartment object.
+ *
+ * Exports:
+ * - apartments: Array of Apartment objects.
+ *
+ * @module
+ */
+
+
+
+
+/**
+ * Represents a residential apartment listed in the system.
+ *
+ * @property id - Unique identifier for the apartment.
+ * @property type - Type of apartment (e.g., 'Studio', '2 Bedroom').
+ * @property area - Total area of the apartment in square meters.
+ * @property roomsCount - Total number of rooms.
+ * @property bedroomsCount - Number of bedrooms.
+ * @property bathroomsCount - Number of bathrooms.
+ * @property floor - The floor number the apartment is located on.
+ * @property furnished - Indicates whether the apartment is furnished.
+ * @property amenities - Array of amenity IDs assigned to this apartment.
+ * @property images - Array of image URLs for the apartment gallery.
+ * @property location - Object containing city, district, full address, and Google Maps link.
+ */
 export interface Apartment {
     id: string;
     images: string[];
@@ -19,6 +53,16 @@ export interface Apartment {
     rating: number;
 }
 
+
+
+/**
+ * Provides location details for an apartment.
+ *
+ * @property city - The city where the apartment is located.
+ * @property district - District or neighborhood.
+ * @property fullAddress - Full street address with number.
+ * @property googleMapsLink - URL to view the apartment on Google Maps.
+ */
 export const apartments: Apartment[] = [
     {
         id: 'apt1',

@@ -1,3 +1,17 @@
+/**
+ * UserDetails component.
+ *
+ * Displays a user’s profile page including:
+ * - Cover image and avatar
+ * - Full name and bio
+ * - Average rating and “view” link
+ * - A horizontal list of the user’s offers
+ * - A list of existing reviews
+ * - A button and modal to submit a new review if the current user hasn’t reviewed yet
+ *
+ * Fetches data (users, offers, reviews, currentUserId) from global state,
+ * and uses `addReview` to post new reviews.
+ */
 import SmallOfferTile from '@/src/components/SmallOfferTile';
 import { useStateContext } from '@/src/contexts/StateContext';
 import { Review } from '@/src/data/reviews';
@@ -49,6 +63,14 @@ export default function UserDetails() {
   const hasReviewed =
     currentUserId != null &&
     userReviews.some(r => r.authorId === currentUserId);
+
+
+
+  /**
+   * Handles submission of a new review.
+   * Creates a Review object and dispatches `addReview`,
+   * then resets modal state and inputs.
+   */
 
   const submitReview = () => {
     if (!currentUserId || !text.trim()) return;

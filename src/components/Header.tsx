@@ -1,3 +1,15 @@
+/**
+ * Header component.
+ *
+ * A reusable text component that displays a bold, black header with customizable styling.
+ * Designed to maintain consistent heading appearance throughout the app, with optional class overrides.
+ *
+ * Props:
+ * - text (string): The text content of the header.
+ * - className (string, optional): Additional Tailwind-style classes to override or extend default styles.
+ *
+ * @component
+ */
 import { Text } from 'react-native'
 import React from 'react'
 

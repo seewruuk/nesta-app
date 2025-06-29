@@ -1,3 +1,20 @@
+/**
+ * StateContext (React Context)
+ *
+ * Provides global state management for the app, including:
+ * - user authentication (currentUserId)
+ * - posts and offers
+ * - apartments and their amenities
+ *
+ * Exposes both the state and actions (e.g., addPost, addOfferReservation) through a context provider.
+ * Can be used throughout the app to access shared data and perform updates.
+ *
+ * Usage:
+ * - Wrap the app with <StateProvider> to provide state access.
+ * - Use `useStateContext()` hook to consume context values.
+ *
+ * @context
+ */
 import { createContext, ReactNode, useContext, useReducer } from 'react';
 import { amenities, Amenity } from '../data/amenities';
 import { Apartment, apartments } from '../data/apartments';
@@ -51,6 +68,17 @@ export type Action =
     | { type: 'UPDATE_MESSAGE_STATUS'; payload: { id: string; status: Message['status'] } }
     | { type: 'UPDATE_TRANSACTION_STATUS'; payload: { id: string; status: Transaction['status'] } };
 
+
+/**
+ * Reducer to handle all state update actions.
+ *
+ * Supports CRUD operations for apartments, offers, users, posts, reviews, messages;
+ * authentication (login/logout); reservation and transaction status updates.
+ *
+ * @param state - Current state object.
+ * @param action - Dispatched action with type and payload.
+ * @returns New state after applying the action.
+ */
 
 export function reducer(state: State, action: Action): State {
     switch (action.type) {
@@ -218,6 +246,16 @@ interface ContextProps {
 
 const StateContext = createContext<ContextProps | undefined>(undefined);
 
+
+/**
+ * Context provider component that wraps the application.
+ *
+ * Initializes the reducer with `initialState` and provides context methods
+ * for dispatching actions to update the global state.
+ *
+ * @param children - React node tree to be wrapped by this provider.
+ */
+
 export const StateProvider = ({children}: { children: ReactNode }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -329,6 +367,15 @@ export const StateProvider = ({children}: { children: ReactNode }) => {
         </StateContext.Provider>
     );
 };
+
+
+/**
+ * Custom hook to consume the global state context.
+ *
+ * Throws an error if used outside of `StateProvider`.
+ *
+ * @returns ContextProps with state and dispatch methods.
+ */
 
 export const useStateContext = (): ContextProps => {
     const context = useContext(StateContext);

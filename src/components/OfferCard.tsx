@@ -1,3 +1,14 @@
+/**
+ * OfferCard component for displaying an apartment offer.
+ *
+ * Renders a card with:
+ * - A clickable image preview that navigates to the offer details.
+ * - The author’s avatar or a default icon, clickable to view their profile.
+ * - Key offer details: location, title, price, and availability date.
+ *
+ * @param offer - The offer object containing data for this card.
+ */
+
 import { useStateContext } from '@/src/contexts/StateContext';
 import { Offer } from '@/src/data/offers';
 import { useRouter } from 'expo-router';

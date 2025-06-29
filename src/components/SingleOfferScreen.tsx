@@ -1,3 +1,21 @@
+/**
+ * SingleOfferScreen component.
+ *
+ * Displays detailed information about a specific rental offer and its associated apartment.
+ * Users can view offer description, amenities, availability, pricing, and reserve appointments if logged in.
+ * The component supports multilingual translations and provides a Google Maps link to the apartment location.
+ *
+ * Props:
+ * - id (string): The ID of the offer to be displayed.
+ *
+ * Features:
+ * - Displays an apartment image, location, and full rental details.
+ * - Allows logged-in users to choose an appointment time using AppointmentTimePicker.
+ * - Displays apartment specifications and additional amenities.
+ * - Offers a map button to open the apartment location in Google Maps.
+ *
+ * @component
+ */
 import AppointmentTimePicker from "@/src/components/AppointmentTimePicker";
 import Paragraph from "@/src/components/Paragraph";
 import { useStateContext } from "@/src/contexts/StateContext";
@@ -18,7 +36,6 @@ interface SingleOfferScreenProps {
 }
 
 export default function SingleOfferScreen({ id }: SingleOfferScreenProps) {
-    // Destructures necessary data and functions from global context
     const {
         state: { offers, apartments, amenities, currentUserId, langId  },
         addOfferReservation
@@ -41,14 +58,13 @@ export default function SingleOfferScreen({ id }: SingleOfferScreenProps) {
 
     const reservedAppointments: ReservedAppointment[] = offer.reservedAppointments ?? [];
 
+
     /**
      * Handles reservation confirmation.
-     * Prevents reservation if user is not logged in.
-     * Creates a new reservation object including the user's ID,
-     * and passes it to the context method to update the global state.
+     * Constructs a new ReservedAppointment and adds it to the offer if a user is logged in.
      *
-     * @param date - Selected reservation date in 'YYYY-MM-DD' format
-     * @param time - Selected reservation time (e.g., "14:00")
+     * @param date - The selected reservation date (YYYY-MM-DD).
+     * @param time - The selected reservation time (HH:mm).
      */
     const handleConfirmReservation = (date: string, time: string) => {
         if (!currentUserId) return;
@@ -58,7 +74,7 @@ export default function SingleOfferScreen({ id }: SingleOfferScreenProps) {
     };
 
     /**
-     * Opens the Google Maps link for the apartment's location using deep linking.
+     * Opens the apartment location in Google Maps using the URL provided in apartment.googleMapsLink.
      */
     const openMap = () => {
         Linking.openURL(apartment.googleMapsLink);

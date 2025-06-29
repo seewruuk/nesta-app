@@ -1,3 +1,14 @@
+/**
+ * WelcomeModal component.
+ *
+ * Displays an animated sliding background image with an overlaid search form.
+ * Users can enter a city and optional minimum/maximum price, then press "Search"
+ * to navigate to the offers list with those query parameters.
+ *
+ * Background image continuously slides horizontally in a loop for a dynamic effect.
+ *
+ * @component
+ */
 import { images } from "@/src/constants/images"
 import { useRouter } from 'expo-router'
 import React, { useEffect, useRef, useState } from 'react'
@@ -35,6 +46,14 @@ export const WelcomeModal: React.FC = () => {
             ])
         ).start()
     }, [translateX])
+
+
+
+    /**
+     * Handle the search action.
+     * Constructs URL query parameters from city, minPrice, and maxPrice,
+     * then navigates to the offers screen with those parameters.
+     */
 
     const handleSearch = () => {
         const params = new URLSearchParams({

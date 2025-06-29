@@ -1,3 +1,13 @@
+
+/**
+ * Paragraph component for rendering styled text.
+ *
+ * Renders a <Text> element with default typography styles,
+ * which can be extended via the optional `className` prop.
+ *
+ * @param text - The text content to display.
+ * @param className - Optional additional Tailwind class names for customization.
+ */
 import {Text} from "react-native";
 
 interface ParagraphProps {

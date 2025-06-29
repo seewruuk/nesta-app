@@ -1,3 +1,13 @@
+/**
+ * TransactionScreen component for viewing and finalizing a single transaction.
+ *
+ * Retrieves the transaction ID from the route parameters, looks up the corresponding
+ * transaction in the global state, and displays its details (issue date, due date,
+ * amount, description). Provides buttons to mark the transaction as 'paid' or 'cancelled',
+ * updating the global state and navigating back to the previous screen.
+ *
+ * @component
+ */
 import { useStateContext } from '@/src/contexts/StateContext';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';

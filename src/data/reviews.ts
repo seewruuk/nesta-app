@@ -1,3 +1,19 @@
+
+/**
+ * Reviews data module.
+ *
+ * Contains a static list of user-generated reviews for apartments or landlords.
+ * Each review includes the author's details, target (user/apartment), comment content, and rating.
+ * Used to populate review sections and support feedback features in the application.
+ *
+ * Types:
+ * - Review: Interface describing a single review entry.
+ *
+ * Exports:
+ * - reviews: Array of Review objects used throughout the app.
+ *
+ * @module
+ */
 export interface Review {
   id: string;
   authorId: string;   

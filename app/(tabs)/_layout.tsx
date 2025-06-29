@@ -1,3 +1,11 @@
+/**
+ * Tab navigation layout component.
+ *
+ * Configures the bottom tab navigator for the application using expo-router’s Tabs.
+ * Defines five tabs (home, offers, posts, dashboard, chat) with custom icons and
+ * a styled tab bar positioned above the bottom. Uses the TabIcon component to render
+ * each icon with focused and unfocused states.
+ */
 import { icons } from '@/src/constants/icons';
 import { Tabs } from 'expo-router';
 import { Image, StyleSheet, View } from 'react-native';

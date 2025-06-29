@@ -1,9 +1,61 @@
+/**
+ * Offers data module.
+ *
+ * Contains a predefined list of rental offers used within the application.
+ * Each offer is linked to a specific apartment and includes details such as pricing, availability,
+ * tenant preferences, additional fees, and user reservations.
+ *
+ * Types:
+ * - Offer: Interface defining a rental offer structure.
+ * - ReservedAppointment: Interface representing a reservation made by a user.
+ *
+ * Exports:
+ * - offers: Array of Offer objects available for display and reservation in the app.
+ *
+ * @module
+ */
+
+
+
+/**
+ * Represents a single reservation made by a user for a specific time slot.
+ *
+ * @property date - Reservation date in 'YYYY-MM-DD' format.
+ * @property time - Reservation time in 'HH:mm' format.
+ * @property userId - ID of the user who made the reservation.
+ */
 export interface ReservedAppointment {
     date: string;
     time: string;
     userId: string;
 }
 
+
+/**
+ * Represents a rental offer for a specific apartment.
+ *
+ * @property id - Unique identifier for the offer.
+ * @property title - Title or headline of the offer.
+ * @property description - Full description of the offer's terms and apartment features.
+ * @property apartmentId - ID of the apartment linked to the offer.
+ * @property authorId - ID of the user who created the offer.
+ * @property rentPrice - Monthly rental price in PLN.
+ * @property deposit - Required deposit in PLN.
+ * @property extraFees - Object containing information about internet and utilities fees.
+ * @property availableFrom - Starting date of availability (ISO string).
+ * @property minTermMonths - Minimum number of months for rental.
+ * @property shortTermAllowed - Whether short-term rentals are allowed.
+ * @property preferredTenants - Array indicating the preferred types of tenants (e.g., 'students', 'non-smokers').
+ * @property reservedAppointments - Array of time slots already reserved by users.
+ * @property parkingIncluded - Whether parking is included in the offer.
+ * @property elevator - Whether the apartment building has an elevator.
+ * @property wheelchairAccess - Whether the apartment is wheelchair accessible.
+ * @property petsAllowed - Whether pets are allowed (true/false or a string).
+ * @property tvInternet - Whether TV/Internet is included in the rent.
+ * @property heatingType - Type of heating used in the apartment (e.g., 'gas', 'central').
+ * @property smokingAllowed - Whether smoking is allowed (true/false or limited).
+ * @property cellar - Whether a cellar is available.
+ */
 export interface Offer {
     id: string;
     apartmentId: string;

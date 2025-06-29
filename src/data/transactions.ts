@@ -1,3 +1,12 @@
+/**
+ * Transaction type definition.
+ *
+ * Describes the structure of a financial transaction between users in the system.
+ * Used across the app to represent payments such as rent, deposits, or utility bills.
+ *
+ * @typedef Transaction
+ */
+
 export interface Transaction {
     id: string;
     description: string;

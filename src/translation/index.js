@@ -111,7 +111,18 @@ export const translation = {
             replyMessage: "Tak",
         },
         posts: {
-            seeOffer: "ZOBACZ OFERTĘ"
+            seeOffer: "ZOBACZ OFERTĘ",
+            addPost: "Dodaj ogłoszenie",
+            localizationPlaceholder: "Lokalizacja",
+            headerPlaceholder: "Nagłówek",
+            descriptionPlaceHolder: "Opis ogłoszenia",
+            doesItConcernOffer: "Czy post dotyczy oferty?",
+            listOfPosts: "Lista ogłoszeń",
+            searchByLocPlaceholder: "Szukaj po lokalizacji",
+            all: "Wszystkie",
+            connected: "Powiązane",
+            notConnected: "Niepowiązane"
+
         },
         filterPanel: {
             filterOffers: "Filtruj oferty",

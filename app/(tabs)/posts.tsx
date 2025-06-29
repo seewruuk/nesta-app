@@ -47,7 +47,7 @@ export default function PostsScreen() {
             location: location.trim(),
             title: title.trim(),
             description: description.trim(),
-            isLinkedOffer,
+            isOfferLinked: isLinkedOffer,
             offerId: isLinkedOffer ? 'offer1' : undefined,
             authorId: 'user1',
         };
@@ -66,8 +66,8 @@ export default function PostsScreen() {
                     !p.location.toLowerCase().includes(searchLocation.toLowerCase())
                 )
                     return false;
-                if (filterLinked === 'linked' && !p.isLinkedOffer) return false;
-                if (filterLinked === 'unlinked' && p.isLinkedOffer) return false;
+                if (filterLinked === 'linked' && !p.isOfferLinked) return false;
+                if (filterLinked === 'unlinked' && p.isOfferLinked) return false;
                 return true;
             }),
         [posts, searchLocation, filterLinked]
@@ -75,29 +75,29 @@ export default function PostsScreen() {
 
     const ListHeader = () => (
         <View className="p-4 bg-white">
-            <Text className="text-lg font-bold mb-2">Dodaj ogłoszenie</Text>
+            <Text className="text-lg font-bold mb-2">{translation[langId].posts.addPost}</Text>
             <View className="mb-4">
                 <TextInput
                     className="border border-gray-300 rounded px-3 py-2 mb-2"
-                    placeholder="Lokalizacja"
+                    placeholder={translation[langId].posts.localizationPlaceholder}
                     value={location}
                     onChangeText={setLocation}
                 />
                 <TextInput
                     className="border border-gray-300 rounded px-3 py-2 mb-2"
-                    placeholder="Nagłówek"
+                    placeholder={translation[langId].posts.headerPlaceholder}
                     value={title}
                     onChangeText={setTitle}
                 />
                 <TextInput
                     className="border border-gray-300 rounded px-3 py-2 mb-2 h-20"
-                    placeholder="Opis ogłoszenia"
+                    placeholder={translation[langId].posts.descriptionPlaceHolder}
                     value={description}
                     onChangeText={setDescription}
                     multiline
                 />
                 <View className="flex-row items-center justify-between mb-2">
-                    <Text>Czy post dotyczy oferty?</Text>
+                    <Text>{translation[langId].posts.doesItConcernOffer}</Text>
                     <Switch
                         value={isLinkedOffer}
                         onValueChange={setIsLinkedOffer}
@@ -107,13 +107,13 @@ export default function PostsScreen() {
                     className="bg-blue-500 rounded px-4 py-2 items-center"
                     onPress={handleAdd}
                 >
-                    <Text className="text-white font-semibold">Dodaj ogłoszenie</Text>
+                    <Text className="text-white font-semibold">{translation[langId].posts.addPost}</Text>
                 </Pressable>
             </View>
-            <Text className="text-lg font-bold mb-2">Lista ogłoszeń</Text>
+            <Text className="text-lg font-bold mb-2">{translation[langId].posts.listOfPosts}</Text>
             <TextInput
                 className="border border-gray-300 rounded px-3 py-2 mb-2"
-                placeholder="Szukaj po lokalizacji"
+                placeholder={translation[langId].posts.searchByLocPlaceholder}
                 value={searchLocation}
                 onChangeText={setSearchLocation}
             />
@@ -122,19 +122,19 @@ export default function PostsScreen() {
                     className={`px-3 py-1 border rounded ${filterLinked === 'all' ? 'bg-gray-200' : ''}`}
                     onPress={() => setFilterLinked('all')}
                 >
-                    <Text>Wszystkie</Text>
+                    <Text>{translation[langId].posts.all}</Text>
                 </Pressable>
                 <Pressable
                     className={`px-3 py-1 border rounded ${filterLinked === 'linked' ? 'bg-gray-200' : ''}`}
                     onPress={() => setFilterLinked('linked')}
                 >
-                    <Text>Powiązane</Text>
+                    <Text>{translation[langId].posts.connected}</Text>
                 </Pressable>
                 <Pressable
                     className={`px-3 py-1 border rounded ${filterLinked === 'unlinked' ? 'bg-gray-200' : ''}`}
                     onPress={() => setFilterLinked('unlinked')}
                 >
-                    <Text>Niepowiązane</Text>
+                    <Text>{translation[langId].posts.notConnected}</Text>
                 </Pressable>
             </View>
         </View>
@@ -156,7 +156,7 @@ export default function PostsScreen() {
                             <Text className="text-sm text-gray-700" numberOfLines={2}>
                                 {item.description}
                             </Text>
-                            {item.isLinkedOffer && (
+                            {item.isOfferLinked && (
                                 <Pressable
                                     className="mt-2"
                                     onPress={() => router.push(`/offers/${item.offerId}`)}

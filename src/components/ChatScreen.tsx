@@ -98,11 +98,8 @@ export default function ChatScreen() {
 
     return (
         <View style={{ flex: 1, padding: 8, paddingBottom: 150, paddingTop: 50 }}>
-            <FlatList
-                data={chatMsgs}
-                keyExtractor={item => item.id}
-                renderItem={renderItem}
-            />
+
+
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <TextInput
                     style={{ flex: 1, borderWidth: 1, borderRadius: 4, padding: 8 }}
@@ -114,6 +111,14 @@ export default function ChatScreen() {
                     <Text>{translation[langId].chat.send}</Text>
                 </TouchableOpacity>
             </View>
+
+
+            <FlatList
+                data={chatMsgs}
+                keyExtractor={item => item.id}
+                renderItem={renderItem}
+            />
+
         </View>
     );
 }

@@ -37,6 +37,10 @@ export default function RootLayout() {
                     name={"transactions/[id]"}
                     options={{headerShown: false}}
                 />
+                <Stack.Screen
+                    name={"create-offer"}
+                    options={{headerShown: false}}
+                />
 
             </Stack>
         </StateProvider>

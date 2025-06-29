@@ -109,7 +109,7 @@ export function reducer(state: State, action: Action): State {
             return { ...state, currentUserId: action.payload.id };
         case 'LOGOUT':
             return { ...state, currentUserId: null };
-        case 'ADD_REVIEW':
+            case 'ADD_REVIEW': 
         { const newReviews = [...state.reviews, action.payload];
             const byTarget = newReviews.filter(
                 r => r.targetType === action.payload.targetType && r.targetId === action.payload.targetId
@@ -120,16 +120,16 @@ export function reducer(state: State, action: Action): State {
             let apartments = state.apartments;
             if (action.payload.targetType === 'user') {
                 users = users.map(u =>
-                    u.id === action.payload.targetId ? { ...u, rating: avg } : u
+                u.id === action.payload.targetId ? { ...u, rating: avg } : u
                 );
             } else {
                 apartments = apartments.map(a =>
-                    a.id === action.payload.targetId ? { ...a, rating: avg } : a
+                a.id === action.payload.targetId ? { ...a, rating: avg } : a
                 );
             }
 
-            return { ...state, reviews: newReviews, users, apartments };
-        }
+                return { ...state, reviews: newReviews, users, apartments };
+            }
         case 'ADD_OFFER_RESERVATION':
             return {
                 ...state,
@@ -146,10 +146,10 @@ export function reducer(state: State, action: Action): State {
 
 
         case 'DELETE_REVIEW':
-            return {
-                ...state,
-                reviews: state.reviews.filter(r => r.id !== action.payload.id)
-            };
+      return {
+        ...state,
+        reviews: state.reviews.filter(r => r.id !== action.payload.id)
+      };
         case 'ADD_MESSAGE':
             return { ...state, messages: [...state.messages, action.payload] };
         case 'DELETE_MESSAGE':

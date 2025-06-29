@@ -14,6 +14,7 @@ export const translation = {
             },
             transactionsHeader: "Transakcje",
             messagesHeader: "Wiadomości",
+            transactionsNotFound: "Nie masz jeszcze żadnych wygenerowanych transakcji"
         },
         transactions: {
             detailsHeader: "Szczegóły płatności",

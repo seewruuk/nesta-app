@@ -5,7 +5,7 @@ import TransactionScreen from '../src/app/transactions/[id]';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useStateContext } from '../src/contexts/StateContext';
 import { translation } from '../src/translation';
-import type { Transaction } from '../src/types/Transaction';
+import type { Transaction } from '../src/data/transactions';
 
 jest.mock('expo-router', () => ({
     useLocalSearchParams: jest.fn(),

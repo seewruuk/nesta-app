@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, ScrollView } from 'react-native'
-import { Message } from '@/src/types/Message'
+import { Message } from '@/src/data/messages'
 
 interface MessagesProps {
     messages: Message[]

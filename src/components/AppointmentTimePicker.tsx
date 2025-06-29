@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useState, useMemo  } from "react";
 import { ReservedAppointment } from "../data/offers";
 import {Pressable, ScrollView, View, Text, Platform} from "react-native";
 import dayjs from "dayjs";
+import 'dayjs/locale/pl';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Modal from 'react-native-modal';
+import {translation} from "@/src/translation";
+import {useStateContext} from "@/src/contexts/StateContext";
 
+dayjs.extend(localizedFormat);
 
 const HOURS = Array.from({ length: 11 }, (_, i) => `${8 + i}:00`);
 
@@ -23,7 +28,17 @@ export default function AppointmentTimePicker({
     const [selectedTime, setSelectedTime] = useState<string | null>(null);
     const [showConfirm, setShowConfirm] = useState(false);
     const [showDatePicker, setShowDatePicker] = useState(false);
+    const { langId } = useStateContext();
 
+    const locale = useMemo(() => {
+        if (langId === 'pl') return 'pl';
+        if (langId === 'en') return 'en';
+        return 'en';
+    }, [langId]);
+
+    const formattedDate = useMemo(() => {
+        return dayjs(selectedDate).locale(locale).format('DD MMMM YYYY');
+    }, [selectedDate, locale]);
 
     /**
      * Handles the selection of a specific hour slot.
@@ -42,7 +57,7 @@ export default function AppointmentTimePicker({
      */
     const handleConfirm = () => {
         if (selectedTime) {
-            onConfirmReservation(selectedDate.format('YYYY-MM-DD'), selectedTime);
+            onConfirmReservation(formattedDate, selectedTime);
             setShowConfirm(false);
         }
     };
@@ -55,7 +70,7 @@ export default function AppointmentTimePicker({
      */
     const isTimeReserved = (hour: string) => {
         return reservedAppointments.some(
-            ra => ra.date === selectedDate.format('YYYY-MM-DD') && ra.time === hour
+            ra => ra.date === formattedDate && ra.time === hour
         );
     };
 
@@ -82,7 +97,7 @@ export default function AppointmentTimePicker({
                 </Pressable>
                 <Pressable testID={"open-date-picker"} onPress={() => setShowDatePicker(true)}>
                     <Text className="text-base font-medium underline">
-                        {selectedDate.format('DD MMMM YYYY')}
+                        {formattedDate}
                     </Text>
                 </Pressable>
                 <Pressable onPress={() => setSelectedDate(prev => prev.add(1, 'day'))}>
@@ -150,18 +165,18 @@ export default function AppointmentTimePicker({
             >
                 <View className="bg-white p-6 rounded-lg items-center">
                     <Text className="text-base mb-4 text-center">
-                        Czy na pewno chcesz zarezerwować{" "}
+                        {translation[langId].appointmentTimePicker.confirmText}{" "}
                         <Text className="font-semibold">
-                            {selectedDate.format('DD.MM.YYYY')} o {selectedTime}?
+                            {formattedDate} o {selectedTime}?
                         </Text>
                     </Text>
 
                     <View className="flex-row gap-6">
                         <Pressable testID={"cancel-reservation"} onPress={() => setShowConfirm(false)}>
-                            <Text className="text-red-500 font-medium">Anuluj</Text>
+                            <Text className="text-red-500 font-medium">{translation[langId].appointmentTimePicker.cancelButtonText}</Text>
                         </Pressable>
                         <Pressable onPress={handleConfirm}>
-                            <Text className="text-blue-600 font-semibold">Potwierdź</Text>
+                            <Text className="text-blue-600 font-semibold">{translation[langId].appointmentTimePicker.confirmButtonText}</Text>
                         </Pressable>
                     </View>
                 </View>

@@ -14,6 +14,11 @@ export const translation = {
             },
             transactionsHeader: "Transakcje",
             messagesHeader: "Wiadomości"
+        },
+        appointmentTimePicker: {
+            confirmText: "Czy na pewno chcesz zarezerwować",
+            cancelButtonText: "Anuluj",
+            confirmButtonText: "Potwierdź"
         }
     },
 

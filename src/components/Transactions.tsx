@@ -15,6 +15,8 @@ import {Pressable, Text, View} from 'react-native'
 import { useStateContext } from '@/src/contexts/StateContext';
 import {users} from "@/src/data/users";
 import {CreatePayment} from "@/src/services/CreatePayment";
+import {translation} from "@/src/translation";
+import {useMemo} from "react";
 
 interface TransactionsProps {
     transactions: Transaction[]
@@ -34,15 +36,16 @@ export default function Transactions({
                                          onPressItem,
                                      }: TransactionsProps) {
     const {
-        state: { currentUserId },
+        state: { currentUserId }, langId
     } = useStateContext()
 
     const displayed = transactions.slice(0, maxElements)
+    const localeForAmount = `${langId}-${langId.toUpperCase()}`;
 
     if (displayed.length === 0) {
         return (
             <View className="py-4">
-                <Text className="text-gray-500">Brak transakcji do wyświetlenia.</Text>
+                <Text className="text-gray-500">{translation[langId].transactionsTable.notFound}</Text>
             </View>
         )
     }
@@ -51,11 +54,11 @@ export default function Transactions({
         <View className="bg-white rounded-xl overflow-hidden shadow-sm">
 
             <View className="flex-row bg-gray-100 px-4 py-3 border-b border-gray-200">
-                <Text className="flex-[1.6] font-semibold text-sm">Opis</Text>
-                <Text className="flex-[1.2] font-semibold text-sm">ID</Text>
-                <Text className="flex-1 font-semibold text-sm">Status</Text>
-                <Text className="flex-1 font-semibold text-sm">Data</Text>
-                <Text className="flex-1 font-semibold text-sm text-right">Kwota</Text>
+                <Text className="flex-[1.6] font-semibold text-sm">{translation[langId].transactionsTable.description}</Text>
+                <Text className="flex-[1.2] font-semibold text-sm">{translation[langId].transactionsTable.id}</Text>
+                <Text className="flex-1 font-semibold text-sm">{translation[langId].transactionsTable.status}</Text>
+                <Text className="flex-1 font-semibold text-sm">{translation[langId].transactionsTable.date}</Text>
+                <Text className="flex-1 font-semibold text-sm text-right">{translation[langId].transactionsTable.price}</Text>
             </View>
 
             {displayed.map(tx => (
@@ -73,9 +76,9 @@ export default function Transactions({
                                     {tx.status}
                                 </Text>
                             </View>
-                            <Text className="flex-1 text-sm">{formatDate(tx.dateIssued)}</Text>
+                            <Text className="flex-1 text-sm">{formatDate(tx.dateIssued, langId)}</Text>
                             <Text className="flex-1 text-sm font-semibold text-right">
-                                {formatAmount(tx.amount, tx.currency)}
+                                {formatAmount(tx.amount, tx.currency, localeForAmount)}
                             </Text>
                         </View>
                     </View>
@@ -94,21 +97,21 @@ export default function Transactions({
  * @returns Formatted date string like "1 Czerwiec 2025".
  */
 
-function formatDate(dateStr: string) {
+function formatDate(dateStr: string, langId: string) {
     const date = new Date(dateStr)
     const months = [
-        'Styczeń',
-        'Luty',
-        'Marzec',
-        'Kwiecień',
-        'Maj',
-        'Czerwiec',
-        'Lipiec',
-        'Sierpień',
-        'Wrzesień',
-        'Październik',
-        'Listopad',
-        'Grudzień',
+        translation[langId].transactionsTable.january,
+        translation[langId].transactionsTable.february,
+        translation[langId].transactionsTable.march,
+        translation[langId].transactionsTable.april,
+        translation[langId].transactionsTable.may,
+        translation[langId].transactionsTable.june,
+        translation[langId].transactionsTable.july,
+        translation[langId].transactionsTable.august,
+        translation[langId].transactionsTable.september,
+        translation[langId].transactionsTable.october,
+        translation[langId].transactionsTable.november,
+        translation[langId].transactionsTable.december,
     ]
     return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
 }
@@ -121,6 +124,6 @@ function formatDate(dateStr: string) {
  * @returns Localized amount string like "1 000 PLN".
  */
 
-function formatAmount(amount: number, currency: string) {
-    return amount.toLocaleString('pl-PL') + ' ' + currency
+function formatAmount(amount: number, currency: string, locale: string) {
+    return amount.toLocaleString(locale) + ' ' + currency
 }

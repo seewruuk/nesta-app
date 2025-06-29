@@ -43,7 +43,6 @@ export default function Dashboard() {
 
     visibleTransactions = transactions.filter(t => t.tenantId === currentUserId);
 
-
     return (
         <ScrollView className="flex-1 bg-white pt-[60px] px-4 space-y-6">
             <View>

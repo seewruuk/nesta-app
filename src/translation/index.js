@@ -1,7 +1,14 @@
 export const translation = {
     pl: {
         home: {
-            title: "Polski Tytuł",
+            title: "Nesta",
+            welcomeBack: "Witaj ponownie!",
+            rent: "Wynajem",
+            findCo: "Znd. Współlokatora",
+            cityPlaceholder: "Miasto",
+            minPricePlaceholder: "Min. cena",
+            maxPricePlaceholder: "Max. cena",
+            search: "Szukaj"
         },
         dashboard: {
             landlord: {
@@ -102,6 +109,67 @@ export const translation = {
             sendPlaceholder: "Napisz wiadomość...",
             deleteMessage: "Usuń",
             replyMessage: "Tak",
+        },
+        posts: {
+            seeOffer: "ZOBACZ OFERTĘ"
+        },
+        filterPanel: {
+            filterOffers: "Filtruj oferty",
+            city: "Miasto",
+            cityPlaceholder: "np. Warszawa",
+            priceMin: "Cena min (PLN)",
+            priceMinPlaceholder: "np. 1000",
+            priceMax: "Cena max (PLN)",
+            priceMaxPlaceholder: "np. 5000",
+            roomsMin: "Min. pokoi",
+            roomsMinPlaceholder: "np. 1",
+            roomsMax: "Max. pokoi",
+            roomsMaxPlaceholder: "np. 4",
+            bedroomsMin: "Min. sypialni",
+            bedroomsMinPlaceholder: "np. 1",
+            bedroomsMax: "Max. sypialni",
+            bedroomsMaxPlaceholder: "np. 3",
+            furnished: "Umeblowane",
+            furnishedPlaceholder: "Tak / Nie / Częściowo",
+            animals: "Zwierzęta",
+            animalsPlaceholder: "Tak / Nie / Do ustalenia",
+            short: "Krótki najem",
+            shortPlaceholder: "Tak / Nie",
+            close: "Zamknij"
+        },
+        messages: {
+            notFound: "Brak wiadomości."
+        },
+        offerCard: {
+            unknownUser: "Nieznany użytkownik",
+            priceTag: "PLN / msc",
+            availableFrom: "Dostępne od:"
+        },
+        offersScreen: {
+            filters: "Filtry"
+        },
+        smallOfferTile: {
+            currency: "PLN"
+        },
+        transactionsTable: {
+            notFound: "Brak transakcji do wyświetlenia.",
+            description: "Opis",
+            id: "ID",
+            status: "Status",
+            date: "Data",
+            price: "Kwota",
+            january: "Styczeń",
+            february: "Luty",
+            march: "Marzec",
+            april: "Kwiecień",
+            may: "Maj",
+            june: "Czerwiec",
+            july: "Lipiec",
+            august: "Sierpień",
+            september: "Wrzesień",
+            october: "Październik",
+            november: "Listopad",
+            december: "Grudzień"
         }
     },
 

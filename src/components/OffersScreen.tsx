@@ -17,9 +17,10 @@ import { FlatList, Pressable, SafeAreaView, Text, TouchableOpacity } from 'react
 import FilterPanel, { Filters } from '../components/FilterPanel';
 import OfferCard from '../components/OfferCard';
 import { useRouter } from 'expo-router';
+import {translation} from "@/src/translation";
 
 export default function OffersScreen() {
-    const { state: { offers, apartments } } = useStateContext();
+    const { state: { offers, apartments }, langId } = useStateContext();
     const router = useRouter();
     const [filters, setFilters] = useState<Filters>({
         city: '', priceMin: '', priceMax: '',
@@ -85,7 +86,7 @@ export default function OffersScreen() {
                 onPress={() => setPanelVisible(true)}
                 className="absolute top-[80px] right-0 bg-primary rounded-full shadow-lg"
             >
-                <Text className="text-black font-bold px-8 py-4">Filtry</Text>
+                <Text className="text-black font-bold px-8 py-4">{translation[langId].offersScreen.filters}</Text>
             </Pressable>
 
             <FilterPanel

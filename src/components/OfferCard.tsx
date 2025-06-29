@@ -15,6 +15,7 @@ import { useRouter } from 'expo-router';
 import { UserCircle } from 'lucide-react-native';
 import { Image, Pressable, Text, View } from 'react-native';
 import Header from './Header';
+import {translation} from "@/src/translation";
 
 interface OfferCardProps {
     offer: Offer;
@@ -22,12 +23,13 @@ interface OfferCardProps {
 
 export default function OfferCard({ offer }: OfferCardProps) {
     const {
-        state: { apartments, users }
+        state: { apartments, users, langId }
     } = useStateContext();
 
     const apartment = apartments.find(a => a.id === offer.apartmentId);
     const author    = users.find(u => u.id === offer.authorId);
     const router    = useRouter();
+    const locale = `${langId}-${langId.toUpperCase()}`;
 
     return (
         <View className="bg-white p-4 rounded-xl shadow-md mb-4">
@@ -55,7 +57,7 @@ export default function OfferCard({ offer }: OfferCardProps) {
                     }
                 </Pressable>
                 <Text className="text-base font-medium">
-                    {author?.fullName ?? 'Nieznany użytkownik'}
+                    {author?.fullName ?? translation[langId].offerCard.unknownUser}
                 </Text>
             </View>
 
@@ -67,10 +69,10 @@ export default function OfferCard({ offer }: OfferCardProps) {
                 )}
                 <Header text={offer.title} className="text-[15px]" />
                 <Text className="font-semibold">
-                    {offer.rentPrice} PLN / msc
+                    {offer.rentPrice} {translation[langId].offerCard.priceTag}
                 </Text>
                 <Text className="text-[12px] text-gray-600">
-                    Dostępne od: {new Date(offer.availableFrom).toLocaleDateString('pl-PL')}
+                    {translation[langId].offerCard.availableFrom} {new Date(offer.availableFrom).toLocaleDateString(locale)}
                 </Text>
             </View>
         </View>

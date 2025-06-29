@@ -55,8 +55,9 @@ export default function CreateOffer() {
     };
 
     return (
-        <ScrollView className="flex-1 p-4 bg-white">
-            <Text className="text-xl font-bold mb-2">{translation[langId].createOffer.newOffer}</Text>
+        <ScrollView className="flex-1 p-4 bg-white"
+                    keyboardShouldPersistTaps="handled">
+            <Text className="text-xl font-bold mb-2">{translation[langId].createOffer.newOffer}</Text>  keyboardShouldPersistTaps="handled"
 
             <TextInput className="border rounded p-2 mb-3" placeholder={translation[langId].createOffer.titlePlaceHolder} value={title} onChangeText={setTitle} />
             <TextInput className="border rounded p-2 mb-3" placeholder={translation[langId].createOffer.descriptionPlaceHolder} value={description} onChangeText={setDescription} multiline />
